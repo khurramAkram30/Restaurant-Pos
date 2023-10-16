@@ -65,6 +65,7 @@ function createOrder($data){
 function getallOrder(){
     global $conn;
 
+    
     $query="SELECT * from orders where order_status='In Progress'";
     $result=mysqli_query($conn,$query);
     if($result){
