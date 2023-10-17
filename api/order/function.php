@@ -10,6 +10,12 @@ function createOrder($data){
     $subTotal=$data['subTotal'];
     $discount=$data['Discount'];
     $payableAmount=$data['paidAmount'];
+    if($discount > 0){
+        $discount=$data['Discount'];
+    }
+    else{
+        $discount=0;
+    }
 
 
     $date=date("d/m/Y");
@@ -65,7 +71,7 @@ function createOrder($data){
 function getallOrder(){
     global $conn;
 
-    
+
     $query="SELECT * from orders where order_status='In Progress'";
     $result=mysqli_query($conn,$query);
     if($result){

@@ -630,7 +630,7 @@
                         </div>
                         <!-- /Row -->
 
-                        <div class="row">
+                        <div class="row p-4 bg-white">
                             <h3>Order (In Progress)</h3>
                             <div class="col-md-12">
                                 <table class="table">
@@ -843,10 +843,45 @@
             }
         });
     }
+    function getInProgressOrder(){
+        $.ajax({
+            url: `${baseurl}order/read.php`,
+            type: "GET",
+            contentType: "application/json",
+            success: function (response, status) {
+                console.log(response);
+                updateTable(response.response);
+            },
+            error:function(status,error){
+                console.log(error);
+            }
+        });
+    }
+
+    function updateTable(data){
+        var tabledata='',i=1;
+    data.forEach(element => {
+    tabledata+=`
+    <tr>
+    <td>${i}</td>
+    <td>${element.CustomOrderId}</td>
+    <td>${element.Total}</td>
+    <td>${element.order_status}</td>
+    <td><a class="btn text-primary btn-sm" onclick="editSubcategory('${i-1}')" data-bs-toggle="tooltip" data-bs-original-title="Edit"><span class="fe fe-edit fs-14"></span></a>
+    </td>
+    </tr>
+    `;
+    i++;
+});
+$("#Progress").html(tabledata);
+
+    }
+
     $(document).ready(function () {
         getDrinksItem();
         getFoodItem();
         getDesertItem();
+        getInProgressOrder();
         $.ajax({
             url: `${baseurl}tables/read.php`,
             type: "GET",
@@ -935,13 +970,14 @@
         };
         
         $.ajax({
-            url: `http://localhost/restaurant/api/order/create.php`,
+            url: `${baseurl}order/create.php`,
             type: "POST",
             data: JSON.stringify(OrderData),
             contentType: "application/json",
             success: function (response, status) {
                 // window.location.reload();
-                console.log(response);
+                // console.log(response);
+                getInProgressOrder();
             },
             error: function (error) {
                 console.log(error);

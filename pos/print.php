@@ -1,23 +1,34 @@
 <?php
 
 // require '../vendor/autoload.php'; // Include the Composer autoloader
-require_once '../vendor/tecnickcom/tcpdf/tcpdf.php'; // Include TCPDF library
+// require_once '../vendor/tecnickcom/tcpdf/tcpdf.php'; // Include TCPDF library
 
-// $pdf = new TCPDF('P','mm',array(80,200));
+require 'fpdf/fpdf.php';
+$pdf = new FPDF('P','mm',array(80,200));
 
-// $pdf->AddPage();
+$pdf->AddPage();
 
-// $pdf->setFont('Aerial','B',16);
+$pdf->SetFont('Arial','B',16);
+$pdf->Cell(60, 10, 'Brown Munde', 0, 0, 'C');
 
-// $pdf->Output();
-$order_id = date("YmdHis");
-echo $order_id;
+// $imagePath = '../assets/images/brownmude.png'; // Replace with the path to your image file
+// $pdf->Image($imagePath, 20, 20, 30); // Parameters: image path, x, y, width
+
+
+$pdf->Output();
+
+
+
+
+
 ?>
 
 
 
-
 <!-- try {
+    
+// $order_id = date("YmdHis");
+// echo $order_id;
     // Generate a PDF document
     $pdf = new TCPDF();
     $pdf->setPrintHeader(false);
