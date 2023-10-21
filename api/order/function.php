@@ -1,6 +1,16 @@
 <?php
+
 require "../config/conn.php";
 
+function error422($message){
+    $data=[
+        'status' => 422,
+        'message' => $message,
+    ];
+    header("HTTP:/1.0 200 ok");
+    echo json_encode($data);
+    exit();        
+}
 function createOrder($data){
     global $conn;
 
@@ -21,9 +31,23 @@ function createOrder($data){
     $date=date("d/m/Y");
     // $orderId=$otherData[0]['order_Id'];
     // $tableId=$otherData[0]['table_Id'];
-    $order ="insert into orders VALUES (NULL,'$orderId','$tableId','In Progress','$date',$subTotal,$discount,$payableAmount)";    
-    $orderResult=mysqli_query($conn,$order);
-        if($data){
+    $selectOrder="SELECT * FROM `orders`WHERE CustomOrderId='$orderId'";
+    $selectOrderResult=mysqli_query($conn,$selectOrder);
+    if($selectOrderResult){
+        if(mysqli_num_rows($selectOrderResult) > 0){
+            $updateorder="UPDATE orders SET Subtotal = $subTotal, Discount = $discount, Total = $payableAmount WHERE CustomOrderId = '$orderId'";
+            $updateRes=mysqli_query($conn,$updateorder);
+        }
+    else{
+        $order ="insert into orders VALUES (NULL,'$orderId','$tableId','In Progress','$date',$subTotal,$discount,$payableAmount)";    
+        $orderResult=mysqli_query($conn,$order);
+        $updatetable="Update tables set staus='occupied' where id=$tableId";    
+        $updatetableRes=mysqli_query($conn,$updatetable);
+    }
+}
+    
+    $ordResult="";
+    if($data){
 
             for($i=0; $i < count($arrayOfObjects); $i++) {
                 $pid=$arrayOfObjects[$i]['productid'];  
@@ -36,7 +60,7 @@ function createOrder($data){
                 $ordResult=mysqli_query($conn,$orders);
             }
 
-            if($orderResult){
+            if($ordResult){
                 $data=[
                     'status' => 201,
                     'message' => "Order Created",
@@ -104,6 +128,73 @@ function getallOrder(){
         return json_encode($data);
     }
 
+
+}
+
+
+function getOrderById($orderId){
+    global $conn;
+    $id=mysqli_real_escape_string($conn,$orderId['id']);
+    $query="SELECT items.name AS Product_Name, order_items.order_id, order_items.quantity, order_items.subtotal, order_items.modifiers, order_items.modifier_price, orders.table_id,order_items.order_items_id As itemId FROM items INNER JOIN order_items ON items.id = order_items.item_id INNER JOIN orders ON orders.CustomOrderId = order_items.order_id WHERE order_items.order_id = '$id';";
+    $result=mysqli_query($conn,$query);
+    if($result){
+        if(mysqli_num_rows($result) > 0){
+            $res=mysqli_fetch_all($result,MYSQLI_ASSOC);
+            $data=[
+                'status'=>200,
+                'message'=>"order items Found",
+                'response'=>$res,
+            ];
+            header("HTTP:/200 ok");
+            return json_encode($data);
+        }
+        else{
+            $data=[
+                'status' => 404,
+                'message' => "No order item found ",
+            ];
+            header("HTTP:/ 404 No order items found ");
+            return json_encode($data);
+        }
+
+    }
+    else{
+        $data=[
+            'status' => 500,
+            'message' => "internal server error",
+        ];
+        header('HTTP:/1.0 internal server error');
+        return json_encode($data);
+    }
+}
+
+function deleteItemById($itemId){
+    global $conn;
+    if(!isset($itemId['id'])){
+        return error422('item Id not found in the url');
+    }else if($itemId['id']==null){
+        return error422('Enter the item id');
+    }
+
+    $id=mysqli_real_escape_string($conn,$itemId['id']);
+    $query="DELETE FROM order_items WHERE order_items_id =$id ";
+    $result=mysqli_query($conn,$query);
+    if($result){
+        $data=[
+            'status' => 200,
+            'message' => "order item Delete Successfully ",
+        ];
+        header("HTTP:/ 200 Deleted Successfully");
+        return json_encode($data);
+    }
+    else{
+        $data=[
+            'status' => 404,
+            'message' => "order item found ",
+        ];
+        header("HTTP:/ 404 No order items found ");
+        return json_encode($data);
+    }
 
 }
 

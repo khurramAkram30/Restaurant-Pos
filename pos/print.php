@@ -8,6 +8,9 @@ $pdf = new FPDF('P','mm',array(80,200));
 // Add a page to the PDF
 $pdf->AddPage();
 
+// $pdf->SetFont('Arial','B',8);
+// $pdf->Cell(10,5,"Kitchen Copy",0,1,''); // 'C' parameter for center alignment
+
 // Set font and font size for the title (centered)
 $pdf->SetFont('Arial','B',16);
 $pdf->Cell(60,8,'Brown Munde',1,1,'C'); // 'C' parameter for center alignment
@@ -55,30 +58,30 @@ for($i=0;$i<6;$i++){
 
 
 
-$pdf->SetX(7);
-$pdf->SetFont('courier','B',8);
-$pdf->Cell(20,5,'',0,0,'L'); // 'C' parameter for center alignment
-$pdf->Cell(25,5,'SubTotal',1,0,'C'); // 'C' parameter for center alignment
-$pdf->Cell(20,5,'100',1,1,'C'); // 'C' parameter for center alignment
+// $pdf->SetX(7);
+// $pdf->SetFont('courier','B',8);
+// $pdf->Cell(20,5,'',0,0,'L');
+// $pdf->Cell(25,5,'SubTotal',1,0,'C'); 
+// $pdf->Cell(20,5,'100',1,1,'C'); 
 
 
-$pdf->SetX(7);
-$pdf->SetFont('courier','B',8);
-$pdf->Cell(20,5,'',0,0,'L'); // 'C' parameter for center alignment
-$pdf->Cell(25,5,'Discount',1,0,'C'); // 'C' parameter for center alignment
-$pdf->Cell(20,5,'0',1,1,'C'); // 'C' parameter for center alignment
+// $pdf->SetX(7);
+// $pdf->SetFont('courier','B',8);
+// $pdf->Cell(20,5,'',0,0,'L'); 
+// $pdf->Cell(25,5,'Discount',1,0,'C'); 
+// $pdf->Cell(20,5,'0',1,1,'C'); 
 
-$pdf->SetX(7);
-$pdf->SetFont('courier','B',8);
-$pdf->Cell(20,5,'',0,0,'L'); // 'C' parameter for center alignment
-$pdf->Cell(25,5,'Payable',1,0,'C'); // 'C' parameter for center alignment
-$pdf->Cell(20,5,'100',1,1,'C'); // 'C' parameter for center alignment
+// $pdf->SetX(7);
+// $pdf->SetFont('courier','B',8);
+// $pdf->Cell(20,5,'',0,0,'L'); 
+// $pdf->Cell(25,5,'Payable',1,0,'C'); 
+// $pdf->Cell(20,5,'100',1,1,'C'); 
 
-$pdf->SetX(7);
-$pdf->SetFont('courier','B',8);
-$pdf->Cell(20,5,'',0,0,'L'); // 'C' parameter for center alignment
-$pdf->Cell(25,5,'Payment',1,0,'C'); // 'C' parameter for center alignment
-$pdf->Cell(20,5,'Cash',1,1,'C'); // 'C' parameter for center alignment
+// $pdf->SetX(7);
+// $pdf->SetFont('courier','B',8);
+// $pdf->Cell(20,5,'',0,0,'L'); 
+// $pdf->Cell(25,5,'Payment',1,0,'C'); 
+// $pdf->Cell(20,5,'Cash',1,1,'C'); 
 
 
 // $pdf->Cell(20,5,"",0,0);

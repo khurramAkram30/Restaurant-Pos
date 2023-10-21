@@ -473,7 +473,7 @@
                                                     <label class="form-label">ORDER ID <span
                                                             class="text-red">*</span></label>
                                                     <input type="text" id="orderid" class="form-control"
-                                                        value="ORDER001" readonly>
+                                                        value="" readonly>
                                                 </div>
                                             </div>
                                             <div class="col-sm-8 col-md-8">
@@ -481,10 +481,13 @@
                                                     <label class="form-label">Tables <span
                                                             class="text-red">*</span></label>
                                                     <!-- <input type="text" class="form-control" placeholder="Last name"> -->
-                                                    <select name="" id="tableshow" class="form-control">
+                                                    <!-- <select name="" >
                                                         <option value="" disabled selected>Select Table</option>
 
-                                                    </select>
+                                                    </select> -->
+
+                                                    <input type="text" readonly id="tableshow" class="form-control">
+
                                                 </div>
                                             </div>
 
@@ -534,19 +537,19 @@
                                                                     </div>
                                                                     <div class="tab-pane" id="tab10">
                                                                         <div class="row" id="food">
-                                                                           
+
 
 
                                                                         </div>
                                                                     </div>
                                                                     <div class="tab-pane" id="tab11">
                                                                         <div class="row" id="desert">
-                                                                            
+
 
 
                                                                         </div>
                                                                     </div>
-                                                                  
+
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -630,7 +633,7 @@
                         </div>
                         <!-- /Row -->
 
-                        <div class="row p-4 bg-white">
+                        <!-- <div class="row p-4 bg-white">
                             <h3>Order (In Progress)</h3>
                             <div class="col-md-12">
                                 <table class="table">
@@ -648,7 +651,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
+                        </div> -->
 
 
                     </div>
@@ -659,26 +662,27 @@
         </div>
 
         <!-- edit modal -->
-        <div class="modal fade" id="editmodal">
+        <div class="modal fade" id="RequiredPswd">
             <div class="modal-dialog" role="document">
                 <div class="modal-content modal-content-demo">
                     <div class="modal-header">
-                        <h6 class="modal-title">Edit Category</h6><button aria-label="Close" class="btn-close"
+                        <h6 class="modal-title">Required Password</h6><button aria-label="Close" class="btn-close"
                             data-bs-dismiss="modal"><span aria-hidden="true">&times;</span></button>
                     </div>
                     <div class="modal-body">
 
                         <input type="hidden" id="idd">
                         <div class="row mb-4">
-                            <label class="col-md-3 form-label">Category:</label>
+                            <label class="col-md-3 form-label">Password:</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="editcategory" placeholder="Enter category">
+                                <input type="text" class="form-control" id="pswd" placeholder="Enter Password">
+                                <label for="alert" id="notify"></label>
                             </div>
                         </div>
 
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-primary" onclick="edit()">Edit SubCategory</button>
+                        <button class="btn btn-primary" onclick="submitPswd()">Submit Password</button>
                     </div>
                 </div>
             </div>
@@ -753,7 +757,10 @@
 <script>
 
     const baseurl = url;
-    var datas = "";
+    var datas = "",updatetablearr=[];
+    var arr = [];
+    var extraname = "", extraprice = 0;
+
     function getDrinksItem() {
         $.ajax({
             url: `${baseurl}items/read.php?id=1`,
@@ -843,83 +850,96 @@
             }
         });
     }
-    function getInProgressOrder(){
+    var tableid;
+    function getOrderById() {
+        const urlParams = new URLSearchParams(window.location.search);
+        var id = urlParams.get('id');
+        // alert(id);
         $.ajax({
-            url: `${baseurl}order/read.php`,
+            url: `${baseurl}order/read.php?id=${id}`,
+            // url:`http://localhost/restaurant/api/order/read.php?id=${id}`,
             type: "GET",
             contentType: "application/json",
             success: function (response, status) {
-                console.log(response);
-                updateTable(response);
+                tableid=response.response[0].table_id;
+                var orderId = $("#orderid").val(id);
+                $("#tableshow").val(tableid);
+                updatetablearr=response.response;
+                console.log("found",updatetablearr);
+                updateTable(updatetablearr);
             },
-            error:function(status,error){
+            error: function (status, error) {
                 console.log(error);
             }
         });
     }
 
-    function updateTable(data){
-        var tabledata='',i=1;
-
-    if(data.response.length>0){
-    data.response.forEach(element => {
-    tabledata+=`
+    function updateTable(data) {
+        var tabledata = "", i = 0, subtotal = 0;
+        data.forEach(item => {
+            subtotal += parseInt(item.subtotal);
+            tabledata += `
     <tr>
-    <td>${i}</td>
-    <td>${element.CustomOrderId}</td>
-    <td>${element.Total}</td>
-    <td>${element.order_status}</td>
-    <td><a class="btn text-primary btn-sm" onclick="editorder('${element.CustomOrderId}')" data-bs-toggle="tooltip" data-bs-original-title="Edit"><span class="fe fe-edit fs-14"></span></a>
+    <td>${item.Product_Name}</td>
+    <td><input type="text" class="form-control" readonly value="${item.quantity}" onkeyup="quantitychange('${i}')"></td>
+    <td><input type="text" class="form-control" readonly value="${item.modifiers}"  onChange="extNameChange('${i}')"></td>
+    <td><input type="text" class="form-control" readonly value="${item.modifier_price}" onChange="myFunc('${i}')"></td>
+    <td>${item.subtotal}</td>
+    <td><a class="btn text-danger btn-sm" onclick="removeItem('${item.itemId}')" data-bs-toggle="tooltip" data-bs-original-title="Edit"><span class="fe fe-trash-2 fs-14"></span></a>
     </td>
+
     </tr>
-    `;
-    i++;
-});
-}
-else{
-    tabledata+=`
-    <tr>
-    <td>No Data Found</td>
     
-    </tr>
-    `;  
-}
-$("#Progress").html(tabledata);
-
+    `;
+            i++;
+        })
+        $("#subtotal").val(subtotal);
+        $("#PaidAmount").val(subtotal);
+        $("#cartbody").html(tabledata);
     }
 
-    function editorder(index){
-        var new_url=`editorder.php?id=${index}`;
-        window.location.href=new_url;
+    function removeItem(id){
+        $("#RequiredPswd").modal("show");
+        $("#idd").val(id);
     }
+
+    function submitPswd(){
+    var pswd=$("#pswd").val();
+    var itemid=$("#idd").val();
+    console.log(itemid);
+    if(pswd == "admin"){
+        $.ajax({
+            url: `${baseurl}order/delete.php?id=${itemid}`,
+            type: "DELETE",
+            contentType: "application/json",
+            success: function (response, status) {
+                $("#RequiredPswd").modal("hide"); 
+                getOrderById(); 
+                console.log("adas",arr);
+                if(arr.length > 0){
+                    console.log("testtt")
+                    showdata(arr);
+                }
+            },
+            error: function (status, error) {
+                console.log(error);
+            }
+        });
+    
+    }
+    }
+
+    function editorder(index) {
+        var new_url = `editorder.php?id=${index}`;
+        window.location.href = new_url;
+    }
+    
     $(document).ready(function () {
         getDrinksItem();
         getFoodItem();
         getDesertItem();
-        getInProgressOrder();
-        $.ajax({
-            url: `${baseurl}tables/read.php`,
-            type: "GET",
-            contentType: "application/json",
-            success: function (response, status) {
-                var data = response.response;
-                categoryresult = data;
-                data.forEach(element => {
-                    var cretaelem = document.createElement("option");
-                    cretaelem.value = element.id;
-                    cretaelem.textContent = element.name;
-                    if (element.staus == "occupied") {
-                        cretaelem.disabled = true;
-                        cretaelem.style = "background-color:#a5a3a3";
-                        cretaelem.textContent += " Occupied";
-                    }
-                    $("#tableshow").append(cretaelem);
-                });
-            },
-            error: function (error) {
-                console.log(error);
-            }
-        });
+        getOrderById();
+
     });
 
 
@@ -945,53 +965,32 @@ $("#Progress").html(tabledata);
         $("#PaidAmount").val(discountedPrice);
 
     }
-    function edit() {
-        var idofdata = parseInt($("#idd").val());
-        var category = $("#editcategory").val();
-        const postdata = {
-            name: category
-        };
-        // console.log(idofdata);
-        $.ajax({
-            url: `${baseurl}categories/update.php?id=${idofdata}`,
-            type: "PUT",
-            data: JSON.stringify(postdata),
-            contentType: "application/json",
-            success: function (status) {
-                window.location.reload();
-            },
-            error: function (error) {
-                console.log(error);
-            }
-        });
-    }
-
-
-
-    $("#holdCart").on("click", function (event) {
+ 
+   $("#holdCart").on("click", function (event) {
         event.preventDefault();
         var orderId = $("#orderid").val();
         var tableId = $("#tableshow").val();
-        var subtotal=$("#subtotal").val();
-        var paidAmount=$("#PaidAmount").val();
-        var discount=$("#Discount").val();
+        var subtotal = $("#subtotal").val();
+        var paidAmount = $("#PaidAmount").val();
+        var discount = $("#Discount").val();
         var OrderData = {
             Items: arr,
-            order_Id:orderId,
+            order_Id: orderId,
             table_Id: tableId,
-            subTotal:subtotal,
-            paidAmount:paidAmount,
-            Discount:discount
+            subTotal: subtotal,
+            paidAmount: paidAmount,
+            Discount: discount
         };
-        
+
         $.ajax({
             url: `${baseurl}order/create.php`,
+            // url:`http://localhost/restaurant/api/order/create.php`,
             type: "POST",
             data: JSON.stringify(OrderData),
             contentType: "application/json",
             success: function (response, status) {
-                window.location.reload();
-                // console.log(response);
+                console.log(response);
+                window.location.href="createorder.php";
                 // getInProgressOrder();
             },
             error: function (error) {
@@ -1001,8 +1000,7 @@ $("#Progress").html(tabledata);
 
 
     });
-    var arr = [];
-    var extraname = "", extraprice = 0;
+    
 
 </script>
 <script>
@@ -1034,10 +1032,13 @@ $("#Progress").html(tabledata);
     }
 
     function showdata(data) {
-        var tabledata = "", i = 0, subtotal = 0;
+        updateTable(updatetablearr);
+        var sub=parseInt($("#subtotal").val());
+        var tabledatas= "", i = 0, subtotal = 0;
         data.forEach(item => {
-            subtotal += item.price;
-            tabledata += `
+            // alert(123);
+            sub += item.price;
+            tabledatas += `
     <tr>
     <td>${item.productname}</td>
     <td><input type="text" class="form-control quantity${i}" value="${item.quantity > 0 ? item.quantity : ""}" onkeyup="quantitychange('${i}')"></td>
@@ -1052,9 +1053,10 @@ $("#Progress").html(tabledata);
     `;
             i++;
         })
-        $("#subtotal").val(subtotal);
-        $("#PaidAmount").val(subtotal);
-        $("#cartbody").html(tabledata);
+        // console.log(tabledata);
+        $("#cartbody").append(tabledatas);
+        $("#subtotal").val(sub);
+        $("#PaidAmount").val(sub);
     }
 
     function quantitychange(index) {
