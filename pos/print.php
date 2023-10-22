@@ -117,7 +117,8 @@ if($orderResult){
 $pdf->Output();
 
 
-
+$update="UPDATE order_items SET print_status = 'Printed' WHERE order_id = '$idGet'";
+$resupdate=mysqli_query($conn,$update);
 
 ?>
 
@@ -149,3 +150,12 @@ $pdf->Output();
 } catch (\Exception $e) {
     echo "PDF generation failed: " . $e->getMessage() . "\n";
 } -->
+
+
+<script>
+//     var geticon=document.getElementById("icon");
+//     geticon.addEventListener("click", function (e) {
+//         console.log("ad");
+
+// });
+</script>

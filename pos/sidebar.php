@@ -42,6 +42,16 @@
 
                                 </ul>
                             </li>
+
+                            <li class="slide">
+                                <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i class="side-menu__icon fe fe-slack"></i><span class="side-menu__label">Orders</span><i class="angle fe fe-chevron-right"></i></a>
+                                <ul class="slide-menu">
+                                    <li><a href="createorder.php" class="slide-item"> Add Order</a></li>
+                                    <!-- <li><a href="view_item.php" class="slide-item">View Items</a></li> -->
+                             
+
+                                </ul>
+                            </li>
                             <!-- <li class="slide">
                                 <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
                                         class="side-menu__icon fe fe-package"></i><span

@@ -473,7 +473,7 @@
                                                     <label class="form-label">ORDER ID <span
                                                             class="text-red">*</span></label>
                                                     <input type="text" id="orderid" class="form-control"
-                                                        value="ORDER001" readonly>
+                                                        value="ORDER001">
                                                 </div>
                                             </div>
                                             <div class="col-sm-8 col-md-8">
