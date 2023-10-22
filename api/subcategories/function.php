@@ -88,6 +88,7 @@ function updateSubcategory($subcategorydata,$subcatid){
 
 
 // print Data
+$getallSubCategories=array();
 function getallSubCategories(){
     global $conn;
     $query="SELECT DISTINCT subcategories.id,categories.name AS category_name, subcategories.name
@@ -96,11 +97,14 @@ function getallSubCategories(){
     $result=mysqli_query($conn,$query);
     if($result){
         if(mysqli_num_rows($result) > 0){
-            $res=mysqli_fetch_all($result,MYSQLI_ASSOC);
+            // $res=mysqli_fetch_all($result,MYSQLI_ASSOC);
+            while($row = mysqli_fetch_assoc($result)) {
+                $getallSubCategories[] = $row;
+                }
             $data=[
                 'status'=>200,
                 'message'=>"subCategories Found",
-                'response'=>$res,
+                'response'=>$getallSubCategories,
             ];
             header("HTTP:/200 ok");
             return json_encode($data);
@@ -125,7 +129,7 @@ function getallSubCategories(){
     }
 
 }
-
+$getSubCatById=array();
 function getSubCatById($customerData){
     global $conn;
 
@@ -140,11 +144,14 @@ function getSubCatById($customerData){
 
     if($result){
         if(mysqli_num_rows($result) > 0){
-            $res=mysqli_fetch_all($result,MYSQLI_ASSOC);
+            // $res=mysqli_fetch_all($result,MYSQLI_ASSOC);
+            while($row = mysqli_fetch_assoc($result)) {
+                $getSubCatById[] = $row;
+                }
             $data=[
                 'status' => 200,
                 'message' => "Subacategories Fetched",
-                'response'=>$res,
+                'response'=>$getSubCatById,
             ];
             header("HTTP:/1.0 200 ok");
             return json_encode($data);

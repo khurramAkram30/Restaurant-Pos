@@ -10,9 +10,8 @@ function error422($message){
     exit();        
 }
 
-$getOrderById=array();
 // getItem by cat id and Subcat id
-function getOrderById($item){
+function getItemFilter($item){
     global $conn;
     $CategoryId=mysqli_real_escape_string($conn,$item['CategoryId']);
     $subCategoryId=mysqli_real_escape_string($conn,$item['subCategoryId']);
@@ -25,15 +24,11 @@ function getOrderById($item){
         $result=mysqli_query($conn,$query);
         if($result){
             if(mysqli_num_rows($result) > 0){
-                //$res=mysqli_fetch_all($result,MYSQLI_ASSOC);
-                while($row = mysqli_fetch_assoc($result)) {
-                    $getOrderById[] = $row;
-                    }
-                   
+                $res=mysqli_fetch_all($result,MYSQLI_ASSOC);
                 $data=[
                     'status' => 201,
                     'message' => "items Fetched",
-                    'response' => $getOrderById,
+                    'response' => $res,
                 ];
                 header("HTTP:/1.0 201 Fetched");
                 return json_encode($data);
@@ -97,21 +92,17 @@ function storeItems($Subcategories){
     }
 }
 // getallitem
-$getallitems=array();
 function getallitems(){
     global $conn;
     $query="SELECT i.id,c.name AS Category,s.name AS Subcategory,i.name,i.sell,i.image FROM items AS i INNER JOIN subcategories AS s ON i.subcategory_id = s.id INNER JOIN categories AS c ON s.category_id = c.id";
     $result=mysqli_query($conn,$query);
     if($result){
         if(mysqli_num_rows($result) > 0){
-            // $res=mysqli_fetch_all($result,MYSQLI_ASSOC);
-            while($row = mysqli_fetch_assoc($result)) {
-                $getallitems[] = $row;
-                }
+            $res=mysqli_fetch_all($result,MYSQLI_ASSOC);
             $data=[
                 'status'=>200,
                 'message'=>"items Found",
-                'response'=> $getallitems,
+                'response'=>$res,
             ];
             header("HTTP:/200 ok");
             return json_encode($data);
@@ -138,7 +129,7 @@ function getallitems(){
 
 // getItem by category id
 
-$getItemsById=array();
+
 function getItemsById($item){
     global $conn;
     $id=mysqli_real_escape_string($conn,$item['id']);
@@ -146,14 +137,11 @@ function getItemsById($item){
     $result=mysqli_query($conn,$query);
     if($result){
         if(mysqli_num_rows($result) > 0){
-            // $res=mysqli_fetch_all($result,MYSQLI_ASSOC);
-            while($row = mysqli_fetch_assoc($result)) {
-                $getItemsById[] = $row;
-                }
+            $res=mysqli_fetch_all($result,MYSQLI_ASSOC);
             $data=[
                 'status'=>200,
                 'message'=>"items Found",
-                'response'=>$getItemsById,
+                'response'=>$res,
             ];
             header("HTTP:/200 ok");
             return json_encode($data);

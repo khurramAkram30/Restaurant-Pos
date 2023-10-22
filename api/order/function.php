@@ -91,20 +91,21 @@ function createOrder($data){
     
     }
 } 
-
+$getallOrder=array();
 function getallOrder(){
     global $conn;
-
-
     $query="SELECT * from orders where order_status='In Progress'";
     $result=mysqli_query($conn,$query);
     if($result){
         if(mysqli_num_rows($result) > 0){
-            $res=mysqli_fetch_all($result,MYSQLI_ASSOC);
+            // $res=mysqli_fetch_all($result,MYSQLI_ASSOC);
+            while($row = mysqli_fetch_assoc($result)) {
+                $getallOrder[] = $row;
+                }
             $data=[
                 'status'=>200,
                 'message'=>"Order Found",
-                'response'=>$res,
+                'response'=>$getallOrder,
             ];
             header("HTTP:/200 ok");
             return json_encode($data);
@@ -131,7 +132,7 @@ function getallOrder(){
 
 }
 
-
+$getOrderById=array();
 function getOrderById($orderId){
     global $conn;
     $id=mysqli_real_escape_string($conn,$orderId['id']);
@@ -139,11 +140,14 @@ function getOrderById($orderId){
     $result=mysqli_query($conn,$query);
     if($result){
         if(mysqli_num_rows($result) > 0){
-            $res=mysqli_fetch_all($result,MYSQLI_ASSOC);
+            // $res=mysqli_fetch_all($result,MYSQLI_ASSOC);
+            while($row = mysqli_fetch_assoc($result)) {
+                $getOrderById[] = $row;
+                }
             $data=[
                 'status'=>200,
                 'message'=>"order items Found",
-                'response'=>$res,
+                'response'=>$getOrderById,
             ];
             header("HTTP:/200 ok");
             return json_encode($data);

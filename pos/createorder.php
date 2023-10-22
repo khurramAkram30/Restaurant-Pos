@@ -744,7 +744,7 @@
     <script src="../assets/switcher/js/switcher.js"></script>
 
     <script src="../assets/js/url.js"></script>
-    <script src="../assets/js/items.js"></script>
+    <!-- <script src="../assets/js/items.js"></script> -->
 </body>
 
 </html>
@@ -761,7 +761,7 @@
             contentType: "application/json",
             success: function (response, status) {
                 var data = response.response;
-                // console.log(data);
+                console.log(data);
                 var items = "";
                 data.forEach(item => {
                     items += `  <div class="col-md-4">
@@ -791,7 +791,7 @@
             contentType: "application/json",
             success: function (response, status) {
                 var data = response.response;
-                // console.log(data);
+                console.log(data);
                 var items = "";
                 data.forEach(item => {
                     items += `  <div class="col-md-4">
@@ -821,7 +821,7 @@
             contentType: "application/json",
             success: function (response, status) {
                 var data = response.response;
-                // console.log(data);
+                console.log(data);
                 var items = "";
                 data.forEach(item => {
                     items += `  <div class="col-md-4">
@@ -870,6 +870,8 @@
     <td>${element.Total}</td>
     <td>${element.order_status}</td>
     <td><a class="btn text-primary btn-sm" onclick="editorder('${element.CustomOrderId}')" data-bs-toggle="tooltip" data-bs-original-title="Edit"><span class="fe fe-edit fs-14"></span></a>
+    <a class="btn text-primary btn-sm" onclick="Printorder('${element.CustomOrderId}')" data-bs-toggle="tooltip" data-bs-original-title="Edit"><span class="fa fa-print fs-14"></span></a>
+   
     </td>
     </tr>
     `;
@@ -887,6 +889,13 @@ else{
 $("#Progress").html(tabledata);
 
     }
+
+
+function Printorder(id){
+    var newUrl=`print.php?id=${id}`;
+    // window.location.href=newUrl;
+    window.open(newUrl, '_blank');
+}
 
     function editorder(index){
         var new_url=`editorder.php?id=${index}`;

@@ -42,7 +42,7 @@ function createCategories($category){
     }
 }
 
-
+$getallCategories=array();
 function getallCategories(){
     global $conn;
 
@@ -51,11 +51,14 @@ function getallCategories(){
 
     if($result){
         if(mysqli_num_rows($result) > 0){
-            $res=mysqli_fetch_all($result,MYSQLI_ASSOC);
+            // $res=mysqli_fetch_all($result,MYSQLI_ASSOC);
+            while($row = mysqli_fetch_assoc($result)) {
+                $getallCategories[] = $row;
+                }
             $data=[
                 'status'=>200,
                 'message'=>"Categories Found",
-                'response'=>$res,
+                'response'=>$getallCategories,
             ];
             header("HTTP:/200 ok");
             return json_encode($data);

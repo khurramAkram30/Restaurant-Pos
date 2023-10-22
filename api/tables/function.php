@@ -81,7 +81,7 @@ function updateTable($catdata,$cat){
 }
 
 // print all tables
-
+$getallTable=array();
 function getallTable(){
     global $conn;
 
@@ -90,11 +90,14 @@ function getallTable(){
 
     if($result){
         if(mysqli_num_rows($result) > 0){
-             $res=mysqli_fetch_all($result,MYSQLI_ASSOC);
+            //  $res=mysqli_fetch_all($result,MYSQLI_ASSOC);
+             while($row = mysqli_fetch_assoc($result)) {
+                $getallTable[] = $row;
+                }
              $data=[
                 'status' => 200,
                 'message' => "Tables List",
-                'response' => $res
+                'response' => $getallTable,
             ];
             header("HTTP:/1.0 200 ok");
             return json_encode($data);
