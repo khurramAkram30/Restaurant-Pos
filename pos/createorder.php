@@ -534,19 +534,19 @@
                                                                     </div>
                                                                     <div class="tab-pane" id="tab10">
                                                                         <div class="row" id="food">
-                                                                           
+
 
 
                                                                         </div>
                                                                     </div>
                                                                     <div class="tab-pane" id="tab11">
                                                                         <div class="row" id="desert">
-                                                                            
+
 
 
                                                                         </div>
                                                                     </div>
-                                                                  
+
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -580,29 +580,29 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-9 columnset">
+                                            <div class="col-md-8 columnset">
                                                 <label for="" class="Subtotal">Sub Total</label>
                                             </div>
 
-                                            <div class="col-md-2">
+                                            <div class="col-md-3">
                                                 <input type="number" id="subtotal" class="form-control">
                                             </div>
 
 
-                                            <div class="col-md-9 columnset mt-2">
+                                            <div class="col-md-8 columnset mt-2">
                                                 <label for="" class="Subtotal">Discount (%)</label>
                                             </div>
 
-                                            <div class="col-md-2 mt-2">
+                                            <div class="col-md-3 mt-2">
                                                 <input type="number" id="Discount" onkeyup="discountedPrice()"
                                                     class="form-control">
                                             </div>
 
-                                            <div class="col-md-9 columnset mt-2">
+                                            <div class="col-md-8 columnset mt-2">
                                                 <label for="" class="Subtotal ">Grand Total</label>
                                             </div>
 
-                                            <div class="col-md-2 mt-2">
+                                            <div class="col-md-3 mt-2">
                                                 <input type="number" id="PaidAmount" class="form-control">
                                             </div>
 
@@ -620,6 +620,39 @@
                                             </div>
                                         </div>
 
+                                        <div class="row mt-2">
+                                            <div class="col-md-12">
+                                                <div class="card">
+                                                    <div class="row mb-2">
+                                                        <div class="col-md-7 columnset mt-2">
+                                                            <label for="" class="Payment Subtotal">Payment Method</label>
+                                                        </div>
+
+                                                        <div class="col-md-4 mt-2">
+                                                            <select name="" class="form-control" id="paymentMethod">
+                                                                <option value=""></option>
+                                                            </select>
+                                                        </div>
+
+                                                        <div class="col-md-1">
+                                                        </div>
+
+
+                                                        <div class="col-md-7 columnset mt-2">
+                                                            <label for="" class="Subtotal ">Paid Amount</label>
+                                                        </div>
+
+                                                        <div class="col-md-4 mt-2">
+                                                            <input type="number" id="Paid" class="form-control">
+                                                        </div>
+
+                                                        <div class="col-md-1">
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -843,7 +876,7 @@
             }
         });
     }
-    function getInProgressOrder(){
+    function getInProgressOrder() {
         $.ajax({
             url: `${baseurl}order/read.php`,
             type: "GET",
@@ -852,18 +885,18 @@
                 console.log(response);
                 updateTable(response);
             },
-            error:function(status,error){
+            error: function (status, error) {
                 console.log(error);
             }
         });
     }
 
-    function updateTable(data){
-        var tabledata='',i=1;
+    function updateTable(data) {
+        var tabledata = '', i = 1;
 
-    if(data.response.length>0){
-    data.response.forEach(element => {
-    tabledata+=`
+        if (data.response.length > 0) {
+            data.response.forEach(element => {
+                tabledata += `
     <tr>
     <td>${i}</td>
     <td>${element.CustomOrderId}</td>
@@ -875,31 +908,31 @@
     </td>
     </tr>
     `;
-    i++;
-});
-}
-else{
-    tabledata+=`
+                i++;
+            });
+        }
+        else {
+            tabledata += `
     <tr>
     <td>No Data Found</td>
     
     </tr>
-    `;  
-}
-$("#Progress").html(tabledata);
+    `;
+        }
+        $("#Progress").html(tabledata);
 
     }
 
 
-function Printorder(id){
-    var newUrl=`print.php?id=${id}`;
-    // window.location.href=newUrl;
-    window.open(newUrl, '_blank');
-}
+    function Printorder(id) {
+        var newUrl = `print.php?id=${id}`;
+        // window.location.href=newUrl;
+        window.open(newUrl, '_blank');
+    }
 
-    function editorder(index){
-        var new_url=`editorder.php?id=${index}`;
-        window.location.href=new_url;
+    function editorder(index) {
+        var new_url = `editorder.php?id=${index}`;
+        window.location.href = new_url;
     }
     $(document).ready(function () {
         getDrinksItem();
@@ -981,18 +1014,18 @@ function Printorder(id){
         event.preventDefault();
         var orderId = $("#orderid").val();
         var tableId = $("#tableshow").val();
-        var subtotal=$("#subtotal").val();
-        var paidAmount=$("#PaidAmount").val();
-        var discount=$("#Discount").val();
+        var subtotal = $("#subtotal").val();
+        var paidAmount = $("#PaidAmount").val();
+        var discount = $("#Discount").val();
         var OrderData = {
             Items: arr,
-            order_Id:orderId,
+            order_Id: orderId,
             table_Id: tableId,
-            subTotal:subtotal,
-            paidAmount:paidAmount,
-            Discount:discount
+            subTotal: subtotal,
+            paidAmount: paidAmount,
+            Discount: discount
         };
-        
+
         $.ajax({
             url: `${baseurl}order/create.php`,
             type: "POST",
