@@ -624,13 +624,14 @@
                                             <div class="col-md-12">
                                                 <div class="card">
                                                     <div class="row mb-2">
-                                                        <div class="col-md-7 columnset mt-2">
+                                                        <div class="col-md-8 columnset mt-2">
                                                             <label for="" class="Payment Subtotal">Payment Method</label>
                                                         </div>
 
-                                                        <div class="col-md-4 mt-2">
+                                                        <div class="col-md-3 mt-2">
                                                             <select name="" class="form-control" id="paymentMethod">
-                                                                <option value=""></option>
+                                                                <option value="Card">Card</option>
+                                                                <option value="Cash">Cash</option>
                                                             </select>
                                                         </div>
 
@@ -638,11 +639,11 @@
                                                         </div>
 
 
-                                                        <div class="col-md-7 columnset mt-2">
+                                                        <div class="col-md-8 columnset mt-2">
                                                             <label for="" class="Subtotal ">Paid Amount</label>
                                                         </div>
 
-                                                        <div class="col-md-4 mt-2">
+                                                        <div class="col-md-3 mt-2">
                                                             <input type="number" id="Paid" class="form-control">
                                                         </div>
 
@@ -1027,7 +1028,8 @@
         };
 
         $.ajax({
-            url: `${baseurl}order/create.php`,
+            // url: `${baseurl}order/create.php`, 
+            url: `http://localhost/restaurant/api/order/create.php`,
             type: "POST",
             data: JSON.stringify(OrderData),
             contentType: "application/json",

@@ -1,7 +1,7 @@
 <?php
 
 require "../config/conn.php";
-
+require "../inventory/function.php";
 function error422($message){
     $data=[
         'status' => 422,
@@ -55,6 +55,8 @@ function createOrder($data){
                 $price=$arrayOfObjects[$i]['price'];
                 $modifiers=$arrayOfObjects[$i]['extname'];
                 $modifiers_price=$arrayOfObjects[$i]['extprice'];
+
+                $updateInventory=updateinventory($pid,$quantity);
 
                 $orders ="insert into order_items VALUES (NULL,'$orderId',$pid,$quantity,$price,'$modifiers',$modifiers_price,'Not Printed')";    
                 $ordResult=mysqli_query($conn,$orders);
