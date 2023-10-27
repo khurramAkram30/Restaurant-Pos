@@ -2,7 +2,6 @@
 
 require "../config/conn.php";
 require "../inventory/function.php";
-// require "../../vendor/autoload.php";
 function error422($message){
     $data=[
         'status' => 422,
@@ -49,6 +48,7 @@ function createOrder($data){
     
     $ordResult="";
     if($data){
+
             for($i=0; $i < count($arrayOfObjects); $i++) {
                 $pid=$arrayOfObjects[$i]['productid'];  
                 $quantity=$arrayOfObjects[$i]['quantity'];

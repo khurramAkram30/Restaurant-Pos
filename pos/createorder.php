@@ -718,26 +718,37 @@
             </div>
         </div>
 
-        <!-- edit modal end -->
+        <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+<script>
+        
+    // Enable pusher logging - don't include this in production
+    Pusher.logToConsole = true;
+
+var pusher = new Pusher('f0d52bc6ef75ef4b297e', {
+  cluster: 'ap2'
+});
+
+var channel = pusher.subscribe('my-channel');
+channel.bind('my-event', function(data) {
+//   alert(JSON.stringify(data));
+$.ajax({
+            url: `${baseurl}order/read.php`,
+            // url: `http://localhost/restaurant/api/order/read.php`,
+            type: "GET",
+            contentType: "application/json",
+            success: function (response, status) {
+                console.log(response);
+                updateTable(response);
+            },
+            error: function (status, error) {
+                console.log(error);
+            }
+        });
+
+});
+</script>
 
 
-        <!-- Sidebar-right -->
-
-        <!--/Sidebar-right-->
-
-        <!-- Country-selector modal-->
-
-        <!-- FOOTER -->
-        <!-- <footer class="footer">
-            <div class="container">
-                <div class="row align-items-center flex-row-reverse">
-                    <div class="col-md-12 col-sm-12 text-center">
-                        Copyright © <span id="year"></span> <a href="javascript:void(0)">Sash</a>. Designed with <span class="fa fa-heart text-danger"></span> by <a href="javascript:void(0)"> Spruko </a> All rights reserved.
-                    </div>
-                </div>
-            </div>
-        </footer> -->
-        <!-- FOOTER CLOSED -->
     </div>
 
     <!-- BACK-TO-TOP -->
@@ -880,10 +891,11 @@
     function getInProgressOrder() {
         $.ajax({
             url: `${baseurl}order/read.php`,
+            // url: `http://localhost/restaurant/api/order/read.php`,
             type: "GET",
             contentType: "application/json",
             success: function (response, status) {
-                console.log(response);
+                // console.log(response);
                 updateTable(response);
             },
             error: function (status, error) {
@@ -1028,13 +1040,13 @@
         };
 
         $.ajax({
-            // url: `${baseurl}order/create.php`, 
-            url: `http://localhost/restaurant/api/order/create.php`,
+            url: `${baseurl}order/create.php`, 
+            // url: `http://localhost/restaurant/api/order/create.php`,
             type: "POST",
             data: JSON.stringify(OrderData),
             contentType: "application/json",
             success: function (response, status) {
-                window.location.reload();
+                // window.location.reload();
                 // console.log(response);
                 // getInProgressOrder();
             },
