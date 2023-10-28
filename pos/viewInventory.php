@@ -423,41 +423,21 @@
                         <!-- ROW-1 OPEN -->
                         <!-- Row -->
 
-                        <div class="row">
+                          <div class="row">
 
                             <div class="col-lg-12 p-0">
                                 <form action="" enctype="multipart/form-data">
                                     <div class="card">
                                         <div class="card-header">
-                                            <div class="card-title">Add New Category</div>
+                                            <div class="card-title">View Inventory</div>
                                         </div>
                                         <div class="card-body">
-                                            <div class="row mb-4">
-                                                <label class="col-md-3 form-label">Category Name :</label>
-                                                <div class="col-md-9">
-                                                    <input type="text" class="form-control"
-                                                        placeholder="Enter Category Name" required id="category_name">
-                                                </div>
-                                            </div>
 
-                                            <div class="row">
-                                                <div class="col-md-3"></div>
-                                                <div class="col-md-9">
-                                                    <!-- <a href="" onclick="" id="uploadButton" class="btn btn-primary">Add Product</a> -->
-                                                    <button onclick="" id="uploadButton" class="btn btn-primary">Add
-                                                        Category </button>
-                                                    <button type="button" id="loaderbtn"
-                                                        class="btn btn-primary btn-loading btn-icon"
-                                                        style="display:none"><i class="fe fe-check"></i></button>
-                                                </div>
-                                            </div>
-
-
-                                            <div class="heading mt-8">
+                                            <!-- <div class="heading mt-8">
 
                                                 <h4>View All Categories</h4>
 
-                                            </div>
+                                            </div> -->
 
                                             <div class="row mt-5">
 
@@ -466,7 +446,8 @@
                                                         <tr>
                                                             <th>#</th>
                                                             <th>Name</th>
-                                                            <th>Action</th>
+                                                            <th>Quantity</th>
+                                                            <th>Subtotal</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody id="bodycat">
@@ -568,67 +549,70 @@
 </body>
 
 </html>
-
-
 <script>
+var datas="",categoryresult="";
+$(document).ready(function(){
+    product();
+});
+//  let a:()=>void = () =>:void {
 
-    const baseurl = url;
-    var datas = "";
-    $(document).ready(function () {
-
-        $.ajax({
-            url: `${baseurl}categories/read.php`,
-            type: "GET",
-            contentType: "application/json",
-            success: function (response, status) {
-                datas = response.response;
-                displayTable(datas);
-                // console.log(response.response);
-            },
-            error: function (error) {
-                console.log(error);
-            }
-        })
-
-        function displayTable(data) {
-            var tabledata = '', i = 1;
-            data.forEach(element => {
-                tabledata += `
-    <tr>
-    <td>${element.id}</td>
-    <td>${element.name}</td>
-    <td><a class="btn text-primary btn-sm" onclick="editSubcategory('${i - 1}')" data-bs-toggle="tooltip" data-bs-original-title="Edit"><span class="fe fe-edit fs-14"></span></a>
-    </td>
-    </tr>
-    `;
-                i++;
-            });
-            $("#bodycat").html(tabledata);
-        }
-
-    });
-
-
-    function editSubcategory(index) {
-        console.log(index);
-        var result = datas[index];
-        // console.log(result);
-        $("#editmodal").modal('show');
-        $("#idd").val(result.id);
-        $("#editcategory").val(result.name);
+//  };
+function product() {
+    $.ajax({
+    url:`http://localhost/restaurant/api/inventory/read.php`,
+    type:"GET",
+    contentType:"application/json",
+    success:function(response,status){
+        console.log(response.result);  
+        var data=response.result;
+        console.log(data);
+        displayTable(data);
+    },
+    error:function(error){
+        console.log(error);
+    }
+})
 
     }
 
+    function displayTable(data) {
+            var tabledata = '', i = 1;
+            var tableBody = document.getElementById("bodycat");
 
-    function edit() {
-        var idofdata = parseInt($("#idd").val());
-        var category = $("#editcategory").val();
+// Loop through the data and create table rows
+for (var key in data) {
+    if (data.hasOwnProperty(key)) {
+        var item = data[key];
+        var row = tableBody.insertRow(tableBody.rows.length);
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        var cell3 = row.insertCell(2);
+        var cell4 = row.insertCell(3);
+        cell1.innerHTML = i;
+        cell2.innerHTML = item.name;
+        cell3.innerHTML = item.quantity;
+        cell4.innerHTML = item.subtotal;
+        i++;
+    }
+}  }
+
+    
+
+    $("#uploadButton").on("click", function (event) {
+        event.preventDefault();
+        var names = $("#productId").val();
+        var quantity = $("#quantity").val();
+        
         const postdata = {
-            name: category
+            item_id:names,
+            quantity:quantity
         };
-        // console.log(idofdata);
+        console.log(postdata);
+
+        $("#uploadButton").css("display", "none");
+        $("#loaderbtn").css("display", "block");
         $.ajax({
-            url: `${baseurl}categories/update.php?id=${idofdata}`,
+            url: `http://localhost/restaurant/api/inventory/update.php`,
             type: "PUT",
             data: JSON.stringify(postdata),
             contentType: "application/json",
@@ -639,34 +623,9 @@
                 console.log(error);
             }
         });
-    }
-
-
-    $("#uploadButton").on("click", function (event) {
-        event.preventDefault();
-        var names = $("#category_name").val();
-        const postdata = {
-            name: names
-        };
-
-        $("#uploadButton").css("display", "none");
-        $("#loaderbtn").css("display", "block");
-        $.ajax({
-            url: `${baseurl}categories/create.php`,
-            type: "POST",
-            data: JSON.stringify(postdata),
-            contentType: "application/json",
-            success: function (status) {
-                window.location.reload();
-            },
-            error: function (error) {
-                console.log(error);
-            }
-        });
 
 
     });
-
 
 
 </script>

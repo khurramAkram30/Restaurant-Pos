@@ -429,14 +429,33 @@
                                 <form action="" enctype="multipart/form-data">
                                     <div class="card">
                                         <div class="card-header">
-                                            <div class="card-title">Add New Category</div>
+                                            <div class="card-title">Add Expense</div>
                                         </div>
                                         <div class="card-body">
                                             <div class="row mb-4">
-                                                <label class="col-md-3 form-label">Category Name :</label>
+                                                <label class="col-md-3 form-label">Expense Type :</label>
                                                 <div class="col-md-9">
-                                                    <input type="text" class="form-control"
-                                                        placeholder="Enter Category Name" required id="category_name">
+                                                    <input type="text" id="type" class="form-control" placeholder="Enter Expense Type">
+                                                </div>
+                                            </div>
+                                            <div class="row mb-4">
+                                                <label class="col-md-3 form-label">Amount:</label>
+                                                <div class="col-md-9">
+                                                   <input type="number" class="form-control" id="Amount" placeholder="Enter Amount">  
+                                                    
+                                                </div>
+                                            </div>
+                                            <div class="row mb-4">
+                                                <label class="col-md-3 form-label">Date:</label>
+                                                <div class="col-md-9">
+                                                   <input type="Date" class="form-control" id="date" >  
+                                                    
+                                                </div>
+                                            </div>
+                                            <div class="row mb-4">
+                                                <label class="col-md-3 form-label">Description:</label>
+                                                <div class="col-md-9">
+                                                  <textarea name="" class="form-control" id="desc" cols="30" rows="5"></textarea>
                                                 </div>
                                             </div>
 
@@ -444,8 +463,8 @@
                                                 <div class="col-md-3"></div>
                                                 <div class="col-md-9">
                                                     <!-- <a href="" onclick="" id="uploadButton" class="btn btn-primary">Add Product</a> -->
-                                                    <button onclick="" id="uploadButton" class="btn btn-primary">Add
-                                                        Category </button>
+                                                    <button onclick="" id="uploadButton" class="btn btn-primary">Update
+                                                        Inventory </button>
                                                     <button type="button" id="loaderbtn"
                                                         class="btn btn-primary btn-loading btn-icon"
                                                         style="display:none"><i class="fe fe-check"></i></button>
@@ -453,7 +472,7 @@
                                             </div>
 
 
-                                            <div class="heading mt-8">
+                                            <!-- <div class="heading mt-8">
 
                                                 <h4>View All Categories</h4>
 
@@ -473,7 +492,7 @@
 
                                                     </tbody>
                                                 </table>
-                                            </div>
+                                            </div> -->
 
 
 
@@ -568,91 +587,33 @@
 </body>
 
 </html>
-
-
 <script>
+var datas="",categoryresult="";
+$(document).ready(function(){
+  
 
-    const baseurl = url;
-    var datas = "";
-    $(document).ready(function () {
+});
 
-        $.ajax({
-            url: `${baseurl}categories/read.php`,
-            type: "GET",
-            contentType: "application/json",
-            success: function (response, status) {
-                datas = response.response;
-                displayTable(datas);
-                // console.log(response.response);
-            },
-            error: function (error) {
-                console.log(error);
-            }
-        })
-
-        function displayTable(data) {
-            var tabledata = '', i = 1;
-            data.forEach(element => {
-                tabledata += `
-    <tr>
-    <td>${element.id}</td>
-    <td>${element.name}</td>
-    <td><a class="btn text-primary btn-sm" onclick="editSubcategory('${i - 1}')" data-bs-toggle="tooltip" data-bs-original-title="Edit"><span class="fe fe-edit fs-14"></span></a>
-    </td>
-    </tr>
-    `;
-                i++;
-            });
-            $("#bodycat").html(tabledata);
-        }
-
-    });
-
-
-    function editSubcategory(index) {
-        console.log(index);
-        var result = datas[index];
-        // console.log(result);
-        $("#editmodal").modal('show');
-        $("#idd").val(result.id);
-        $("#editcategory").val(result.name);
-
-    }
-
-
-    function edit() {
-        var idofdata = parseInt($("#idd").val());
-        var category = $("#editcategory").val();
-        const postdata = {
-            name: category
-        };
-        // console.log(idofdata);
-        $.ajax({
-            url: `${baseurl}categories/update.php?id=${idofdata}`,
-            type: "PUT",
-            data: JSON.stringify(postdata),
-            contentType: "application/json",
-            success: function (status) {
-                window.location.reload();
-            },
-            error: function (error) {
-                console.log(error);
-            }
-        });
-    }
 
 
     $("#uploadButton").on("click", function (event) {
         event.preventDefault();
-        var names = $("#category_name").val();
+        var type = $("#type").val();
+        var Amount = $("#Amount").val();
+        var date=$("#date").val();
+        var desc=$("#desc").val();
         const postdata = {
-            name: names
+            type:type,
+            amount:Amount,
+            description:desc,
+            date:date
         };
+        console.log(postdata);
 
         $("#uploadButton").css("display", "none");
         $("#loaderbtn").css("display", "block");
         $.ajax({
-            url: `${baseurl}categories/create.php`,
+            url: `http://localhost/restaurant/api/expense/create.php`,
             type: "POST",
             data: JSON.stringify(postdata),
             contentType: "application/json",
@@ -666,7 +627,6 @@
 
 
     });
-
 
 
 </script>

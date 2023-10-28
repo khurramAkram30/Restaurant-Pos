@@ -80,7 +80,7 @@ function updateExpense($expense){
     $description=mysqli_real_escape_string($conn,$expense['description']);
     $date=mysqli_real_escape_string($conn,$expense['date']);
 
-   $udpate="update expenses set expense_type='$expense_type',expense_amount=$amount,expense_description='$description' And expense_date='$date' where expense_id=$expense_id";
+   $udpate="update expenses set expense_type='$expense_type',expense_amount=$amount,expense_description='$description',expense_date='$date' where expense_id=$expense_id";
     $updres=mysqli_query($conn,$udpate);
     if($updres){
         $data=[

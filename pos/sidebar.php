@@ -52,6 +52,27 @@
 
                                 </ul>
                             </li>
+
+                            <li class="slide">
+                                <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i class="side-menu__icon fe fe-slack"></i><span class="side-menu__label">Inventory</span><i class="angle fe fe-chevron-right"></i></a>
+                                <ul class="slide-menu">
+                                    <li><a href="addInventory.php" class="slide-item">Create Inventory</a></li>
+                                    <li><a href="viewInventory.php" class="slide-item">View Inventory</a></li>
+                             
+
+                                </ul>
+                            </li>
+                            
+                            <li class="slide">
+                                <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i class="side-menu__icon fe fe-slack"></i><span class="side-menu__label">Expense</span><i class="angle fe fe-chevron-right"></i></a>
+                                <ul class="slide-menu">
+                                    <li><a href="addExpense.php" class="slide-item"> Add Expense</a></li>
+                                    <li><a href="viewExpense.php" class="slide-item">View Exoense</a></li>
+                             
+
+                                </ul>
+                            </li>
+                            
                             <!-- <li class="slide">
                                 <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
                                         class="side-menu__icon fe fe-package"></i><span

@@ -423,41 +423,21 @@
                         <!-- ROW-1 OPEN -->
                         <!-- Row -->
 
-                        <div class="row">
+                          <div class="row">
 
                             <div class="col-lg-12 p-0">
                                 <form action="" enctype="multipart/form-data">
                                     <div class="card">
                                         <div class="card-header">
-                                            <div class="card-title">Add New Category</div>
+                                            <div class="card-title">View Expense</div>
                                         </div>
                                         <div class="card-body">
-                                            <div class="row mb-4">
-                                                <label class="col-md-3 form-label">Category Name :</label>
-                                                <div class="col-md-9">
-                                                    <input type="text" class="form-control"
-                                                        placeholder="Enter Category Name" required id="category_name">
-                                                </div>
-                                            </div>
 
-                                            <div class="row">
-                                                <div class="col-md-3"></div>
-                                                <div class="col-md-9">
-                                                    <!-- <a href="" onclick="" id="uploadButton" class="btn btn-primary">Add Product</a> -->
-                                                    <button onclick="" id="uploadButton" class="btn btn-primary">Add
-                                                        Category </button>
-                                                    <button type="button" id="loaderbtn"
-                                                        class="btn btn-primary btn-loading btn-icon"
-                                                        style="display:none"><i class="fe fe-check"></i></button>
-                                                </div>
-                                            </div>
-
-
-                                            <div class="heading mt-8">
+                                            <!-- <div class="heading mt-8">
 
                                                 <h4>View All Categories</h4>
 
-                                            </div>
+                                            </div> -->
 
                                             <div class="row mt-5">
 
@@ -465,7 +445,10 @@
                                                     <thead>
                                                         <tr>
                                                             <th>#</th>
-                                                            <th>Name</th>
+                                                            <th>Expense Type</th>
+                                                            <th>Amount</th>
+                                                            <th>Date</th>
+                                                            <th>Description</th>
                                                             <th>Action</th>
                                                         </tr>
                                                     </thead>
@@ -501,22 +484,42 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content modal-content-demo">
                     <div class="modal-header">
-                        <h6 class="modal-title">Edit Category</h6><button aria-label="Close" class="btn-close"
+                        <h6 class="modal-title">Edit Expense</h6><button aria-label="Close" class="btn-close"
                             data-bs-dismiss="modal"><span aria-hidden="true">&times;</span></button>
                     </div>
                     <div class="modal-body">
 
                         <input type="hidden" id="idd">
                         <div class="row mb-4">
-                            <label class="col-md-3 form-label">Category:</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" id="editcategory" placeholder="Enter category">
-                            </div>
-                        </div>
+                                                <label class="col-md-3 form-label">Expense Type :</label>
+                                                <div class="col-md-9">
+                                                    <input type="text" id="type" class="form-control" placeholder="Enter Expense Type">
+                                                </div>
+                                            </div>
+                                            <div class="row mb-4">
+                                                <label class="col-md-3 form-label">Amount:</label>
+                                                <div class="col-md-9">
+                                                   <input type="number" class="form-control" id="Amount" placeholder="Enter Amount">  
+                                                    
+                                                </div>
+                                            </div>
+                                            <div class="row mb-4">
+                                                <label class="col-md-3 form-label">Date:</label>
+                                                <div class="col-md-9">
+                                                   <input type="Date" class="form-control" id="date" >  
+                                                    
+                                                </div>
+                                            </div>
+                                            <div class="row mb-4">
+                                                <label class="col-md-3 form-label">Description:</label>
+                                                <div class="col-md-9">
+                                                  <textarea name="" class="form-control" id="desc" cols="30" rows="5"></textarea>
+                                                </div>
+                                            </div>
 
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-primary" onclick="edit()">Edit SubCategory</button>
+                        <button class="btn btn-primary" onclick="edit()">Edit Expense</button>
                     </div>
                 </div>
             </div>
@@ -568,67 +571,89 @@
 </body>
 
 </html>
-
-
 <script>
+var datas="",categoryresult="";
+$(document).ready(function(){
+    product();
+});
+//  let a:()=>void = () =>:void {
 
-    const baseurl = url;
-    var datas = "";
-    $(document).ready(function () {
-
-        $.ajax({
-            url: `${baseurl}categories/read.php`,
-            type: "GET",
-            contentType: "application/json",
-            success: function (response, status) {
-                datas = response.response;
-                displayTable(datas);
-                // console.log(response.response);
-            },
-            error: function (error) {
-                console.log(error);
-            }
-        })
-
-        function displayTable(data) {
-            var tabledata = '', i = 1;
-            data.forEach(element => {
-                tabledata += `
-    <tr>
-    <td>${element.id}</td>
-    <td>${element.name}</td>
-    <td><a class="btn text-primary btn-sm" onclick="editSubcategory('${i - 1}')" data-bs-toggle="tooltip" data-bs-original-title="Edit"><span class="fe fe-edit fs-14"></span></a>
-    </td>
-    </tr>
-    `;
-                i++;
-            });
-            $("#bodycat").html(tabledata);
-        }
-
-    });
-
-
-    function editSubcategory(index) {
-        console.log(index);
-        var result = datas[index];
-        // console.log(result);
-        $("#editmodal").modal('show');
-        $("#idd").val(result.id);
-        $("#editcategory").val(result.name);
+//  };
+function product() {
+    $.ajax({
+    url:`http://localhost/restaurant/api/expense/read.php`,
+    type:"GET",
+    contentType:"application/json",
+    success:function(response,status){
+        console.log(response);  
+         datas=response.response;
+        // console.log(datas);
+        displayTable(datas);
+    },
+    error:function(error){
+        console.log(error);
+    }
+})
 
     }
 
+    function displayTable(data) {
+            var tabledata = '', i = 1;
+            var tableBody = document.getElementById("bodycat");
 
-    function edit() {
-        var idofdata = parseInt($("#idd").val());
-        var category = $("#editcategory").val();
+// Loop through the data and create table rows
+for (var key in data) {
+    if (data.hasOwnProperty(key)) {
+        var item = data[key];
+        var row = tableBody.insertRow(tableBody.rows.length);
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        var cell3 = row.insertCell(2);
+        var cell4 = row.insertCell(3);
+        var cell5 = row.insertCell(4);
+        var cell6= row.insertCell(5);
+        cell1.innerHTML = i;
+        cell2.innerHTML = item.expense_type;
+        cell3.innerHTML = item.expense_amount;
+        cell4.innerHTML = item.expense_date;
+        cell5.innerHTML = item.expense_description;
+        cell6.innerHTML = `<a class="btn text-primary btn-sm" onclick="editExpense('${i - 1}')" data-bs-toggle="tooltip" data-bs-original-title="Edit"><span class="fe fe-edit fs-14"></span></a>
+ `;
+        
+        i++;
+    }
+}  }
+
+    
+function editExpense(i){
+    var result = datas[i];
+        // console.log(result);
+        $("#editmodal").modal('show');
+        $("#idd").val(result.expense_id);
+        var type = $("#type").val(result.expense_type);
+        var Amount = $("#Amount").val(result.expense_amount);
+        var date=$("#date").val(result.expense_date);
+        var desc=$("#desc").val(result.expense_description);
+}
+
+
+function edit() {
+   var idd= $("#idd").val();
+        var type = $("#type").val();
+        var Amount = $("#Amount").val();
+        var date=$("#date").val();
+        var desc=$("#desc").val();
+        
         const postdata = {
-            name: category
+            id:idd,
+            type:type,
+            amount:Amount,
+            description:desc,
+            date:date
         };
-        // console.log(idofdata);
+        console.log(postdata);
         $.ajax({
-            url: `${baseurl}categories/update.php?id=${idofdata}`,
+            url: `http://localhost/restaurant/api/expense/update.php`,
             type: "PUT",
             data: JSON.stringify(postdata),
             contentType: "application/json",
@@ -640,33 +665,5 @@
             }
         });
     }
-
-
-    $("#uploadButton").on("click", function (event) {
-        event.preventDefault();
-        var names = $("#category_name").val();
-        const postdata = {
-            name: names
-        };
-
-        $("#uploadButton").css("display", "none");
-        $("#loaderbtn").css("display", "block");
-        $.ajax({
-            url: `${baseurl}categories/create.php`,
-            type: "POST",
-            data: JSON.stringify(postdata),
-            contentType: "application/json",
-            success: function (status) {
-                window.location.reload();
-            },
-            error: function (error) {
-                console.log(error);
-            }
-        });
-
-
-    });
-
-
 
 </script>

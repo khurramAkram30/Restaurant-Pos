@@ -80,7 +80,7 @@ function displayData() {
         $data=[
             'status' => 201,
             'message' => "Inventory Display ",
-            '$result' => $groupedData,
+            'result' => $groupedData,
         ];
         // Send the JSON response and exit to prevent further output
     // header('Content-Type: application/json');
@@ -130,7 +130,45 @@ function updateSingleInventory($item){
 }
 }
 
+$getallInventory=array();
+function displayInventoryData(){
+    global $conn;
+    $query="SELECT inventory.item_id , items.name FROM items,inventory where inventory.item_id=items.id;";
+    $result=mysqli_query($conn,$query);
+    if($result){
+        if(mysqli_num_rows($result) > 0){
+            // $res=mysqli_fetch_all($result,MYSQLI_ASSOC);
+            while($row = mysqli_fetch_assoc($result)) {
+                $getallInventory[] = $row;
+                }
+            $data=[
+                'status'=>200,
+                'message'=>"Inventory items Found",
+                'response'=>$getallInventory,
+            ];
+            header("HTTP:/200 ok");
+            return json_encode($data);
+        }
+        else{
+            $data=[
+                'status' => 404,
+                'message' => "Order found",
+            ];
+            header("HTTP:/ 404 Order Found");
+            return json_encode($data);
+        }
 
+    }
+    else{
+        $data=[
+            'status' => 500,
+            'message' => "internal server error",
+        ];
+        header('HTTP:/1.0 internal server error');
+        return json_encode($data);
+    }
+
+}
 
 
 ?>
