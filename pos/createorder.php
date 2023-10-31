@@ -473,7 +473,7 @@
                                                     <label class="form-label">ORDER ID <span
                                                             class="text-red">*</span></label>
                                                     <input type="text" id="orderid" class="form-control"
-                                                        value="ORDER001">
+                                                        value="" readonly>
                                                 </div>
                                             </div>
                                             <div class="col-sm-8 col-md-8">
@@ -620,7 +620,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="row mt-2">
+                                        <div class="row mt-2" id="paymentMethod" style="display:none">
                                             <div class="col-md-12">
                                                 <div class="card">
                                                     <div class="row mb-2">
@@ -629,7 +629,7 @@
                                                         </div>
 
                                                         <div class="col-md-3 mt-2">
-                                                            <select name="" class="form-control" id="paymentMethod">
+                                                            <select name="" class="form-control" id="paymentMethods">
                                                                 <option value="Card">Card</option>
                                                                 <option value="Cash">Cash</option>
                                                             </select>
@@ -650,6 +650,14 @@
                                                         <div class="col-md-1">
                                                         </div>
 
+                                                        <div class="col-md-9 columnset mt-2">
+                                                            <!-- <label for="" class="Subtotal ">Paid Amount</label> -->
+                                                        </div>
+
+                                                        <div class="col-md-2 mt-2">
+                                                        <input type="button" name="btn" id="finishBtn" onclick="finish()" class="btn btn-primary form-control" value="Finish">    
+                                                    </div>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -665,9 +673,19 @@
                         <!-- /Row -->
 
                         <div class="row p-4 bg-white">
-                            <h3>Order (In Progress)</h3>
-                            <div class="col-md-12">
-                                <table class="table">
+                            <h3>Orders</h3>
+                            
+                                <div class="col-md-2 mb-2">
+                                <label for="">Select Finish or In-Progress</label>
+                                </div>
+                                <div class="col-md-3 mb-2">
+                                    <select name="" id="" class="form-control">
+                                        <option value="">In Progress</option>
+                                        <option value="">Finished</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-12">
+                                <table class="table" id="inProgress">
                                     <thead>
                                         <tr>
                                             <th>#</th>
@@ -681,6 +699,23 @@
 
                                     </tbody>
                                 </table>
+
+
+                                <table class="table" id="finish" style="display: none;">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Order Id</th>
+                                            <th>Total</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="Progress">
+
+                                    </tbody>
+                                </table>
+
                             </div>
                         </div>
 
@@ -858,7 +893,7 @@ $.ajax({
             }
         });
     }
-
+  
     function getDesertItem() {
         $.ajax({
             url: `${baseurl}items/read.php?id=3`,
@@ -888,10 +923,28 @@ $.ajax({
             }
         });
     }
+  
+    $("#tableshow").on("change",function(){
+        var table_id=$("#tableshow").val();
+        $.ajax({
+            // url: `${baseurl}order/read.php`,
+            url: `${baseurl}tables/updatetable.php?id=${table_id}`,
+            type: "PUT",
+            contentType: "application/json",
+            success: function (response, status) {
+                console.log(response);
+                $("#orderid").val(response.OrderId);
+            },
+            error: function (status, error) {
+                console.log(error);
+            }
+        });
+    });
+
     function getInProgressOrder() {
         $.ajax({
+            // url: `${baseurl}order/read.php`,
             url: `${baseurl}order/read.php`,
-            // url: `http://localhost/restaurant/api/order/read.php`,
             type: "GET",
             contentType: "application/json",
             success: function (response, status) {
@@ -1021,7 +1074,36 @@ $.ajax({
         });
     }
 
+    $("#Proceed").on("click", function (event) {
+        // event.preventDefault();
+        addInDatabase();
+        $("#paymentMethod").css("display", "block");
+        
+    });
 
+    function finish(){
+        var payment=$("#paymentMethods").val();
+        var id=$("#orderid").val();
+        const postdata={
+            id:id,
+            payment:payment
+        }
+        $.ajax({
+            // url: `${baseurl}order/create.php`, 
+            url: `${baseurl}order/updateorderStatus.php`,
+            type: "PUT",
+            data: JSON.stringify(postdata),
+            contentType: "application/json",
+            success: function (response, status) {
+                window.location.reload();
+                // console.log(response);
+                // getInProgressOrder();
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
 
     $("#holdCart").on("click", function (event) {
         event.preventDefault();
@@ -1046,7 +1128,7 @@ $.ajax({
             data: JSON.stringify(OrderData),
             contentType: "application/json",
             success: function (response, status) {
-                // window.location.reload();
+                window.location.reload();
                 // console.log(response);
                 // getInProgressOrder();
             },
@@ -1148,6 +1230,37 @@ $.ajax({
         showdata(arr);
     }
 
+    function addInDatabase(){
+        var orderId = $("#orderid").val();
+        var tableId = $("#tableshow").val();
+        var subtotal = $("#subtotal").val();
+        var paidAmount = $("#PaidAmount").val();
+        var discount = $("#Discount").val();
+        var OrderData = {
+            Items: arr,
+            order_Id: orderId,
+            table_Id: tableId,
+            subTotal: subtotal,
+            paidAmount: paidAmount,
+            Discount: discount
+        };
+        console.log(OrderData);
+        $.ajax({
+            // url: `${baseurl}order/create.php`, 
+            url: `${baseurl}order/create.php`,
+            type: "POST",
+            data: JSON.stringify(OrderData),
+            contentType: "application/json",
+            success: function (response, status) {
+                // window.location.reload();
+                // console.log(response);
+                // getInProgressOrder();
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
 
 
 </script>

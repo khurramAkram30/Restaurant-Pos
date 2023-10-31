@@ -40,7 +40,7 @@ function createOrder($data){
             $updateRes=mysqli_query($conn,$updateorder);
         }
     else{
-        $order ="insert into orders VALUES (NULL,'$orderId','$tableId','In Progress','$date',$subTotal,$discount,$payableAmount)";    
+        $order ="insert into orders VALUES (NULL,'$orderId','$tableId','In Progress','$date',$subTotal,$discount,$payableAmount,'Not selected')";    
         $orderResult=mysqli_query($conn,$order);
         $updatetable="Update tables set staus='occupied' where id=$tableId";    
         $updatetableRes=mysqli_query($conn,$updatetable);
@@ -93,6 +93,8 @@ function createOrder($data){
     
     }
 } 
+
+
 $getallOrder=array();
 function getallOrder(){
     global $conn;
@@ -133,6 +135,7 @@ function getallOrder(){
 
 
 }
+
 
 $getOrderById=array();
 function getOrderById($orderId){
@@ -204,4 +207,22 @@ function deleteItemById($itemId){
 
 }
 
+function updateorderStatus($status){
+    global $conn;
+    if(!isset($status["id"])){
+    return error422("Please Enter id");
+    }
+$id=mysqli_real_escape_string($conn,$status["id"]);
+$payment=mysqli_real_escape_string($conn,$status["payment"]);
+$query= "update orders set order_status='Finish',paymentMethod='$payment' where CustomOrderId='$id'";
+$result=mysqli_query($conn,$query);
+if($result){
+    $data=[
+        "status"=> 200,
+        "message"=> "Data Updated",
+        ];
+        header("HTTP:/1.0 201 created");
+        return json_encode($data);
+}
+}
 ?>

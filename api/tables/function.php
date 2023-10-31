@@ -122,6 +122,50 @@ function getallTable(){
  
 }
 
+function updateTableReturnOrderId($cat){
+    global $conn;
+    if(!isset($cat['id'])){
+        return error422('tableId not found in url');
+    }else if($cat['id'] == null){
+        return error422('Enter id');
+    }
+    $id=mysqli_real_escape_string($conn,$cat['id']);
+    // $status=mysqli_real_escape_string($conn,$catdata['Status']);
+
+    // if(empty(trim($status))){
+    //     return error422('Enter name');
+    // }
+    // else{
+        // $currentTimestamp = time();
+        date_default_timezone_set('Europe/London');
+
+        // Get the current time in the UK
+        $currentTimeUK = date('H:i:s');
+        
+        // Create an order ID with minutes and seconds
+        $orderId = 'ORDER' . date('His') . $id;
+        
+        $query="update tables set staus='Reserve' where id = '$id'";
+        $result=mysqli_query($conn,$query);
+        if($result){
+            $data=[
+                'status' => 201,
+                'message' =>"Table updated",
+                'OrderId' =>$orderId,
+            ];
+            header("HTTP:/1.0 201 updated");
+            return json_encode($data); 
+        }
+        else{
+            $data=[
+                'status' => 500,
+                'message' => "internal Server Error",
+            ];
+            header("HTTP:/1.0 500 internal Server Error");
+            return json_encode($data);
+        }
+    }
+
 
 
 ?>

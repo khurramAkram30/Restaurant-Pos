@@ -114,6 +114,7 @@ if($orderResult){
  
 
 // Output the PDF
+$pdfss=$pdf->Output();
 $pdf->Output();
 
 
@@ -122,40 +123,14 @@ $resupdate=mysqli_query($conn,$update);
 
 ?>
 
-
-
-<!-- try {
-    
-// $order_id = date("YmdHis");
-// echo $order_id;
-    // Generate a PDF document
-    $pdf = new TCPDF();
-    $pdf->setPrintHeader(false);
-    $pdf->setPrintFooter(false);
-    $pdf->AddPage();khurramAkram30
-    $pdf->SetFont('helvetica', '', 12);
-
-    // Add content to the PDF
-    $pdfContent = "Hello, Thermal Printer!\nThis is a test print.";
-    $pdf->Write(0, $pdfContent);
-
-    // Specify the local file path where you want to save the PDF
-    $pdfFilePath = __DIR__ . '/../pdfs/test.pdf';
-
-    // Save the PDF to the specified file
-    $pdf->Output($pdfFilePath, 'F');
-
-    // Display a link to download the PDF
-    echo "<a href='../pdfs/test.pdf'>Download PDF</a>";
-} catch (\Exception $e) {
-    echo "PDF generation failed: " . $e->getMessage() . "\n";
-} -->
-
-
+<!-- Embed the generated PDF in your HTML page -->
+<embed src="<?php echo $pdfss; ?>" type="application/pdf" width="100%" height="100%">
 <script>
-//     var geticon=document.getElementById("icon");
-//     geticon.addEventListener("click", function (e) {
-//         console.log("ad");
-
-// });
+window.onload = function() {
+    // Wait for the PDF to load, then trigger print
+    var pdf = document.querySelector('embed');
+    pdf.onload = function() {
+        pdf.print();
+    };
+};
 </script>
