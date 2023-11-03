@@ -135,7 +135,85 @@ function getallOrder(){
 
 
 }
+$getFinishOrder=array();
+function getFinishOrder(){
+    global $conn;
+    $query="SELECT * from orders where order_status='Finish'";
+    $result=mysqli_query($conn,$query);
+    if($result){
+        if(mysqli_num_rows($result) > 0){
+            // $res=mysqli_fetch_all($result,MYSQLI_ASSOC);
+            while($row = mysqli_fetch_assoc($result)) {
+                $getallOrder[] = $row;
+                }
+            $data=[
+                'status'=>200,
+                'message'=>"Order Found",
+                'response'=>$getallOrder,
+            ];
+            header("HTTP:/200 ok");
+            return json_encode($data);
+        }
+        else{
+            $data=[
+                'status' => 404,
+                'message' => "Order found",
+            ];
+            header("HTTP:/ 404 Order Found");
+            return json_encode($data);
+        }
 
+    }
+    else{
+        $data=[
+            'status' => 500,
+            'message' => "internal server error",
+        ];
+        header('HTTP:/1.0 internal server error');
+        return json_encode($data);
+    }
+
+}
+
+$getCompletedOrder=array();
+function getCompletedOrder(){
+    global $conn;
+    $query="SELECT * from orders where order_status='Completed'";
+    $result=mysqli_query($conn,$query);
+    if($result){
+        if(mysqli_num_rows($result) > 0){
+            // $res=mysqli_fetch_all($result,MYSQLI_ASSOC);
+            while($row = mysqli_fetch_assoc($result)) {
+                $getallOrder[] = $row;
+                }
+            $data=[
+                'status'=>200,
+                'message'=>"Order Found",
+                'response'=>$getallOrder,
+            ];
+            header("HTTP:/200 ok");
+            return json_encode($data);
+        }
+        else{
+            $data=[
+                'status' => 404,
+                'message' => "Order found",
+            ];
+            header("HTTP:/ 404 Order Found");
+            return json_encode($data);
+        }
+
+    }
+    else{
+        $data=[
+            'status' => 500,
+            'message' => "internal server error",
+        ];
+        header('HTTP:/1.0 internal server error');
+        return json_encode($data);
+    }
+
+}
 
 $getOrderById=array();
 function getOrderById($orderId){

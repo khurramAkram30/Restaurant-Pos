@@ -472,8 +472,8 @@
                                                 <div class="form-group">
                                                     <label class="form-label">ORDER ID <span
                                                             class="text-red">*</span></label>
-                                                    <input type="text" id="orderid" class="form-control"
-                                                        value="" readonly>
+                                                    <input type="text" id="orderid" class="form-control" value=""
+                                                        readonly>
                                                 </div>
                                             </div>
                                             <div class="col-sm-8 col-md-8">
@@ -625,7 +625,8 @@
                                                 <div class="card">
                                                     <div class="row mb-2">
                                                         <div class="col-md-8 columnset mt-2">
-                                                            <label for="" class="Payment Subtotal">Payment Method</label>
+                                                            <label for="" class="Payment Subtotal">Payment
+                                                                Method</label>
                                                         </div>
 
                                                         <div class="col-md-3 mt-2">
@@ -655,8 +656,10 @@
                                                         </div>
 
                                                         <div class="col-md-2 mt-2">
-                                                        <input type="button" name="btn" id="finishBtn" onclick="finish()" class="btn btn-primary form-control" value="Finish">    
-                                                    </div>
+                                                            <input type="button" name="btn" id="finishBtn"
+                                                                onclick="finish()" class="btn btn-primary form-control"
+                                                                value="Finish">
+                                                        </div>
 
                                                     </div>
                                                 </div>
@@ -674,17 +677,17 @@
 
                         <div class="row p-4 bg-white">
                             <h3>Orders</h3>
-                            
-                                <div class="col-md-2 mb-2">
+
+                            <div class="col-md-2 mb-2">
                                 <label for="">Select Finish or In-Progress</label>
-                                </div>
-                                <div class="col-md-3 mb-2">
-                                    <select name="" id="" class="form-control">
-                                        <option value="">In Progress</option>
-                                        <option value="">Finished</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-12">
+                            </div>
+                            <div class="col-md-3 mb-2">
+                                <select name="" id="selectOption" class="form-control">
+                                    <option value="In Progress">In Progress</option>
+                                    <option value="Finished">Finished</option>
+                                </select>
+                            </div>
+                            <div class="col-md-12">
                                 <table class="table" id="inProgress">
                                     <thead>
                                         <tr>
@@ -708,10 +711,11 @@
                                             <th>Order Id</th>
                                             <th>Total</th>
                                             <th>Status</th>
-                                            <th>Action</th>
+                                            <th>Kitchen Print</th>
+                                            <th>Final Bill</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="Progress">
+                                    <tbody id="finishBody">
 
                                     </tbody>
                                 </table>
@@ -754,34 +758,34 @@
         </div>
 
         <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
-<script>
-        
-    // Enable pusher logging - don't include this in production
-    Pusher.logToConsole = true;
+        <script>
 
-var pusher = new Pusher('f0d52bc6ef75ef4b297e', {
-  cluster: 'ap2'
-});
+            // Enable pusher logging - don't include this in production
+            Pusher.logToConsole = true;
 
-var channel = pusher.subscribe('my-channel');
-channel.bind('my-event', function(data) {
-//   alert(JSON.stringify(data));
-$.ajax({
-            url: `${baseurl}order/read.php`,
-            // url: `http://localhost/restaurant/api/order/read.php`,
-            type: "GET",
-            contentType: "application/json",
-            success: function (response, status) {
-                console.log(response);
-                updateTable(response);
-            },
-            error: function (status, error) {
-                console.log(error);
-            }
-        });
+            var pusher = new Pusher('f0d52bc6ef75ef4b297e', {
+                cluster: 'ap2'
+            });
 
-});
-</script>
+            var channel = pusher.subscribe('my-channel');
+            channel.bind('my-event', function (data) {
+                //   alert(JSON.stringify(data));
+                $.ajax({
+                    url: `${baseurl}order/read.php`,
+                    // url: `http://localhost/restaurant/api/order/read.php`,
+                    type: "GET",
+                    contentType: "application/json",
+                    success: function (response, status) {
+                        console.log(response);
+                        updateTable(response);
+                    },
+                    error: function (status, error) {
+                        console.log(error);
+                    }
+                });
+
+            });
+        </script>
 
 
     </div>
@@ -893,7 +897,7 @@ $.ajax({
             }
         });
     }
-  
+
     function getDesertItem() {
         $.ajax({
             url: `${baseurl}items/read.php?id=3`,
@@ -923,9 +927,9 @@ $.ajax({
             }
         });
     }
-  
-    $("#tableshow").on("change",function(){
-        var table_id=$("#tableshow").val();
+
+    $("#tableshow").on("change", function () {
+        var table_id = $("#tableshow").val();
         $.ajax({
             // url: `${baseurl}order/read.php`,
             url: `${baseurl}tables/updatetable.php?id=${table_id}`,
@@ -958,6 +962,9 @@ $.ajax({
     }
 
     function updateTable(data) {
+        $("#finish").css("display","none");
+        $("#inProgress").css("display","inline-table");
+        
         var tabledata = '', i = 1;
 
         if (data.response.length > 0) {
@@ -989,7 +996,24 @@ $.ajax({
 
     }
 
+    function getFinishOrder() {
+        $.ajax({
+            url: `http://localhost/restaurant/api/order/finishOrder.php`,
+            // url: `${baseurl}order/read.php`,
+            type: "GET",
+            contentType: "application/json",
+            success: function (response, status) {
+                console.log(response);
+                FinishTable(response);
+            },
+            error: function (status, error) {
+                console.log(error);
+            }
+        });
 
+    }
+
+  
     function Printorder(id) {
         var newUrl = `print.php?id=${id}`;
         // window.location.href=newUrl;
@@ -1040,8 +1064,6 @@ $.ajax({
         $("#editcategory").val(result.name);
 
     }
-
-
     function discountedPrice() {
         var discount = parseInt($("#Discount").val());
         var discounted = (discount / 100);
@@ -1051,9 +1073,9 @@ $.ajax({
         var discountedPrice = subTotal - afterdiscount;
         // console.log(discountedPrice);
         $("#PaidAmount").val(discountedPrice);
-
     }
-    function edit() {
+
+    function edit(){
         var idofdata = parseInt($("#idd").val());
         var category = $("#editcategory").val();
         const postdata = {
@@ -1078,15 +1100,14 @@ $.ajax({
         // event.preventDefault();
         addInDatabase();
         $("#paymentMethod").css("display", "block");
-        
     });
 
-    function finish(){
-        var payment=$("#paymentMethods").val();
-        var id=$("#orderid").val();
-        const postdata={
-            id:id,
-            payment:payment
+    function finish() {
+        var payment = $("#paymentMethods").val();
+        var id = $("#orderid").val();
+        const postdata = {
+            id: id,
+            payment: payment
         }
         $.ajax({
             // url: `${baseurl}order/create.php`, 
@@ -1122,7 +1143,7 @@ $.ajax({
         };
 
         $.ajax({
-            url: `${baseurl}order/create.php`, 
+            url: `${baseurl}order/create.php`,
             // url: `http://localhost/restaurant/api/order/create.php`,
             type: "POST",
             data: JSON.stringify(OrderData),
@@ -1230,7 +1251,7 @@ $.ajax({
         showdata(arr);
     }
 
-    function addInDatabase(){
+    function addInDatabase() {
         var orderId = $("#orderid").val();
         var tableId = $("#tableshow").val();
         var subtotal = $("#subtotal").val();
@@ -1244,7 +1265,7 @@ $.ajax({
             paidAmount: paidAmount,
             Discount: discount
         };
-        console.log(OrderData);
+        // console.log(OrderData);
         $.ajax({
             // url: `${baseurl}order/create.php`, 
             url: `${baseurl}order/create.php`,
@@ -1262,5 +1283,50 @@ $.ajax({
         });
     }
 
+    $("#selectOption").on("change", function () {
+        var selectedOptions = $("#selectOption").val();
+        if (selectedOptions == "Finished") {
+            getFinishOrder();
+
+        }
+        if (selectedOptions == "In Progress") {
+            getInProgressOrder();
+        }
+
+    })
+
+    function FinishTable(data) {
+        $("#inProgress").css("display","none");
+        $("#finish").css("display","inline-table");
+
+        var tabledata = '', i = 1;
+
+        if (data.response.length > 0) {
+            data.response.forEach(element => {
+                tabledata += `
+            <tr>
+            <td>${i}</td>
+            <td>${element.CustomOrderId}</td>
+            <td>${element.Total}</td>
+            <td>${element.order_status}</td>
+            <td><a class="btn text-primary btn-sm" onclick="editorder('${element.CustomOrderId}')" data-bs-toggle="tooltip" data-bs-original-title="Edit"><span class="fe fe-edit fs-14"></span></a>
+            <a class="btn text-primary btn-sm" onclick="Printorder('${element.CustomOrderId}')" data-bs-toggle="tooltip" data-bs-original-title="Edit"><span class="fa fa-print fs-14"></span></a>
+
+</td>
+</tr>
+`;
+                i++;
+            });
+        }
+        else {
+            tabledata += `
+<tr>
+<td>No Data Found</td>
+
+</tr>
+`;
+        }
+        $("#finishBody").html(tabledata);
+    }
 
 </script>
