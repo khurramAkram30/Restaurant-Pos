@@ -1,5 +1,6 @@
 <?php
 require "../config/conn.php";
+require "../inventory/function.php";
 function error422($message){
     $data=[
         'status' => 422,
@@ -77,6 +78,7 @@ function storeItems($Subcategories){
         $query="insert into items VALUES (NULL,'$CategoryId','$subCategoryId','$itemname',$price,'$image')";
         $result=mysqli_query($conn,$query);
         if($result){
+            insertInventory();
             $data=[
                 'status' => 201,
                 'message' => "items Created",

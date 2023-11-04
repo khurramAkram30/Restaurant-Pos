@@ -15,7 +15,7 @@ if($res){
     }
 }
 require 'fpdf/fpdf.php';
-$pdf = new FPDF('P','mm',array(80,200));
+$pdf = new FPDF('P','mm',array(80,250));
 
 // Add a page to the PDF
 $pdf->AddPage();
@@ -53,9 +53,9 @@ $pdf->SetX(7);
 $pdf->SetFont('courier','B',8);
 $pdf->Cell(30,8,"Product",1,0,'C');
 $pdf->Cell(10,8,"Qty",1,0,'C');
-$pdf->Cell(12,8,"Price",1,0,'C');
-$pdf->Cell(15,8,"Subtotal",1,1,'C');
-$orderItems="SELECT items.name AS itemName , order_items.quantity AS qty,items.sell,order_items.subtotal FROM items INNER JOIN order_items ON items.id = order_items.item_id WHERE order_id = '$idGet'";
+$pdf->Cell(25,8,"Customize",1,1,'C');
+// $pdf->Cell(12,8,"Price",1,1,'C')
+$orderItems="SELECT items.name AS itemName , order_items.quantity AS qty,order_items.modifiers FROM items INNER JOIN order_items ON items.id = order_items.item_id WHERE order_id = '$idGet'";
 $orderResult=mysqli_query($conn,$orderItems);
 if($orderResult){
     if(mysqli_num_rows($orderResult) > 0){
@@ -64,51 +64,63 @@ if($orderResult){
             $pdf->SetFont('courier','B',8);
             $pdf->Cell(30,8,"$row[0]",1,0,'C');
             $pdf->Cell(10,8,"$row[1]",1,0,'C');
-            $pdf->Cell(12,8,"$row[2]",1,0,'C');
-            $pdf->Cell(15,8,"$row[3]",1,1,'C');
-
+            $pdf->SetFont('courier','B',10);
+            $pdf->Cell(25,8,"$row[2]",1,1,'C');
         }
     }
 
 }
 
+// for($i=0;$i<6;$i++){
+   
+// }
 
-$pdf->Ln(2);
-
-$pdf->SetX(9);
-$pdf->SetFont('courier','B',8);
-$pdf->Cell(20,5,'',0,0,'L');
-$pdf->Cell(25,5,'SubTotal',1,0,'C'); 
-$pdf->Cell(20,5,"$result[5]",1,1,'C'); 
+// 
 
 
-$pdf->SetX(9);
-$pdf->SetFont('courier','B',8);
-$pdf->Cell(20,5,'',0,0,'L'); 
-$pdf->Cell(25,5,'Discount',1,0,'C'); 
-$pdf->Cell(20,5,"$result[6]",1,1,'C'); 
 
-$pdf->SetX(9);
-$pdf->SetFont('courier','B',8);
-$pdf->Cell(20,5,'',0,0,'L'); 
-$pdf->Cell(25,5,'Payable',1,0,'C'); 
-$pdf->Cell(20,5,"$result[7]",1,1,'C'); 
 
-$pdf->SetX(9);
-$pdf->SetFont('courier','B',8);
-$pdf->Cell(20,5,'',0,0,'L'); 
-$pdf->Cell(25,5,'Payment',1,0,'C'); 
-$pdf->Cell(20,5,'Cash',1,1,'C'); 
+
+// $pdf->SetX(7);
+// $pdf->SetFont('courier','B',8);
+// $pdf->Cell(20,5,'',0,0,'L');
+// $pdf->Cell(25,5,'SubTotal',1,0,'C'); 
+// $pdf->Cell(20,5,'100',1,1,'C'); 
+
+
+// $pdf->SetX(7);
+// $pdf->SetFont('courier','B',8);
+// $pdf->Cell(20,5,'',0,0,'L'); 
+// $pdf->Cell(25,5,'Discount',1,0,'C'); 
+// $pdf->Cell(20,5,'0',1,1,'C'); 
+
+// $pdf->SetX(7);
+// $pdf->SetFont('courier','B',8);
+// $pdf->Cell(20,5,'',0,0,'L'); 
+// $pdf->Cell(25,5,'Payable',1,0,'C'); 
+// $pdf->Cell(20,5,'100',1,1,'C'); 
+
+// $pdf->SetX(7);
+// $pdf->SetFont('courier','B',8);
+// $pdf->Cell(20,5,'',0,0,'L'); 
+// $pdf->Cell(25,5,'Payment',1,0,'C'); 
+// $pdf->Cell(20,5,'Cash',1,1,'C'); 
+
+
+// $pdf->Cell(20,5,"",0,0);
+// $pdf->SetFont('courier','B',8);
+// $pdf->Cell(20,5,'Important notice',0,0,'L'); // 'C' parameter for center alignment
 
  
 
 // Output the PDF
+// $pdfss=$pdf->Output();
 $pdf->Output();
 
 
-$updateTable="UPDATE tables set staus='Available' where id=$result[2]";
-$Order_status="UPDATE orders set order_status='Completed' where CustomOrderId='$idGet'";
+// $update="UPDATE order_items SET print_status = 'Printed' WHERE order_id = '$idGet'";
+// $resupdate=mysqli_query($conn,$update);
 
-$res=mysqli_query($conn,$updateTable);
-$res1=mysqli_query($conn,$Order_status);
 ?>
+
+</script>

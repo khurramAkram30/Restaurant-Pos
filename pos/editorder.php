@@ -623,6 +623,53 @@
                                             </div>
                                         </div>
 
+
+                                        <div class="row mt-2" id="paymentMethod" style="display:none">
+                                            <div class="col-md-12">
+                                                <div class="card">
+                                                    <div class="row mb-2">
+                                                        <div class="col-md-8 columnset mt-2">
+                                                            <label for="" class="Payment Subtotal">Payment
+                                                                Method</label>
+                                                        </div>
+
+                                                        <div class="col-md-3 mt-2">
+                                                            <select name="" class="form-control" id="paymentMethods">
+                                                                <option value="Card">Card</option>
+                                                                <option value="Cash">Cash</option>
+                                                            </select>
+                                                        </div>
+
+                                                        <div class="col-md-1">
+                                                        </div>
+
+
+                                                        <div class="col-md-8 columnset mt-2">
+                                                            <label for="" class="Subtotal ">Paid Amount</label>
+                                                        </div>
+
+                                                        <div class="col-md-3 mt-2">
+                                                            <input type="number" id="Paid" class="form-control">
+                                                        </div>
+
+                                                        <div class="col-md-1">
+                                                        </div>
+
+                                                        <div class="col-md-9 columnset mt-2">
+                                                            <!-- <label for="" class="Subtotal ">Paid Amount</label> -->
+                                                        </div>
+
+                                                        <div class="col-md-2 mt-2">
+                                                            <input type="button" name="btn" id="finishBtn"
+                                                                onclick="finish()" class="btn btn-primary form-control"
+                                                                value="Finish">
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
 
@@ -1094,6 +1141,68 @@
         showdata(arr);
     }
 
+
+    $("#Proceed").on("click", function (event) {
+        // event.preventDefault();
+        addInDatabase();
+        $("#paymentMethod").css("display", "block");
+    });
+
+    function addInDatabase() {
+        var orderId = $("#orderid").val();
+        var tableId = $("#tableshow").val();
+        var subtotal = $("#subtotal").val();
+        var paidAmount = $("#PaidAmount").val();
+        var discount = $("#Discount").val();
+        var OrderData = {
+            Items: arr,
+            order_Id: orderId,
+            table_Id: tableId,
+            subTotal: subtotal,
+            paidAmount: paidAmount,
+            Discount: discount
+        };
+        // console.log(OrderData);
+        $.ajax({
+            // url: `${baseurl}order/create.php`, 
+            url: `${baseurl}order/create.php`,
+            type: "POST",
+            data: JSON.stringify(OrderData),
+            contentType: "application/json",
+            success: function (response, status) {
+                // window.location.reload();
+                // console.log(response);
+                // getInProgressOrder();
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+    function finish() {
+        var payment = $("#paymentMethods").val();
+        var id = $("#orderid").val();
+        const postdata = {
+            id: id,
+            payment: payment
+        }
+        $.ajax({
+            // url: `${baseurl}order/create.php`, 
+            url: `${baseurl}order/updateorderStatus.php`,
+            type: "PUT",
+            data: JSON.stringify(postdata),
+            contentType: "application/json",
+            success: function (response, status) {
+                window.location.href="createorder.php";
+                // console.log(response);
+                // getInProgressOrder();
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
 
 
 </script>

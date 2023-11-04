@@ -35,9 +35,11 @@
     <!-- INTERNAL Switcher css -->
     <link href="../assets/switcher/css/switcher.css" rel="stylesheet" />
     <link href="../assets/switcher/demo.css" rel="stylesheet" />
-    <style>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
 
-    </style>
+<style>
+   
+</style>
 </head>
 
 <body class="app sidebar-mini ltr light-mode">
@@ -51,10 +53,8 @@
                         <div class="swichermainleft text-center">
                             <div class="p-3 d-grid gap-2">
                                 <a href="../../index.html" class="btn ripple btn-primary mt-0">View Demo</a>
-                                <a href="https://themeforest.net/item/sash-bootstrap-5-admin-dashboard-template/35183671"
-                                    class="btn ripple btn-secondary">Buy Now</a>
-                                <a href="https://themeforest.net/user/spruko/portfolio" class="btn ripple btn-pink">Our
-                                    Portfolio</a>
+                                <a href="https://themeforest.net/item/sash-bootstrap-5-admin-dashboard-template/35183671" class="btn ripple btn-secondary">Buy Now</a>
+                                <a href="https://themeforest.net/user/spruko/portfolio" class="btn ripple btn-pink">Our Portfolio</a>
                             </div>
                         </div>
                         <div class="swichermainleft">
@@ -63,22 +63,19 @@
                                 <div class="switch_section">
                                     <div class="switch-toggle d-flex">
                                         <span class="me-auto">Vertical Menu</span>
-                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch15"
-                                                id="myonoffswitch34" class="onoffswitch2-checkbox" checked>
+                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch15" id="myonoffswitch34" class="onoffswitch2-checkbox" checked>
                                             <label for="myonoffswitch34" class="onoffswitch2-label"></label>
                                         </p>
                                     </div>
                                     <div class="switch-toggle d-flex mt-2">
                                         <span class="me-auto">Horizontal Click Menu</span>
-                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch15"
-                                                id="myonoffswitch35" class="onoffswitch2-checkbox">
+                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch15" id="myonoffswitch35" class="onoffswitch2-checkbox">
                                             <label for="myonoffswitch35" class="onoffswitch2-label"></label>
                                         </p>
                                     </div>
                                     <div class="switch-toggle d-flex mt-2">
                                         <span class="me-auto">Horizontal Hover Menu</span>
-                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch15"
-                                                id="myonoffswitch111" class="onoffswitch2-checkbox">
+                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch15" id="myonoffswitch111" class="onoffswitch2-checkbox">
                                             <label for="myonoffswitch111" class="onoffswitch2-label"></label>
                                         </p>
                                     </div>
@@ -91,15 +88,13 @@
                                 <div class="switch_section">
                                     <div class="switch-toggle d-flex">
                                         <span class="me-auto">LTR Version</span>
-                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch7"
-                                                id="myonoffswitch23" class="onoffswitch2-checkbox" checked>
+                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch7" id="myonoffswitch23" class="onoffswitch2-checkbox" checked>
                                             <label for="myonoffswitch23" class="onoffswitch2-label"></label>
                                         </p>
                                     </div>
                                     <div class="switch-toggle d-flex mt-2">
                                         <span class="me-auto">RTL Version</span>
-                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch7"
-                                                id="myonoffswitch24" class="onoffswitch2-checkbox">
+                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch7" id="myonoffswitch24" class="onoffswitch2-checkbox">
                                             <label for="myonoffswitch24" class="onoffswitch2-label"></label>
                                         </p>
                                     </div>
@@ -112,18 +107,14 @@
                                 <div class="switch_section">
                                     <div class="switch-toggle d-flex">
                                         <span class="me-auto">Light Theme</span>
-                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch1"
-                                                id="myonoffswitch1" class="onoffswitch2-checkbox" checked>
+                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch1" id="myonoffswitch1" class="onoffswitch2-checkbox" checked>
                                             <label for="myonoffswitch1" class="onoffswitch2-label"></label>
                                         </p>
                                     </div>
                                     <div class="switch-toggle d-flex">
                                         <span class="me-auto">Light Primary</span>
                                         <div class="">
-                                            <input class="w-30p h-30 input-color-picker color-primary-light"
-                                                value="#6c5ffc" id="colorID" oninput="changePrimaryColor()" type="color"
-                                                data-id="bg-color" data-id1="bg-hover" data-id2="bg-border"
-                                                data-id7="transparentcolor" name="lightPrimary">
+                                            <input class="w-30p h-30 input-color-picker color-primary-light" value="#6c5ffc" id="colorID" oninput="changePrimaryColor()" type="color" data-id="bg-color" data-id1="bg-hover" data-id2="bg-border" data-id7="transparentcolor" name="lightPrimary">
                                         </div>
                                     </div>
                                 </div>
@@ -135,18 +126,15 @@
                                 <div class="switch_section">
                                     <div class="switch-toggle d-flex mt-2">
                                         <span class="me-auto">Dark Theme</span>
-                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch1"
-                                                id="myonoffswitch2" class="onoffswitch2-checkbox">
+                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch1" id="myonoffswitch2" class="onoffswitch2-checkbox">
                                             <label for="myonoffswitch2" class="onoffswitch2-label"></label>
                                         </p>
                                     </div>
                                     <div class="switch-toggle d-flex mt-2">
                                         <span class="me-auto">Dark Primary</span>
                                         <div class="">
-                                            <input class="w-30p h-30 input-dark-color-picker color-primary-dark"
-                                                value="#6c5ffc" id="darkPrimaryColorID" oninput="darkPrimaryColor()"
-                                                type="color" data-id="bg-color" data-id1="bg-hover" data-id2="bg-border"
-                                                data-id3="primary" data-id8="transparentcolor" name="darkPrimary">
+                                            <input class="w-30p h-30 input-dark-color-picker color-primary-dark" value="#6c5ffc" id="darkPrimaryColorID" oninput="darkPrimaryColor()" type="color" data-id="bg-color" data-id1="bg-hover" data-id2="bg-border" data-id3="primary" data-id8="transparentcolor"
+                                                name="darkPrimary">
                                         </div>
                                     </div>
                                 </div>
@@ -158,30 +146,21 @@
                                 <div class="switch_section">
                                     <div class="switch-toggle d-flex mt-2">
                                         <span class="me-auto">Transparent Theme</span>
-                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch1"
-                                                id="myonoffswitchTransparent" class="onoffswitch2-checkbox">
+                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch1" id="myonoffswitchTransparent" class="onoffswitch2-checkbox">
                                             <label for="myonoffswitchTransparent" class="onoffswitch2-label"></label>
                                         </p>
                                     </div>
                                     <div class="switch-toggle d-flex mt-2">
                                         <span class="me-auto">Transparent Primary</span>
                                         <div class="">
-                                            <input
-                                                class="w-30p h-30 input-transparent-color-picker color-primary-transparent"
-                                                value="#6c5ffc" id="transparentPrimaryColorID"
-                                                oninput="transparentPrimaryColor()" type="color" data-id="bg-color"
-                                                data-id1="bg-hover" data-id2="bg-border" data-id3="primary"
+                                            <input class="w-30p h-30 input-transparent-color-picker color-primary-transparent" value="#6c5ffc" id="transparentPrimaryColorID" oninput="transparentPrimaryColor()" type="color" data-id="bg-color" data-id1="bg-hover" data-id2="bg-border" data-id3="primary"
                                                 data-id4="primary" data-id9="transparentcolor" name="tranparentPrimary">
                                         </div>
                                     </div>
                                     <div class="switch-toggle d-flex mt-2">
                                         <span class="me-auto">Transparent Background</span>
                                         <div class="">
-                                            <input
-                                                class="w-30p h-30 input-transparent-color-picker color-bg-transparent"
-                                                value="#6c5ffc" id="transparentBgColorID" oninput="transparentBgColor()"
-                                                type="color" data-id5="body" data-id6="theme"
-                                                data-id9="transparentcolor" name="transparentBackground">
+                                            <input class="w-30p h-30 input-transparent-color-picker color-bg-transparent" value="#6c5ffc" id="transparentBgColorID" oninput="transparentBgColor()" type="color" data-id5="body" data-id6="theme" data-id9="transparentcolor" name="transparentBackground">
                                         </div>
                                     </div>
                                 </div>
@@ -193,23 +172,14 @@
                                 <div class="switch-toggle d-flex">
                                     <span class="me-auto">Bg-Image Primary</span>
                                     <div class="">
-                                        <input
-                                            class="w-30p h-30 input-transparent-color-picker color-primary-transparent"
-                                            value="#6c5ffc" id="transparentBgImgPrimaryColorID"
-                                            oninput="transparentBgImgPrimaryColor()" type="color" data-id="bg-color"
-                                            data-id1="bg-hover" data-id2="bg-border" data-id3="primary"
-                                            data-id4="primary" data-id9="transparentcolor" name="tranparentPrimary">
+                                        <input class="w-30p h-30 input-transparent-color-picker color-primary-transparent" value="#6c5ffc" id="transparentBgImgPrimaryColorID" oninput="transparentBgImgPrimaryColor()" type="color" data-id="bg-color" data-id1="bg-hover" data-id2="bg-border" data-id3="primary" data-id4="primary"  data-id9="transparentcolor" name="tranparentPrimary">
                                     </div>
                                 </div>
                                 <div class="switch-toggle d-flex mt-2">
-                                    <a class="bg-img1" href="javascript:void(0);" onclick="bgImage(this)"><img
-                                            src="../assets/images/media/bg-img1.jpg" alt="Bg-Image" id="bgimage1"></a>
-                                    <a class="bg-img2" href="javascript:void(0);" onclick="bgImage(this)"><img
-                                            src="../assets/images/media/bg-img2.jpg" alt="Bg-Image" id="bgimage2"></a>
-                                    <a class="bg-img3" href="javascript:void(0);" onclick="bgImage(this)"><img
-                                            src="../assets/images/media/bg-img3.jpg" alt="Bg-Image" id="bgimage3"></a>
-                                    <a class="bg-img4" href="javascript:void(0);" onclick="bgImage(this)"><img
-                                            src="../assets/images/media/bg-img4.jpg" alt="Bg-Image" id="bgimage4"></a>
+                                    <a class="bg-img1" href="javascript:void(0);" onclick="bgImage(this)"><img src="../assets/images/media/bg-img1.jpg"  alt="Bg-Image" id="bgimage1"></a>
+                                    <a class="bg-img2" href="javascript:void(0);" onclick="bgImage(this)"><img src="../assets/images/media/bg-img2.jpg"  alt="Bg-Image"  id="bgimage2"></a>
+                                    <a class="bg-img3" href="javascript:void(0);" onclick="bgImage(this)"><img src="../assets/images/media/bg-img3.jpg"  alt="Bg-Image" id="bgimage3"></a>
+                                    <a class="bg-img4" href="javascript:void(0);" onclick="bgImage(this)"><img src="../assets/images/media/bg-img4.jpg"  alt="Bg-Image" id="bgimage4"></a>
                                 </div>
                             </div>
                         </div>
@@ -219,29 +189,25 @@
                                 <div class="switch_section">
                                     <div class="switch-toggle lightMenu d-flex">
                                         <span class="me-auto">Light Menu</span>
-                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch2"
-                                                id="myonoffswitch3" class="onoffswitch2-checkbox" checked>
+                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch2" id="myonoffswitch3" class="onoffswitch2-checkbox" checked>
                                             <label for="myonoffswitch3" class="onoffswitch2-label"></label>
                                         </p>
                                     </div>
                                     <div class="switch-toggle colorMenu d-flex mt-2">
                                         <span class="me-auto">Color Menu</span>
-                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch2"
-                                                id="myonoffswitch4" class="onoffswitch2-checkbox">
+                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch2" id="myonoffswitch4" class="onoffswitch2-checkbox">
                                             <label for="myonoffswitch4" class="onoffswitch2-label"></label>
                                         </p>
                                     </div>
                                     <div class="switch-toggle darkMenu d-flex mt-2">
                                         <span class="me-auto">Dark Menu</span>
-                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch2"
-                                                id="myonoffswitch5" class="onoffswitch2-checkbox">
+                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch2" id="myonoffswitch5" class="onoffswitch2-checkbox">
                                             <label for="myonoffswitch5" class="onoffswitch2-label"></label>
                                         </p>
                                     </div>
                                     <div class="switch-toggle gradientMenu d-flex mt-2">
                                         <span class="me-auto">Gradient Menu</span>
-                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch2"
-                                                id="myonoffswitch19" class="onoffswitch2-checkbox">
+                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch2" id="myonoffswitch19" class="onoffswitch2-checkbox">
                                             <label for="myonoffswitch19" class="onoffswitch2-label"></label>
                                         </p>
                                     </div>
@@ -254,30 +220,26 @@
                                 <div class="switch_section">
                                     <div class="switch-toggle lightHeader d-flex">
                                         <span class="me-auto">Light Header</span>
-                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch3"
-                                                id="myonoffswitch6" class="onoffswitch2-checkbox" checked>
+                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch3" id="myonoffswitch6" class="onoffswitch2-checkbox" checked>
                                             <label for="myonoffswitch6" class="onoffswitch2-label"></label>
                                         </p>
                                     </div>
                                     <div class="switch-toggle  colorHeader d-flex mt-2">
                                         <span class="me-auto">Color Header</span>
-                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch3"
-                                                id="myonoffswitch7" class="onoffswitch2-checkbox">
+                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch3" id="myonoffswitch7" class="onoffswitch2-checkbox">
                                             <label for="myonoffswitch7" class="onoffswitch2-label"></label>
                                         </p>
                                     </div>
                                     <div class="switch-toggle darkHeader d-flex mt-2">
                                         <span class="me-auto">Dark Header</span>
-                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch3"
-                                                id="myonoffswitch8" class="onoffswitch2-checkbox">
+                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch3" id="myonoffswitch8" class="onoffswitch2-checkbox">
                                             <label for="myonoffswitch8" class="onoffswitch2-label"></label>
                                         </p>
                                     </div>
 
                                     <div class="switch-toggle darkHeader d-flex mt-2">
                                         <span class="me-auto">Gradient Header</span>
-                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch3"
-                                                id="myonoffswitch20" class="onoffswitch2-checkbox">
+                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch3" id="myonoffswitch20" class="onoffswitch2-checkbox">
                                             <label for="myonoffswitch20" class="onoffswitch2-label"></label>
                                         </p>
                                     </div>
@@ -290,15 +252,13 @@
                                 <div class="switch_section">
                                     <div class="switch-toggle d-flex">
                                         <span class="me-auto">Full Width</span>
-                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch4"
-                                                id="myonoffswitch9" class="onoffswitch2-checkbox" checked>
+                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch4" id="myonoffswitch9" class="onoffswitch2-checkbox" checked>
                                             <label for="myonoffswitch9" class="onoffswitch2-label"></label>
                                         </p>
                                     </div>
                                     <div class="switch-toggle d-flex mt-2">
                                         <span class="me-auto">Boxed</span>
-                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch4"
-                                                id="myonoffswitch10" class="onoffswitch2-checkbox">
+                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch4" id="myonoffswitch10" class="onoffswitch2-checkbox">
                                             <label for="myonoffswitch10" class="onoffswitch2-label"></label>
                                         </p>
                                     </div>
@@ -311,15 +271,13 @@
                                 <div class="switch_section">
                                     <div class="switch-toggle d-flex">
                                         <span class="me-auto">Fixed</span>
-                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch5"
-                                                id="myonoffswitch11" class="onoffswitch2-checkbox" checked>
+                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch5" id="myonoffswitch11" class="onoffswitch2-checkbox" checked>
                                             <label for="myonoffswitch11" class="onoffswitch2-label"></label>
                                         </p>
                                     </div>
                                     <div class="switch-toggle d-flex mt-2">
                                         <span class="me-auto">Scrollable</span>
-                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch5"
-                                                id="myonoffswitch12" class="onoffswitch2-checkbox">
+                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch5" id="myonoffswitch12" class="onoffswitch2-checkbox">
                                             <label for="myonoffswitch12" class="onoffswitch2-label"></label>
                                         </p>
                                     </div>
@@ -332,43 +290,37 @@
                                 <div class="switch_section">
                                     <div class="switch-toggle d-flex">
                                         <span class="me-auto">Default Menu</span>
-                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch6"
-                                                id="myonoffswitch13" class="onoffswitch2-checkbox default-menu" checked>
+                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch6" id="myonoffswitch13" class="onoffswitch2-checkbox default-menu" checked>
                                             <label for="myonoffswitch13" class="onoffswitch2-label"></label>
                                         </p>
                                     </div>
                                     <div class="switch-toggle d-flex mt-2">
                                         <span class="me-auto">Icon with Text</span>
-                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch6"
-                                                id="myonoffswitch14" class="onoffswitch2-checkbox">
+                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch6" id="myonoffswitch14" class="onoffswitch2-checkbox">
                                             <label for="myonoffswitch14" class="onoffswitch2-label"></label>
                                         </p>
                                     </div>
                                     <div class="switch-toggle d-flex mt-2">
                                         <span class="me-auto">Icon Overlay</span>
-                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch6"
-                                                id="myonoffswitch15" class="onoffswitch2-checkbox">
+                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch6" id="myonoffswitch15" class="onoffswitch2-checkbox">
                                             <label for="myonoffswitch15" class="onoffswitch2-label"></label>
                                         </p>
                                     </div>
                                     <div class="switch-toggle d-flex mt-2">
                                         <span class="me-auto">Closed Sidemenu</span>
-                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch6"
-                                                id="myonoffswitch16" class="onoffswitch2-checkbox">
+                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch6" id="myonoffswitch16" class="onoffswitch2-checkbox">
                                             <label for="myonoffswitch16" class="onoffswitch2-label"></label>
                                         </p>
                                     </div>
                                     <div class="switch-toggle d-flex mt-2">
                                         <span class="me-auto">Hover Submenu</span>
-                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch6"
-                                                id="myonoffswitch17" class="onoffswitch2-checkbox">
+                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch6" id="myonoffswitch17" class="onoffswitch2-checkbox">
                                             <label for="myonoffswitch17" class="onoffswitch2-label"></label>
                                         </p>
                                     </div>
                                     <div class="switch-toggle d-flex mt-2">
                                         <span class="me-auto">Hover Submenu Style 1</span>
-                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch6"
-                                                id="myonoffswitch18" class="onoffswitch2-checkbox">
+                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch6" id="myonoffswitch18" class="onoffswitch2-checkbox">
                                             <label for="myonoffswitch18" class="onoffswitch2-label"></label>
                                         </p>
                                     </div>
@@ -380,10 +332,10 @@
                             <div class="skin-body">
                                 <div class="switch_section my-4">
                                     <button class="btn btn-danger btn-block" onclick="localStorage.clear();
-                                        document.querySelector('html').style = '';
-                                        names() ;
+										document.querySelector('html').style = '';
+										names() ;
                                         resetData() ;" type="button">Reset All
-                                    </button>
+									</button>
                                 </div>
                             </div>
                         </div>
@@ -405,15 +357,15 @@
         <div class="page-main">
 
             <!-- app-Header -->
-            <?php
-            include "header.php";
-            ?>
+           <?php 
+           include "header.php";
+           ?>
             <!-- /app-Header -->
 
             <!--APP-SIDEBAR-->
-            <?php
+           <?php
             include "sidebar.php";
-            ?>
+           ?>
             <!--app-content open-->
             <div class="main-content app-content mt-0" style="background-color: white !important;">
                 <div class="side-app p-0">
@@ -422,55 +374,52 @@
                     <div class="main-container container-fluid">
                         <!-- ROW-1 OPEN -->
                         <!-- Row -->
-
-                          <div class="row">
-
+                        
+<div class="row">
+                            
                             <div class="col-lg-12 p-0">
                                 <form action="" enctype="multipart/form-data">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <div class="card-title">View Expense</div>
-                                        </div>
-                                        <div class="card-body">
-
-                                            <!-- <div class="heading mt-8">
-
-                                                <h4>View All Categories</h4>
-
-                                            </div> -->
-
-                                            <div class="row mt-5">
-
-                                                <table class="table">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>#</th>
-                                                            <th>Expense Type</th>
-                                                            <th>Amount</th>
-                                                            <th>Date</th>
-                                                            <th>Description</th>
-                                                            <th>Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody id="bodycat">
-
-                                                    </tbody>
-                                                </table>
-                                            </div>
-
-
-
-                                        </div>
-                                        <div class="card-footer">
-                                            <!--Row-->
-
-                                            <!--End Row-->
-                                        </div>
+                                <div class="card">
+                                    <div class="card-header">
+                                        <div class="card-title">View All Items</div>
                                     </div>
+                                    <div class="card-body">
+
+                                        <div class="row mt-5">
+
+                                        <table class="table" id="showtable">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Order Id</th>
+                                                    <th>Sub Total</th>
+                                                    <th>Discount</th>
+                                                    <th>Grand Total</th>
+                                                    <th>Date</th>
+                                                    <th>Status</th>
+                                                    <th>Kitchen's Copy</th>
+                                                    <th>Customer Copy</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="bodycat">
+
+                                            </tbody>
+                                        </table>
+                                        </div>
+
+
+                                
+                                    </div>
+                                    <div class="card-footer">
+                                        <!--Row-->
+                                      
+                                        <!--End Row-->
+                                    </div>
+                                </div>
                                 </form>
                             </div>
 
-                        </div>
+                        </div>  
                         <!-- /Row -->
                     </div>
                     <!-- CONTAINER CLOSED -->
@@ -479,55 +428,67 @@
             <!--app-content closed-->
         </div>
 
+
+
+
         <!-- edit modal -->
         <div class="modal fade" id="editmodal">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content modal-content-demo">
-                    <div class="modal-header">
-                        <h6 class="modal-title">Edit Expense</h6><button aria-label="Close" class="btn-close"
-                            data-bs-dismiss="modal"><span aria-hidden="true">&times;</span></button>
-                    </div>
-                    <div class="modal-body">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content modal-content-demo">
+                <div class="modal-header">
+                    <h6 class="modal-title">Edit Item</h6><button aria-label="Close" class="btn-close" data-bs-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                <form  id="addItemForm" enctype="multipart/form-data">
+                                    <div class="card-body">
+                                    <div class="row mb-4">
+                                            <label class="col-md-3 form-label">Category :</label>
+                                            <div class="col-md-9">
+                                            <select name="" class="form-control" id="catrgory" aria-placeholder="">
+                                                <option value="" disabled selected>Select category</option>
 
-                        <input type="hidden" id="idd">
-                        <div class="row mb-4">
-                                                <label class="col-md-3 form-label">Expense Type :</label>
-                                                <div class="col-md-9">
-                                                    <input type="text" id="type" class="form-control" placeholder="Enter Expense Type">
-                                                </div>
-                                            </div>
-                                            <div class="row mb-4">
-                                                <label class="col-md-3 form-label">Amount:</label>
-                                                <div class="col-md-9">
-                                                   <input type="number" class="form-control" id="Amount" placeholder="Enter Amount">  
-                                                    
-                                                </div>
-                                            </div>
-                                            <div class="row mb-4">
-                                                <label class="col-md-3 form-label">Date:</label>
-                                                <div class="col-md-9">
-                                                   <input type="Date" class="form-control" id="date" >  
-                                                    
-                                                </div>
-                                            </div>
-                                            <div class="row mb-4">
-                                                <label class="col-md-3 form-label">Description:</label>
-                                                <div class="col-md-9">
-                                                  <textarea name="" class="form-control" id="desc" cols="30" rows="5"></textarea>
-                                                </div>
-                                            </div>
+                                            </select>       
+                                        </div>
+                                        </div>
 
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-primary" onclick="edit()">Edit Expense</button>
-                    </div>
+                                        <div class="row mb-4">
+                                            <label class="col-md-3 form-label">Subcategory:</label>
+                                            <div class="col-md-9">
+                                            <select name="" class="form-control" id="subcatrgory" aria-placeholder="">
+                                                <option value="" disabled selected>Select Subcategory</option>
+
+                                            </select>       
+                                        </div>
+                                        </div>
+
+                                        <div class="row mb-4">
+                                            <label class="col-md-3 form-label">Item Name :</label>
+                                            <div class="col-md-9">
+                                                <input type="text" class="form-control" id="itemname" placeholder="Enter Name">
+                                        </div>
+                                        </div>
+                                        
+                                        <div class="row mb-4">
+                                            <label class="col-md-3 form-label">Price:</label>
+                                            <div class="col-md-9">
+                                                <input type="number" class="form-control" id="price" placeholder="Enter Price">
+                                        </div>
+                                        </div>
+                                    
+                                        <input type="hidden" id="idd">
+                                        
+                                    </div>
+                                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" onclick="edit()">Edit SubCategory</button>
                 </div>
             </div>
         </div>
+    </div>
 
         <!-- edit modal end -->
-
-
+        
     </div>
 
     <!-- BACK-TO-TOP -->
@@ -543,17 +504,17 @@
     <!-- SIDE-MENU JS -->
     <script src="../assets/plugins/sidemenu/sidemenu.js"></script>
 
-    <!-- TypeHead js -->
-    <script src="../assets/plugins/bootstrap5-typehead/autocomplete.js"></script>
-    <script src="../assets/js/typehead.js"></script>
+	<!-- TypeHead js -->
+	<script src="../assets/plugins/bootstrap5-typehead/autocomplete.js"></script>
+    <!-- <script src="../assets/js/typehead.js"></script> -->
 
     <!-- SIDEBAR JS -->
     <script src="../assets/plugins/sidebar/sidebar.js"></script>
 
     <!-- Perfect SCROLLBAR JS-->
     <script src="../assets/plugins/p-scroll/perfect-scrollbar.js"></script>
-    <script src="../assets/plugins/p-scroll/pscroll.js"></script>
-    <script src="../assets/plugins/p-scroll/pscroll-1.js"></script>
+    <!-- <script src="../assets/plugins/p-scroll/pscroll.js"></script>
+    <script src="../assets/plugins/p-scroll/pscroll-1.js"></script> -->
 
     <!-- Color Theme js -->
     <script src="../assets/js/themeColors.js"></script>
@@ -566,105 +527,81 @@
 
     <!-- Switcher js -->
     <script src="../assets/switcher/js/switcher.js"></script>
-
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="../assets/js/url.js"></script>
+
 </body>
 
 </html>
+
+
 <script>
 const baseurl=url;
-var datas="",categoryresult="";
+var datas="",categoryresult="",subcategoryresult="";
 $(document).ready(function(){
-    product();
-});
-//  let a:()=>void = () =>:void {
-
-//  };
-function product() {
-    $.ajax({
-    url:`${baseurl}expense/read.php`,
+$.ajax({
+    // url:`${baseurl}items/read.php`,
+    url: `http://localhost/restaurant/api/order/completeOrder.php`,
     type:"GET",
     contentType:"application/json",
     success:function(response,status){
-        console.log(response);  
-         datas=response.response;
-        // console.log(datas);
+        datas=response.response;
+        console.log(datas)
         displayTable(datas);
+        var table = new DataTable('#showtable');
+        // console.log(datas);
     },
     error:function(error){
         console.log(error);
     }
 })
 
-    }
+function displayTable(data){
+var tabledata='',i=1;
+data.forEach(element => {
+    tabledata+=`
+    <tr>
+    <td>${i}</td>
+    <td>${element.CustomOrderId}</td>
+    <td>${element.Subtotal}</td>
+    <td>${element.Discount}</td>
+    <td>${element.Total}</td>
+    <td>${element.order_date}</td>
+    <td>${element.order_status}</td>
+    <td>
+            <a class="btn text-primary btn-sm" onclick="Printorder('${element.CustomOrderId}')" data-bs-toggle="tooltip" data-bs-original-title="Edit"><span class="fa fa-print fs-14"></span></a></td>
+            <td>
+            <a class="btn text-primary btn-sm" onclick="FinalPrintorder('${element.CustomOrderId}')" data-bs-toggle="tooltip" data-bs-original-title="Edit"><span class="fa fa-print fs-14"></span></a></td>
 
-    function displayTable(data) {
-            var tabledata = '', i = 1;
-            var tableBody = document.getElementById("bodycat");
-
-// Loop through the data and create table rows
-for (var key in data) {
-    if (data.hasOwnProperty(key)) {
-        var item = data[key];
-        var row = tableBody.insertRow(tableBody.rows.length);
-        var cell1 = row.insertCell(0);
-        var cell2 = row.insertCell(1);
-        var cell3 = row.insertCell(2);
-        var cell4 = row.insertCell(3);
-        var cell5 = row.insertCell(4);
-        var cell6= row.insertCell(5);
-        cell1.innerHTML = i;
-        cell2.innerHTML = item.expense_type;
-        cell3.innerHTML = item.expense_amount;
-        cell4.innerHTML = item.expense_date;
-        cell5.innerHTML = item.expense_description;
-        cell6.innerHTML = `<a class="btn text-primary btn-sm" onclick="editExpense('${i - 1}')" data-bs-toggle="tooltip" data-bs-original-title="Edit"><span class="fe fe-edit fs-14"></span></a>
- `;
-        
-        i++;
-    }
-}  }
-
-    
-function editExpense(i){
-    var result = datas[i];
-        // console.log(result);
-        $("#editmodal").modal('show');
-        $("#idd").val(result.expense_id);
-        var type = $("#type").val(result.expense_type);
-        var Amount = $("#Amount").val(result.expense_amount);
-        var date=$("#date").val(result.expense_date);
-        var desc=$("#desc").val(result.expense_description);
+    </tr>
+    `;
+    i++;
+});
+$("#bodycat").html(tabledata);
 }
 
+});
 
-function edit() {
-   var idd= $("#idd").val();
-        var type = $("#type").val();
-        var Amount = $("#Amount").val();
-        var date=$("#date").val();
-        var desc=$("#desc").val();
-        
-        const postdata = {
-            id:idd,
-            type:type,
-            amount:Amount,
-            description:desc,
-            date:date
-        };
-        console.log(postdata);
-        $.ajax({
-            url: `${baseurl}expense/update.php`,
-            type: "PUT",
-            data: JSON.stringify(postdata),
-            contentType: "application/json",
-            success: function (status) {
-                window.location.reload();
-            },
-            error: function (error) {
-                console.log(error);
-            }
-        });
+
+function Printorder(id) {
+        var newUrl = `kitchens_copy.php?id=${id}`;
+        // window.location.href=newUrl;
+        window.open(newUrl, '_blank');
     }
 
+    
+    function FinalPrintorder(id){
+        var newUrl = `customer_copy.php?id=${id}`;
+        // window.location.href=newUrl;
+        window.open(newUrl, '_blank');
+    }
+
+
+
+
+
+
+
+
 </script>
+

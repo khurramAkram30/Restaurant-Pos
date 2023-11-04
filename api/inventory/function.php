@@ -171,4 +171,23 @@ function displayInventoryData(){
 }
 
 
+function insertInventory(){
+    global $conn;
+    $query= 'SELECT * FROM items ORDER BY id DESC LIMIT 1';
+    $result=mysqli_query($conn,$query);
+    if($result){
+        if(mysqli_num_rows($result) > 0){
+            while($row = mysqli_fetch_assoc($result)) {
+                $itemid=$row['id'];
+                $insertqty="insert into inventory VALUES(NULL,$itemid,0)";
+                $insertResult=mysqli_query($conn,$insertqty);
+                if($insertResult){
+                echo "inserted";
+                }
+            }
+        }
+    }
+}
+
+
 ?>

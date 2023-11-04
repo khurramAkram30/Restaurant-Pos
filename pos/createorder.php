@@ -709,6 +709,7 @@
                                         <tr>
                                             <th>#</th>
                                             <th>Order Id</th>
+                                            <th>Table</th>
                                             <th>Total</th>
                                             <th>Status</th>
                                             <th>Kitchen Print</th>
@@ -1307,13 +1308,15 @@
             <tr>
             <td>${i}</td>
             <td>${element.CustomOrderId}</td>
+            <td>${element.table_id}</td>
             <td>${element.Total}</td>
             <td>${element.order_status}</td>
-            <td><a class="btn text-primary btn-sm" onclick="editorder('${element.CustomOrderId}')" data-bs-toggle="tooltip" data-bs-original-title="Edit"><span class="fe fe-edit fs-14"></span></a>
-            <a class="btn text-primary btn-sm" onclick="Printorder('${element.CustomOrderId}')" data-bs-toggle="tooltip" data-bs-original-title="Edit"><span class="fa fa-print fs-14"></span></a>
+            <td>
+            <a class="btn text-primary btn-sm" onclick="Printorder('${element.CustomOrderId}')" data-bs-toggle="tooltip" data-bs-original-title="Edit"><span class="fa fa-print fs-14"></span></a></td>
+            <td>
+            <a class="btn text-primary btn-sm" onclick="FinalPrintorder('${element.CustomOrderId}')" data-bs-toggle="tooltip" data-bs-original-title="Edit"><span class="fa fa-print fs-14"></span></a></td>
 
-</td>
-</tr>
+            </tr>
 `;
                 i++;
             });
@@ -1327,6 +1330,12 @@
 `;
         }
         $("#finishBody").html(tabledata);
+    }
+
+    function FinalPrintorder(id){
+        var newUrl = `finalbill.php?id=${id}`;
+        // window.location.href=newUrl;
+        window.open(newUrl, '_blank');
     }
 
 </script>

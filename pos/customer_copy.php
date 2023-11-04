@@ -106,9 +106,9 @@ $pdf->Cell(20,5,'Cash',1,1,'C');
 $pdf->Output();
 
 
-$updateTable="UPDATE tables set staus='Available' where id=$result[2]";
-$Order_status="UPDATE orders set order_status='Completed' where CustomOrderId='$idGet'";
+// $updateTable="UPDATE tables set staus='Available' where id=$result[2]";
+// $Order_status="UPDATE orders set order_status='Completed' where CustomOrderId='$idGet'";
 
-$res=mysqli_query($conn,$updateTable);
-$res1=mysqli_query($conn,$Order_status);
+// $res=mysqli_query($conn,$updateTable);
+// $res1=mysqli_query($conn,$Order_status);
 ?>
