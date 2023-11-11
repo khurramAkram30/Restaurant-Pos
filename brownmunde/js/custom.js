@@ -73,10 +73,20 @@
 	// 	});
 	// });
 
+
+	// navbar
+
+
+	// navbar
+
 	var Container = $('.container');
+
+
+
 
 // Ensure all images are loaded
 Container.imagesLoaded(function () {
+
     var portfolio = $('.special-menu');
     portfolio.on('click', 'button', function () {
         $(this).addClass('active').siblings().removeClass('active');
