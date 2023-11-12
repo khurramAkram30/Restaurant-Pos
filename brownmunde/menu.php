@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="css/style.css">
     <!-- Responsive CSS -->
     <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Custom CSS -->
     <!-- <link rel="stylesheet" href="css/custom.css"> -->
 
@@ -99,9 +100,28 @@
             height: 25px;
             width: 25px;
         }
-        .collectionTime{
+
+        .collectionTime {
             font-size: 18px;
             font-weight: 800;
+        }
+
+        td,
+        th {
+            text-align: center;
+        }
+
+        .labels {
+            display: flex;
+            align-items: center;
+            justify-content: end;
+            font-size: 17px;
+            font-weight: 600;
+        }
+
+        .form-control {
+            border-radius: 0px;
+            min-height: 0px;
         }
     </style>
 
@@ -132,21 +152,14 @@
         <div class="row">
             <div class="col-lg-12 ">
                 <div class="special-menu text-center">
-                    <div class="button-group filter-button-group">
-                        <button class="active" data-filter=".drinks">Drinks</button>
+                    <div class="button-group filter-button-group" id="categories">
+                        <!-- <button class="active" data-filter=".drinks">Drinks</button>
                         <button data-filter=".lunch">Food</button>
-                        <button data-filter=".dinner">Sweets</button>
+                        <button data-filter=".dinner">Sweets</button> -->
                     </div>
                     <div class="special-menu text-center">
-                        <div class="button-group filter-button-group">
-                            <button class="active" data-filter=".drinks">Drinks</button>
-                            <button data-filter=".lunch">Lunch</button>
-                            <button data-filter=".dinner">Dinner</button>
-                            <button class="active" data-filter=".drinks">Food</button>
-                            <button data-filter=".lunch">Lunch</button>
-                            <button data-filter=".dinner">Dinner</button>
-                            <button class="active" data-filter=".drinks">Sweets</button>
-                            <button data-filter=".lunch">Lunch</button>
+                        <div class="button-group filter-button-group" id="subCategories">
+
 
 
 
@@ -162,52 +175,44 @@
     <!-- Start Menu -->
     <div class="menu-box p-0">
         <div class="container">
-       
+
 
 
             <div class="row special-list mb-3" id="items-list">
                 <div class="col-lg-8 col-md-12">
-                    <div class="row">
-                        <div class="col-lg-4 col-md-6 special-grid drinks">
+                    <div class="row" id="products">
+                        <!-- <div class="col-lg-4 col-md-6 special-grid Drinks ">
                             <div class="gallery-single fix">
                                 <img src="images/img-01.jpg" class="img-fluid" alt="Image">
                                 <div class="cartItem">
                                     <h4><b>Baby Aubergine & Potato</b></h4>
-                                    <!-- <p class="text-center">ladyfingers cooked with fresh tomatoes</p> -->
                                     <label class="labelSet" for="">$45</label>
-                                    <button class="btn mb-1 btnset" onclick="alert(123)">Add To Cart</button>
+                                    <button class="btn mb-1 btnset" onclick="cart(1,'Baby Aubergine & Potato',45,2)">Add
+                                        To Cart</button>
                                 </div>
 
                             </div>
                         </div>
 
-                        <div class="col-lg-4 col-md-6 special-grid drinks">
-                            <div class="gallery-single fix">
-                                <img src="images/img-02.jpg" class="img-fluid" alt="Image">
-                                <div class="cartItem">
-                                    <h4><b>Baby Aubergine & Potato</b></h4>
-                                    <!-- <p class="text-center">ladyfingers cooked with fresh tomatoes</p> -->
-                                    <label class="labelSet" for="">$45</label>
-                                    <button class="btn mb-1 btnset" onclick="alert(123)">Add To Cart</button>
-                                </div>
-                            </div>
-                        </div>
+                      
 
-                        <div class="col-lg-4 col-md-6 special-grid drinks">
+                        <div class="col-lg-4 col-md-6 special-grid Sweet">
                             <div class="gallery-single fix">
                                 <img src="images/img-03.jpg" class="img-fluid" alt="Image">
                                 <div class="cartItem">
                                     <h4><b>Baby Aubergine & Potato</b></h4>
-                                    <!-- <p class="text-center">ladyfingers cooked with fresh tomatoes</p> -->
                                     <label class="labelSet" for="">$45</label>
-                                    <button class="btn mb-1 btnset" onclick="alert(123)">Add To Cart</button>
+                                    <button class="btn mb-1 btnset"
+                                        onclick="cart(3,'Baby Aubergine & Potato3',47,5)">Add To Cart</button>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-8 " style="padding-top: 30px;">
+
+
+                <div class="col-lg-4 col-md-12 " style="padding-top: 30px;">
                     <div class=" cutomize ">
                         <label for="">Your Order</label>
                     </div>
@@ -215,16 +220,16 @@
 
                         <div class="col-md-6 d-flex p-4"
                             style="background-color: black; gap: 10px;border-right: 1px solid white;">
-                            <input type="radio" value="Home Delivery" class="radiobtn">
+                            <input type="radio" value="Home Delivery" name="deliveryType" id="home" class="radiobtn">
                             <label for="" style="color: #ffffff;">Home Delivery</label>
                         </div>
 
                         <div class="col-md-6 d-flex p-4" style="background-color: black; gap: 10px">
-                            <input type="radio" value="Home Delivery" class="radiobtn">
+                            <input type="radio" value="collection" name="deliveryType" id="collect" class="radiobtn">
                             <label for="" style="color: #ffffff;">Collection</label>
                         </div>
 
-                        <div class="form-group w-100 text-center collectionTime">
+                        <div class="form-group w-100 text-center collectionTime" id="collectionselect">
                             <label for="sel1" class="form-label">Collection Time</label>
                             <select class="form-control " id="sel1" name="sellist1">
                                 <option>1</option>
@@ -234,7 +239,8 @@
                             </select>
                         </div>
 
-                        <div class="form-group w-100 text-center collectionTime" style="display: none;">
+                        <div class="form-group w-100 text-center collectionTime" id="homeDeliveryselect"
+                            style="display: none;">
                             <label for="sel1" class="form-label">We Are Delivering On These Zip Codes</label>
                             <select class="form-control " id="sel1" name="sellist1">
                                 <option>743500</option>
@@ -243,6 +249,90 @@
                                 <option>09876</option>
                             </select>
                         </div>
+
+
+                        <div class="table-responsive" id="table" style="display: none;">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Item</th>
+                                        <th>Qty</th>
+                                        <th>Price</th>
+                                        <th>Remove</th>
+
+                                    </tr>
+                                </thead>
+
+                                <tbody id="cart">
+
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                        <div class="col-md-12 mb-2" style="border: 1px solid;"></div>
+
+                        <!-- sub total -->
+                        <div class="row" id="info" style="display: none;">
+
+                            <div class="col-md-3"></div>
+                            <div class="col-md-4 labels">
+                                <label for="">Sub-Total</label>
+                            </div>
+                            <div class="col-md-5 mb-1">
+                                <input type="text" id="subtotal" readonly class="form-control">
+                            </div>
+
+                            <!-- sub total -->
+
+
+                            <!-- collection -->
+                            <div class="col-md-3"></div>
+                            <div class="col-md-4 labels">
+                                <label for="">Collecetion</label>
+                            </div>
+                            <div class="col-md-5 mb-1">
+                                <input type="text" id="collect" value="0" readonly class="form-control">
+                            </div>
+
+                            <!-- Collection -->
+
+                            <!-- Service  -->
+                            <div class="col-md-2"></div>
+                            <div class="col-md-5 labels">
+                                <label for="">Service Charge</label>
+                            </div>
+                            <div class="col-md-5 mb-1">
+                                <input type="text" id="service" value="50" readonly class="form-control">
+                            </div>
+
+                            <!-- Service -->
+
+                            <!-- Total  -->
+                            <div class="col-md-2"></div>
+                            <div class="col-md-5 labels">
+                                <label for="">Total</label>
+                            </div>
+                            <div class="col-md-5 mb-1">
+                                <input type="text" id="total" readonly class="form-control">
+                            </div>
+                            <!-- Total -->
+
+                            <!-- special -->
+                            <div class="col-md-12 mb-1">
+                                <textarea name="" class="form-control" id="" cols="30" rows="4"
+                                    placeholder="Special instrucion if you have any.."></textarea>
+                            </div>
+                            <!-- special -->
+
+                            <div class="col-md-12 mb-1">
+                                <button class="btn btn-primary form-control" style="background:#d0a772;"> Checkout
+                                </button>
+                            </div>
+                            <!-- special -->
+
+                        </div>
+
 
                     </div>
                 </div>
@@ -274,10 +364,13 @@
     <script src="js/form-validator.min.js"></script>
     <script src="js/contact-form-script.js"></script>
     <script src="js/custom.js"></script>
+    <!-- <script src="../assets/js/url.js"></script> -->
+    <script src="js/getItems.js"></script>
 </body>
 
 </html>
 <script>
+    // const baseurl = url;
     var currentLocation = window.location.pathname;
     //   alert(currentLocation);
     // Find the matching link in the navigation and add the active class
@@ -291,6 +384,8 @@
     });
 
     $(document).ready(function () {
+        getCategories();
+        item();
         var defaultFilter = '.drinks';
         var $grids = $('#items-list').isotope({
             itemSelector: '.special-grid'
@@ -301,124 +396,118 @@
             filter: defaultFilter
         });
 
-      $(".special-grid ").css("position","unset");  
+        $(".special-grid ").css("position", "unset");
 
-      $(".special-list").css("height", "auto");
+        $(".special-list").css("height", "auto");
 
-// Set the height to "auto" on window resize
-$(window).resize(function() {
-    $(".special-list").css({
-        "height": "auto",
-        "min-height": "initial",  // Reset min-height if necessary
-    });
-});
 
-      
+
     });
 
-  
+    $("input[name='deliveryType']").change(function () {
+        var home = $("#home").prop("checked");
+        if (home) {
+            // alert("Home Delivery selected");
+            $('#collectionselect').css("display", "none");
+
+            $('#homeDeliveryselect').css("display", "block");
+
+        }
+        else {
+            $('#homeDeliveryselect').css("display", "none");
+            $('#collectionselect').css("display", "block");
+
+
+        }
+    });
+
 </script>
 
+<script>
+    var arr = [];
 
-     <!-- <div class="row">
-                <div class="col-lg-9">
-                    <div class="heading-title text-center mb-0">
-                        <h2>Menu</h2>
-                    </div>
-                </div>
-            </div> -->
-            <!-- <div class="row">
-                <div class="col-lg-12">
-                    <div class="special-menu text-center">
-                        <div class="button-group filter-button-group">
-                            <button class="active" data-filter=".drinks">Drinks</button>
-                            <button data-filter=".lunch">Lunch</button>
-                            <button data-filter=".dinner">Dinner</button>
-                        </div>
-                        <div class="special-menu text-center">
-                        <div class="button-group filter-button-group">
-                            <button class="active" data-filter=".drinks">Drinks</button>
-                            <button data-filter=".lunch">Lunch</button>
-                            <button data-filter=".dinner">Dinner</button>
-                            <button class="active" data-filter=".drinks">Drinks</button>
-                            <button data-filter=".lunch">Lunch</button>
-                            <button data-filter=".dinner">Dinner</button>
-                            <button class="active" data-filter=".drinks">Drinks</button>
-                            <button data-filter=".lunch">Lunch</button>
-                            
-                
+    function cart(id, name, price, qty) {
+        $(".special-list").css("height", "auto");
+        $("#info").css("display", "contents");
+        $("#table").css("display", "block");
+        var SubTotal = parseInt(qty * price);
+        var pushdata = {
+            productid: id,
+            quantity: qty,
+            productname: name,
+            itemprice: price,
+            price: SubTotal,
+        }
+        var existingItem = arr.find(item => item.productid === id);
 
-                        </div>
-                    </div>
-                    </div>
-                </div>
-            </div> -->
+        if (existingItem) {
+            var quant = existingItem.quantity++;
+            var stotal = parseInt((quant + 1) * price);
+            existingItem.price = stotal;
+        } else {
+            // If it doesn't exist, add a new item
+            arr.push(pushdata);
+        }
+        showdata(arr);
+    }
 
-<!-- 
-<div class="col-lg-4 col-md-6 special-grid lunch">
-                            <div class="gallery-single fix">
-                                <img src="images/img-04.jpg" class="img-fluid" alt="Image">
-                                <div class="cartItem">
-                                    <h4><b>Baby Aubergine & Potato</b></h4>
-                                    <label class="labelSet" for="">$45</label>
-                                    <button class="btn mb-1 btnset" onclick="alert(123)">Add To Cart</button>
-                                </div>
-                            </div>
-                        </div>
+    function showdata(data) {
+        sessionStorage.setItem('shoppingCart', JSON.stringify(data));
+        var tabledata = "", i = 0, subtotal = 0;
+        data.forEach(item => {
+            subtotal += item.price;
+            tabledata += `
+    <tr>
+    <td>${item.productname}</td>
+    <td><input type="text" class="form-control quantity${i}" value="${item.quantity > 0 ? item.quantity : ""}" onkeyup="quantitychange('${i}')"></td>
+    <td>${item.price > 0 ? item.price : ""}</td>
+    <td><a class="btn text-danger btn-sm" onclick="removeObj('${i}')" data-bs-toggle="tooltip" data-bs-original-title="Edit"><span class="fa fa-trash-o fs-14"></span></a>
+    </td>
+  
+    </tr>
+    
+    `;
+            i++;
+        })
+        $("#subtotal").val(subtotal);
+        // $("#PaidAmount").val(subtotal);
+        $("#cart").html(tabledata);
+    }
 
-                        <div class="col-lg-4 col-md-6 special-grid lunch">
-                            <div class="gallery-single fix">
-                                <img src="images/img-05.jpg" class="img-fluid" alt="Image">
-                                <div class="cartItem">
-                                    <h4><b>Baby Aubergine & Potato</b></h4>
-                                    <label class="labelSet" for="">$45</label>
-                                    <button class="btn mb-1 btnset" onclick="alert(123)">Add To Cart</button>
-                                </div>
-                            </div>
-                        </div>
+    function quantitychange(index) {
+        var quantityextra = parseInt(document.querySelector(`.quantity${index}`).value);
+        arr[index].quantity = quantityextra;
+        var itemsprice = arr[index].itemprice;
+        // console.log(itemsprice);
+        var subtotals = parseInt(quantityextra * itemsprice);
+        arr[index].price = subtotals;
 
+        // console.log("updated",arr);
 
-                        
-                        <div class="col-lg-4 col-md-6 special-grid lunch">
-                            <div class="gallery-single fix">
-                                <img src="images/img-06.jpg" class="img-fluid" alt="Image">
-                                <div class="cartItem">
-                                    <h4><b>Baby Aubergine & Potato</b></h4>
-                                    <label class="labelSet" for="">$45</label>
-                                    <button class="btn mb-1 btnset" onclick="alert(123)">Add To Cart</button>
-                                </div>
-                            </div>
-                        </div>
+        showdata(arr);
 
-                        <div class="col-lg-4 col-md-6 special-grid dinner">
-                            <div class="gallery-single fix">
-                                <img src="images/img-07.jpg" class="img-fluid" alt="Image">
-                                <div class="cartItem">
-                                    <h4><b>Baby Aubergine & Potato</b></h4>
-                                    <label class="labelSet" for="">$45</label>
-                                    <button class="btn mb-1 btnset" onclick="alert(123)">Add To Cart</button>
-                                </div>
-                            </div>
-                        </div>
+    }
 
-                        <div class="col-lg-4 col-md-6 special-grid dinner">
-                            <div class="gallery-single fix">
-                                <img src="images/img-08.jpg" class="img-fluid" alt="Image">
-                                <div class="cartItem">
-                                    <h4><b>Baby Aubergine & Potato</b></h4>
-                                    <label class="labelSet" for="">$45</label>
-                                    <button class="btn mb-1 btnset" onclick="alert(123)">Add To Cart</button>
-                                </div>
-                            </div>
-                        </div>
+    function removeObj(index) {
+        arr.splice(index, 1);
+        console.log(arr);
+        showdata(arr);
+    }
 
-                        <div class="col-lg-4 col-md-6 special-grid dinner">
-                            <div class="gallery-single fix">
-                                <img src="images/img-09.jpg" class="img-fluid" alt="Image">
-                                <div class="cartItem">
-                                    <h4><b>Baby Aubergine & Potato</b></h4>
-                                    <label class="labelSet" for="">$45</label>
-                                    <button class="btn mb-1 btnset" onclick="alert(123)">Add To Cart</button>
-                                </div>
-                            </div>
-                        </div> -->
+    // testing
+
+// testing
+
+    // Set the height to "auto" on window resize
+    $(window).resize(function () {
+        // Use setTimeout to delay execution after 2 seconds'
+        setTimeout(function () {
+            $("#items-list").css({
+                "height": "auto",
+                "min-height": "initial",  // Reset min-height if necessary
+            });
+
+        }, 100); // 2000 milliseconds (2 seconds)
+    });
+
+</script>

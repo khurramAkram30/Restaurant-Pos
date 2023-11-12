@@ -95,7 +95,7 @@ Container.imagesLoaded(function () {
         var $grid = $('#items-list').isotope({
             itemSelector: '.special-grid'
         });
-
+		
         $grid.isotope({
             filter: filterValue
         });
