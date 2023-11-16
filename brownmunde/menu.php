@@ -216,7 +216,7 @@
                     <div class=" cutomize ">
                         <label for="">Your Order</label>
                     </div>
-                    <div class="row" style="padding-left:15px;padding-right:15px;">
+                    <div class="row" id="yourOrder" style="padding-left:15px;padding-right:15px;">
 
                         <div class="col-md-6 d-flex p-4"
                             style="background-color: black; gap: 10px;border-right: 1px solid white;">
@@ -231,7 +231,8 @@
 
                         <div class="form-group w-100 text-center collectionTime" id="collectionselect">
                             <label for="sel1" class="form-label">Collection Time</label>
-                            <select class="form-control " id="sel1" name="sellist1">
+                            <select class="form-control " id="collectTime" name="sellist1">
+                                <!-- <option value="" disabled>Select the option</option> -->
                                 <option>1</option>
                                 <option>2</option>
                                 <option>3</option>
@@ -242,7 +243,8 @@
                         <div class="form-group w-100 text-center collectionTime" id="homeDeliveryselect"
                             style="display: none;">
                             <label for="sel1" class="form-label">We Are Delivering On These Zip Codes</label>
-                            <select class="form-control " id="sel1" name="sellist1">
+                            <select class="form-control " id="deliveryZipCode" name="sellist1">
+                            <!-- <option value="" disabled>Select the option</option> -->
                                 <option>743500</option>
                                 <option>12345</option>
                                 <option>12456</option>
@@ -292,7 +294,7 @@
                                 <label for="">Collecetion</label>
                             </div>
                             <div class="col-md-5 mb-1">
-                                <input type="text" id="collect" value="0" readonly class="form-control">
+                                <input type="text" id="collectPrice" value="0" readonly class="form-control">
                             </div>
 
                             <!-- Collection -->
@@ -320,13 +322,14 @@
 
                             <!-- special -->
                             <div class="col-md-12 mb-1">
-                                <textarea name="" class="form-control" id="" cols="30" rows="4"
+                                <textarea name="" class="form-control" id="instruction" cols="30" rows="4"
                                     placeholder="Special instrucion if you have any.."></textarea>
                             </div>
                             <!-- special -->
 
                             <div class="col-md-12 mb-1">
-                                <button class="btn btn-primary form-control" style="background:#d0a772;"> Checkout
+                                <button class="btn btn-primary form-control" onclick="SaveData()"
+                                    style="background:#d0a772;"> Checkout
                                 </button>
                             </div>
                             <!-- special -->
@@ -452,8 +455,13 @@
     }
 
     function showdata(data) {
+        var collectionPrice=$("#collectPrice").val();
+        var servicePrice=$("#service").val();
+        
         sessionStorage.setItem('shoppingCart', JSON.stringify(data));
-        var tabledata = "", i = 0, subtotal = 0;
+   
+
+        var tabledata = "", i = 0, subtotal = 0,total=0;
         data.forEach(item => {
             subtotal += item.price;
             tabledata += `
@@ -469,8 +477,9 @@
     `;
             i++;
         })
+        total=parseInt(collectionPrice+servicePrice)+subtotal;
         $("#subtotal").val(subtotal);
-        // $("#PaidAmount").val(subtotal);
+        $("#total").val(total);
         $("#cart").html(tabledata);
     }
 
@@ -496,7 +505,56 @@
 
     // testing
 
-// testing
+    // testing
+
+
+    function SaveData() {
+        var home = $("#home").prop("checked");
+        var collect = $("#collect").prop("checked");
+        var zipcode=$("#deliveryZipCode").val();
+        var collectTime=$("#collectTime").val();
+        var collectionPrice=$("#collectPrice").val();
+        var servicePrice=$("#service").val();
+        var total=$("#total").val();
+        var instrucion=$("#instruction").val();
+        var subs=$("#subtotal").val();
+        if (!home && !collect) {
+            alert("Please Select the Delivery type ");
+        }
+        if(home){
+            var postdata={
+            zipcode:zipcode,
+            collectionPrice:collectionPrice,
+            serviceCharges:servicePrice,
+            total:total,
+            specialInstruction:instrucion,
+            Subtotal:subs,
+            deliveryType:$("#home").val(),
+            };
+            // console.log(postdata);
+            sessionStorage.setItem('Instruction', JSON.stringify(postdata));
+            window.location.href="ShoppingCart.php";
+        }
+        if(collect){
+            var postdata={
+            CollectionTime:collectTime,
+            collectionPrice:collectionPrice,
+            serviceCharges:servicePrice,
+            total:total,
+            specialInstruction:instrucion,
+            Subtotal:subs,
+            deliveryType:$("#collect").val(),
+            };
+   
+         sessionStorage.setItem('Instruction', JSON.stringify(postdata));
+         window.location.href="ShoppingCart.php";
+        }
+
+    
+        
+    }
+
+
 
     // Set the height to "auto" on window resize
     $(window).resize(function () {
@@ -507,7 +565,7 @@
                 "min-height": "initial",  // Reset min-height if necessary
             });
 
-        }, 100); // 2000 milliseconds (2 seconds)
+        }, 0); // 2000 milliseconds (2 seconds)
     });
 
 </script>

@@ -144,7 +144,7 @@ function item(){
         success: function (response, status) {
             dataItem = response.response;
             displayItems(dataItem);
-            console.log(response.response);
+            // console.log(response.response);
         },
         error: function (error) {
             console.log(error);
@@ -183,6 +183,37 @@ function resizeofrow(){
             "min-height": "initial",  // Reset min-height if necessary
         });
 
-    }, 100);
+    }, 0);
 }
+
+    // function loadItem(){
+    //     $(".special-list").css("height", "auto");
+    //     $("#info").css("display", "contents");
+    //     $("#table").css("display", "block");
+    //     var collectionPrice=$("#collectPrice").val();
+    //     var servicePrice=$("#service").val();
+    //     var getItem=JSON.parse(sessionStorage.getItem('shoppingCart'));
+    //     console.log(getItem);
+    //     var tabledata = "", i = 0, subtotal = 0,total=0;
+    //     getItem.forEach(item => {
+    //         subtotal += item.price;
+    //         tabledata += `
+    // <tr>
+    // <td>${item.productname}</td>
+    // <td><input type="text" class="form-control quantity${i}" value="${item.quantity > 0 ? item.quantity : ""}" onkeyup="quantitychange('${i}')"></td>
+    // <td>${item.price > 0 ? item.price : ""}</td>
+    // <td><a class="btn text-danger btn-sm" onclick="removeObj('${i}')" data-bs-toggle="tooltip" data-bs-original-title="Edit"><span class="fa fa-trash-o fs-14"></span></a>
+    // </td>
+  
+    // </tr>
+    
+    // `;
+    //         i++;
+    //     })
+    //     total=parseInt(collectionPrice+servicePrice)+subtotal;
+    //     $("#subtotal").val(subtotal);
+    //     $("#total").val(total);
+    //     $("#cart").html(tabledata);
+        
+    // }
 
