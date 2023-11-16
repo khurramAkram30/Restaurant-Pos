@@ -545,6 +545,9 @@
         contentType: "application/json",
         success: function (response, status) {
             console.log(response);
+            sessionStorage.removeItem('shoppingCart');
+            sessionStorage.removeItem('Instruction');
+            window.location.href="menu.php";    
         },
         error: function (error) {
             console.log(error);

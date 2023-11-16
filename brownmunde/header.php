@@ -31,6 +31,9 @@
 						</li> -->
 						<li class="nav-item"><a class="nav-link" href="contact.php">Contact</a></li>
 						<li class="nav-item"><a class="nav-link" href="ShoppingCart.php">Shopping Cart</a></li>
+						<li class="nav-item"><a class="nav-link btn" href="login.php">Login</a></li>
+						<li class="nav-item"><a class="nav-link btn" href="regiter.php">Register</a></li>
+				
 					</ul>
 				</div>
 			</div>

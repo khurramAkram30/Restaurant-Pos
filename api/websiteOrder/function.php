@@ -26,11 +26,7 @@ function createorder($datas)
         $sql = "insert into users VALUES (NULL,'" . $userinfo['fname'] . "','" . $userinfo['lname'] . "','" . $userinfo['email'] . "','" . $userinfo['telephone'] . "','','','" . $userinfo['postCode'] . "','" . $userinfo['address1'] . "','" . $userinfo['address2'] . "','" . $userinfo['city'] . "','$usertype')";
         $result = mysqli_query($conn, $sql);
         if ($result) {
-            $getUserId = "SELECT * FROM `users` ORDER BY id DESC LIMIT 1";
-            $getUserIdResult = mysqli_query($conn, $getUserId);
-            if (mysqli_num_rows($getUserIdResult) == 1) {
-                $row = mysqli_fetch_array($getUserIdResult);
-                $userID = $row[0];
+                $userID=getUserId(); 
                 // specialInstruction
                 $orderID=cusomOrder();
                 $websiteOrder = "insert into websiteorder VALUES (NULL,'$orderID',$userID,'In Progress','" . $instruction['total'] . "','$time','" . $instruction['specialInstruction'] . "')";
@@ -48,13 +44,16 @@ function createorder($datas)
                         $ordResult=mysqli_query($conn,$orders);
                     }
                     if  ($ordResult) {
-                            if($datas['deliveryType']== "collection"){
-                                collectionOrder($userID,$time);  
+                            if($instruction['deliveryType'] == "collection"){
+                                collectionOrder($userID,$instruction['CollectionTime']);  
                             }
                             else{
                                 deliveryOrder($userID,$time);
                             }
 
+                    $paymentQuery="insert into paymenttransaction values(NULL,'$orderID','$paymentType','".$instruction['total']."','$time')";
+                    $paymentQueryResult=mysqli_query($conn, $paymentQuery);
+                    if ($paymentQueryResult) {
                     $data = [
                         'status' => 201,
                         'message' => "Order Created",
@@ -64,12 +63,13 @@ function createorder($datas)
                     return json_encode($data);
                 }
             }
+            }
 
         }
     }
 
 }
-}   
+  
 
 function cusomOrder()
 {
@@ -84,7 +84,16 @@ function cusomOrder()
 
     }
 }
-
+function getUserId(){
+    global $conn;
+    $getUserId = "SELECT * FROM `users` ORDER BY id DESC LIMIT 1";
+    $getUserIdResult = mysqli_query($conn, $getUserId);
+    if (mysqli_num_rows($getUserIdResult) == 1) {
+        $row = mysqli_fetch_array($getUserIdResult);
+        $userID = $row[0];
+        return $userID;
+    }
+}
 function collectionOrder($userid,$time){
     global $conn;
     $query="insert into collectionorder values (Null,$userid,'$time','Confirm')";
@@ -96,5 +105,42 @@ function deliveryOrder($userid,$time){
     $res = mysqli_query($conn, $query);
 }
 
+$getCollectionOrder=array();
+function getCollectionOrder(){
+    global $conn;
+    $query="SELECT users.firstName,users.lastName,users.address1,users.phone,websiteorder.CustomOrderId,websiteorder.total,websiteorder.notes,collectionorder.time,paymenttransaction.paymentMethod,paymenttransaction.paymentAmount from users INNER JOIN websiteorder on users.id=websiteorder.userId INNER JOIN collectionorder on collectionorder.userId=websiteorder.userId INNER JOIN paymenttransaction on paymenttransaction.orderId=websiteorder.CustomOrderId";
+    $res = mysqli_query($conn, $query);
+    if(mysqli_num_rows($res) > 0) {
+        while($row = mysqli_fetch_assoc($res)) {
+            $getCollectionOrder[]= $row;
+        }
+        $data = [
+            'status' => 201,
+            'message' => "Order Created",
+            'Data' =>  $getCollectionOrder,
+        ];
+        header("HTTP:/1.0 201 created");
+        return json_encode($data);
+}
+}
+
+$getdeliverOrder=array();
+function getdeliverOrder(){
+    global $conn;
+    $query="SELECT users.firstName,users.lastName,users.address1,users.phone,websiteorder.CustomOrderId,websiteorder.total,websiteorder.notes,deliveryorders.userId,paymenttransaction.paymentMethod,paymenttransaction.paymentAmount from users INNER JOIN websiteorder on users.id=websiteorder.userId INNER JOIN deliveryorders on deliveryorders.userId=websiteorder.userId INNER JOIN paymenttransaction on paymenttransaction.orderId=websiteorder.CustomOrderId";
+    $res = mysqli_query($conn, $query);
+    if(mysqli_num_rows($res) > 0) {
+        while($row = mysqli_fetch_assoc($res)) {
+            $getdeliverOrder []= $row;
+        }
+        $data = [
+            'status' => 201,
+            'message' => "Order Created",
+            'Data' =>  $getdeliverOrder,
+        ];
+        header("HTTP:/1.0 201 created");
+        return json_encode($data);
+}   
+}
 
 ?>
