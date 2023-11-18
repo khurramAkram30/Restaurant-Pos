@@ -72,6 +72,16 @@
 
                                 </ul>
                             </li>
+
+                            <li class="slide">
+                                <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i class="side-menu__icon fe fe-slack"></i><span class="side-menu__label">Website Order</span><i class="angle fe fe-chevron-right"></i></a>
+                                <ul class="slide-menu">
+                                    <li><a href="pendingOrder.php" class="slide-item">Pending Orders</a></li>
+                                    <li><a href="completedOrder.php" class="slide-item">Completed Order</a></li>
+                             
+
+                                </ul>
+                            </li>
                             
                             <!-- <li class="slide">
                                 <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i

@@ -58,7 +58,7 @@
                             trends to see any changes in performance over time.</p> -->
                             <p>
                                 <a class="btn btn-lg btn-circle btn-outline-new-white" href="#">Reservation</a>
-                                <a class="btn btn-lg btn-circle btn-outline-new-white" href="#">Order</a>
+                                <a class="btn btn-lg btn-circle btn-outline-new-white" href="menu.php">Order</a>
                             </p>
                         </div>
                     </div>
@@ -74,7 +74,7 @@
                             trends to see any changes in performance over time.</p> -->
                             <p>
                                 <a class="btn btn-lg btn-circle btn-outline-new-white" href="#">Reservation</a>
-                                <a class="btn btn-lg btn-circle btn-outline-new-white" href="#">Order</a>
+                                <a class="btn btn-lg btn-circle btn-outline-new-white" href="menu.php">Order</a>
                             </p>
                         </div>
                     </div>
@@ -90,7 +90,7 @@
                             trends to see any changes in performance over time.</p> -->
                             <p>
                                 <a class="btn btn-lg btn-circle btn-outline-new-white" href="#">Reservation</a>
-                                <a class="btn btn-lg btn-circle btn-outline-new-white" href="#">Order</a>
+                                <a class="btn btn-lg btn-circle btn-outline-new-white" href="menu.php">Order</a>
                             </p>
                         </div>
                     </div>
