@@ -1,7 +1,7 @@
 <?php
 require "../config/conn.php";
 require "../inventory/function.php";
-
+require "payment.php";
 function error422($message)
 {
     $data = [
@@ -18,12 +18,13 @@ function createorder($datas)
     global $conn;
     $items = $datas['items'];
     $instruction = $datas['instrucion'];
-    $userinfo = $datas['userInfo'];
     $paymentType = $datas["paymentMethod"];
     $time = date("h:i:sa");
     $date = date("d-m-Y");
     $usertype = $datas["userType"];
     if ($usertype == "Guest") {
+         $userinfo = $datas['userInfo'];
+        
         $sql = "insert into users VALUES (NULL,'" . $userinfo['fname'] . "','" . $userinfo['lname'] . "','" . $userinfo['email'] . "','" . $userinfo['telephone'] . "','','','" . $userinfo['postCode'] . "','" . $userinfo['address1'] . "','" . $userinfo['address2'] . "','" . $userinfo['city'] . "','$usertype')";
         $result = mysqli_query($conn, $sql);
         if ($result) {
@@ -53,19 +54,68 @@ function createorder($datas)
 
                     $paymentQuery = "insert into paymenttransaction values(NULL,'$orderID','$paymentType','" . $instruction['total'] . "','$time')";
                     $paymentQueryResult = mysqli_query($conn, $paymentQuery);
-                    if ($paymentQueryResult) {
-                        $data = [
-                            'status' => 201,
-                            'message' => "Order Created",
-                            'item' => $userID,
-                        ];
-                        header("HTTP:/1.0 201 created");
-                        return json_encode($data);
+                    if($paymentType == "card"){
+                        $token = $datas["stripeToken"];
+                        $amount= $instruction['total'] ;
+                        $paymentStatus=paymentStripe($userID, $orderID,$token,$amount);
+                        if ($paymentQueryResult) {
+                            $data = [
+                                'status' => 201,
+                                'message' => "Order Created",
+                                'PaymentResult' => $paymentStatus,
+                            ];
+                            header("HTTP:/1.0 201 created");
+                            return json_encode($data);
+                        }
                     }
+                   
                 }
             }
 
         }
+    }
+    else{
+            $userID=$datas["userId"];
+            $orderID = cusomOrder();
+            $websiteOrder = "insert into websiteorder VALUES (NULL,'$orderID',$userID,'In Progress','" . $instruction['total'] . "','$time','$date','" . $instruction['specialInstruction'] . "')";
+            $websiteOrderResult = mysqli_query($conn, $websiteOrder);
+            if ($websiteOrderResult) {
+                $ordResult = "";
+                for ($i = 0; $i < count($items); $i++) {
+                    $pid = $items[$i]['productid'];
+                    $quantity = $items[$i]['quantity'];
+                    $price = $items[$i]['price'];
+
+                    $updateInventory = updateinventory($pid, $quantity);
+
+                    $orders = "insert into websiteorderitems VALUES (NULL,'$orderID',$pid,$quantity,$price)";
+                    $ordResult = mysqli_query($conn, $orders);
+                }
+                if ($ordResult) {
+                    if ($instruction['deliveryType'] == "collection") {
+                        collectionOrder($userID, $instruction['CollectionTime']);
+                    } else {
+                        deliveryOrder($userID, $time);
+                    }
+
+                    $paymentQuery = "insert into paymenttransaction values(NULL,'$orderID','$paymentType','" . $instruction['total'] . "','$time')";
+                    $paymentQueryResult = mysqli_query($conn, $paymentQuery);
+                    if($paymentType == "card"){
+                        $token = $datas["stripeToken"];
+                        $amount= $instruction['total'] ;
+                        $paymentStatus=paymentStripe($userID, $orderID,$token,$amount);
+                        if ($paymentQueryResult) {
+                            $data = [
+                                'status' => 201,
+                                'message' => "Order Created",
+                                'PaymentResult' => $paymentStatus,
+                            ];
+                            header("HTTP:/1.0 201 created");
+                            return json_encode($data);
+                        }
+                    }
+                }
+            }
     }
 
 }
@@ -86,6 +136,9 @@ function cusomOrder()
         return 1;
     }
 }
+
+
+
 
 function getUserId()
 {

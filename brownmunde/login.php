@@ -116,7 +116,7 @@
                                 <!-- <label for=""><span>*</span>Password Confirm</label> -->
                             </div>
                             <div class="col-md-8 mb-1">
-                                <button class="btn btn-login" id="btnContinue">Login</button>
+                                <button class="btn btn-login" onclick="login()" id="btnContinue">Login</button>
                             </div>
                             <div class="col-md-1 mb-1"></div>
                         </div>
@@ -164,10 +164,13 @@
     <script src="js/form-validator.min.js"></script>
     <script src="js/contact-form-script.js"></script>
     <script src="js/custom.js"></script>
+    <script src="js/url.js"></script>
+
 </body>
 
 </html>
 <script>
+    var localurl=local;
     var currentLocation = window.location.pathname;
     //   alert(currentLocation);
     // Find the matching link in the navigation and add the active class
@@ -179,4 +182,42 @@
             $(this).parent('li').addClass('nav-item active'); // Add class to the parent li
         }
     });
+
+
+    function login(){
+      var postdata={
+        email:$("#Email").val(),
+        password:$("#pswd").val(),
+      }
+
+      $.ajax({
+        url: `${localurl}users/login.php`,
+        type: "POST",
+        data:JSON.stringify(postdata),
+        contentType: "application/json",
+        success: function (response, status) {
+            var user=response.user;
+            // console.log(user)
+            var userid=user[0].id;
+            var useremail=user[0].email;
+            var username=user[0].firstName;
+            sessionStorage.setItem("userInformation",JSON.stringify(user[0]));
+            sessionStorage.setItem("userId",userid);
+            sessionStorage.setItem("userEmail",useremail);
+            sessionStorage.setItem("userName",username);
+            var loader=document.getElementById("loader");
+            loader.style.display="block";
+            setTimeout(() => {
+                window.location.href="index.php";
+            }, 2000);
+            // window.location.href="index.php";
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+
+    }
+
+
 </script>

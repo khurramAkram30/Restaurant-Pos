@@ -95,6 +95,48 @@
             font-size: 16px;
             font-weight: 800;
         }
+
+        .productbox {
+            background-color: #F5F0F0;
+            padding: 10px;
+            margin-bottom: 10px;
+            -webkit-box-shadow: 0 8px 6px -6px #999;
+            -moz-box-shadow: 0 8px 6px -6px #999;
+            box-shadow: 0 8px 6px -6px #999;
+        }
+
+        .producttitle {
+            font-weight: bold;
+            padding: 5px 0 5px 0;
+        }
+
+        .productprice {
+            border-top: 1px solid #dadada;
+            padding-top: 5px;
+        }
+
+        .pricetext {
+            font-weight: bold;
+            font-size: 1.4em;
+        }
+
+        .tutorial-table {
+            border: #D0D0D0 1px solid;
+            font-size: 0.8em;
+            color: #4e4e4e;
+        }
+
+        .tutorial-table th {
+            background: #efefef;
+            padding: 12px;
+            border-bottom: #e0e0e0 1px solid;
+            text-align: left;
+        }
+
+        .tutorial-table td {
+            padding: 12px;
+            border-bottom: #D0D0D0 1px solid;
+        }
     </style>
 </head>
 
@@ -222,7 +264,7 @@
                     </div>
                     <!--  -->
                     <div class="accordion" id="accordionExample">
-                        <div class="card">
+                        <div class="card" id="one">
                             <div class="card-header" id="headingOne">
                                 <h2 class="mb-0">
                                     <button class="btn btn-link btn-block text-left" type="button"
@@ -316,7 +358,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card">
+                        <div class="card" id="two">
                             <div class="card-header" id="headingTwo">
                                 <h2 class="mb-0">
                                     <button class="btn btn-link btn-block text-left collapsed" type="button"
@@ -356,19 +398,67 @@
                                         <div class="col-md-3"></div>
                                         <div class="col-md-9    ">
                                             <!-- <input type="button" class="form-control" id="inputpswdforlogin"> -->
-                                            <button class="btn btn-login">Login</button>
+                                            <button class="btn btn-login" onclick="login()">Login</button>
                                         </div>
                                     </div>
 
                                 </div>
                             </div>
+
                         </div>
+
+
+                        <!-- 3 -->
+                        <div class="card" style="display:none" id="third">
+                            <div class="card-header" id="headingTwo">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link btn-block text-left collapsed" type="button"
+                                        data-toggle="collapse" data-target="#collapseThree" aria-expanded="false"
+                                        aria-controls="collapseTwo">
+                                        <span class=" fa fa-sign-in" style="font-size: 22px;"></span>
+
+                                        Account Details
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
+                                data-parent="#accordionExample">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h4 style="text-align: center;font-weight:700">Your Information</h4>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-1">
+                                        <label for="inputEmail3" class="col-md-3 col-form-label">Zip Code:</label>
+                                        <div class="col-md-9">
+                                            <input type="number" value="1234" readonly class="form-control">
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row mb-1">
+                                        <label for="inputEmail3" class="col-md-3 col-form-label">Address:</label>
+                                        <div class="col-md-9">
+                                            <textarea name="" class="form-control" id="" cols="30" rows="5"
+                                                readonly></textarea>
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- 3 -->
 
                     </div>
                     <!--  -->
                 </div>
 
-                <div class="card p-4">
+                <div class="card p-4 mb-2">
                     <div class="collection">
                         <span class="fa fa-credit-card" style="font-size: 22px;"></span>
                         <h3>Choose Payment Method</h3>
@@ -387,11 +477,145 @@
                         </label>
                     </div>
                 </div>
-                <div class="row mt-3">
-                    <div class="col-md-12">
-                        <button class="btn form-control" onclick="saveData()" style="background:#d0a772;">Pay</button>
+
+                <!-- Payment form -->
+                <form role="form" action="" method="POST" name="cardpayment" id="payment-form">
+
+                    <div class="card p-4" id="stripe" style="display: none;">
+                        <div class="collection">
+                            <!-- <i class=""></i> -->
+                            <span class="fa fa-cc-stripe" style="font-size: 22px;"></span>
+                            <h3>Stripe</h3>
+                        </div>
+
+
+                        <div class="panel-body">
+
+                            <!-- Display errors returned by createToken -->
+                            <div class="payment-status" style="color: red;"></div>
+
+
+                            <input type="hidden" name="productId" value="<?php echo $productId; ?>" />
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="couponCode">CARD HOLDER NAME</label>
+                                        <input type="text" class="form-control" name="holdername"
+                                            placeholder="Enter Card Holder Name" autofocus required id="name" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="couponCode">EMAIL</label>
+                                        <input type="email" class="form-control" name="email" placeholder="Email"
+                                            id="email" required />
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="cardNumber">CARD NUMBER</label>
+                                        <div class="input-group">
+
+                                            <input type="text" class="form-control" name="card_number"
+                                                placeholder="Valid Card Number" autocomplete="cc-number"
+                                                id="card_number" maxlength="16" data-stripe="number" required />
+                                            <span class="input-group-addon"
+                                                style=" position: absolute; right: 15px; top: 5px;">
+                                                <i class="fa fa-credit-card"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <div class="col-xs-4 col-md-4">
+                                    <div class="form-group">
+                                        <label for="cardExpiry"><span class="visible-xs-inline">MON</span></label>
+                                        <select name="card_exp_month" id="card_exp_month" class="form-control"
+                                            data-stripe="exp_month" required>
+                                            <option>MON</option>
+                                            <option value="01">01 ( JAN )</option>
+                                            <option value="02">02 ( FEB )</option>
+                                            <option value="03">03 ( MAR )</option>
+                                            <option value="04">04 ( APR )</option>
+                                            <option value="05">05 ( MAY )</option>
+                                            <option value="06">06 ( JUN )</option>
+                                            <option value="07">07 ( JUL )</option>
+                                            <option value="08">08 ( AUG )</option>
+                                            <option value="09">09 ( SEP )</option>
+                                            <option value="10">10 ( OCT )</option>
+                                            <option value="11">11 ( NOV )</option>
+                                            <option value="12">12 ( DEC )</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-4 col-md-4">
+                                    <div class="form-group">
+                                        <label for="cardExpiry"><span class="visible-xs-inline">YEAR</span></label>
+                                        <select name="card_exp_year" id="card_exp_year" class="form-control"
+                                            data-stripe="exp_year">
+                                            <option>Year</option>
+                                            <option value="20">2020</option>
+                                            <option value="21">2021</option>
+                                            <option value="22">2022</option>
+                                            <option value="23">2023</option>
+                                            <option value="24">2024</option>
+                                            <option value="25">2025</option>
+                                            <option value="26">2026</option>
+                                            <option value="27">2027</option>
+                                            <option value="28">2028</option>
+                                            <option value="29">2029</option>
+                                            <option value="30">2030</option>
+                                            <option value="31">2031</option>
+                                            <option value="32">2032</option>
+                                            <option value="33">2033</option>
+                                            <option value="34">2034</option>
+                                            <option value="35">2035</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-xs-4 col-md-4 pull-right">
+                                    <div class="form-group">
+                                        <label for="cardCVC">CV CODE</label>
+                                        <input type="password" class="form-control" name="card_cvc" placeholder="CVC"
+                                            autocomplete="cc-csc" id="card_cvc" required />
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
                     </div>
-                </div>
+
+
+                    <div class="row mt-3" id="cashbtn">
+                        <div class="col-md-12">
+                            <button class="btn form-control" onclick="saveData()"
+                                style="background:#d0a772;">Pay</button>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3" id="paymentButton" style="display: none;">
+                        <div class="col-md-12">
+                            <button class="subscribe btn btn-lg btn-block submit" style="background-color: #d0a772;"
+                                type="submit" id="payBtn">PAY NOW ( $
+                                <?php echo 10; ?> )
+                            </button>
+                        </div>
+                    </div>
+
+                </form>
+
+
+
+
+
             </div>
         </div>
     </div>
@@ -410,6 +634,8 @@
     <a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
 
     <!-- ALL JS FILES -->
+    <script src="https://js.stripe.com/v2/"></script>
+
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -421,10 +647,13 @@
     <script src="js/form-validator.min.js"></script>
     <script src="js/contact-form-script.js"></script>
     <script src="js/custom.js"></script>
+    <script src="js/url.js"></script>
+
 </body>
 
 </html>
 <script>
+    var localurl = local;
     var currentLocation = window.location.pathname;
     //   alert(currentLocation);
     // Find the matching link in the navigation and add the active class
@@ -436,10 +665,66 @@
             $(this).parent('li').addClass('nav-item active'); // Add class to the parent li
         }
     });
+
+    var userId = sessionStorage.getItem("userId");
+    if (userId) {
+        $("#one").css("display", "none");
+        $("#two").css("display", "none");
+        $("#third").css("display", "block");
+        $("#collapseThree").addClass("show");
+    }
+
 </script>
 
 <script>
+    function login(){
+      var email= $("#inputEmailforlogin").val();
+      var pswd= $("#inputpswdforlogin").val();
+      if(email == ""){
+        alert("please Fill the email");
+      }
+      if(pswd == ""){
+        alert("please fill the password");
+      }
+      if(email != "" && pswd != ""){
+        var postdata={
+        email:$("#inputEmailforlogin").val(),
+        password:$("#inputpswdforlogin").val(),
+      }
+        $.ajax({
+        url: `${localurl}users/login.php`,
+        type: "POST",
+        data:JSON.stringify(postdata),
+        contentType: "application/json",
+        success: function (response, status) {
+            var user=response.user;
+            // console.log(user)
+            var userid=user[0].id;
+            var useremail=user[0].email;
+            var username=user[0].firstName;
+            sessionStorage.setItem("userInformation",JSON.stringify(user[0]));
+            sessionStorage.setItem("userId",userid);
+            sessionStorage.setItem("userEmail",useremail);
+            sessionStorage.setItem("userName",username);
+            var loader=document.getElementById("loader");
+            loader.style.display="block";
+            setTimeout(() => {
+                window.location.reload();
+            }, 2000);
+            // window.location.href="index.php";
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+      }
+    }
+
+
     var shoppingCartSession = JSON.parse(sessionStorage.getItem('shoppingCart'));
+    if (!shoppingCartSession) {
+        window.location.href = "menu.php";
+    }
     var instrucion = JSON.parse(sessionStorage.getItem("Instruction"));
     Cart();
     function Cart() {
@@ -452,7 +737,7 @@
         $("#collectionPrice").val(instrucion.collectionPrice);
         $("#service").val(instrucion.serviceCharges);
         $("#total").val(instrucion.total);
-
+        $("#payBtn").html(`PAY NOW ${instrucion.total}`)
 
         shoppingCartSession.forEach(item => {
             tabledata += `
@@ -490,13 +775,21 @@
 
 
     var cash = $("#cash").prop("checked");
-     var card = $("#card").prop("checked");
-    var paymentMethod="";
-    $("#cash").on("click",function(){
-       paymentMethod=$("#cash").val();
+    var card = $("#card").prop("checked");
+    var paymentMethod = "";
+    $("#cash").on("click", function () {
+        paymentMethod = $("#cash").val();
+        $("#cashbtn").css("display", "block");
+        $("#stripe").css("display", "none");
+        $("#paymentButton").css("display", "none");
     });
-    $("#card").on("click",function(){
-        paymentMethod=$("#card").val();
+    $("#card").on("click", function () {
+        paymentMethod = $("#card").val();
+        $("#cashbtn").css("display", "none");
+        $("#stripe").css("display", "block");
+        $("#paymentButton").css("display", "block");
+
+
     });
 
     function saveData() {
@@ -512,19 +805,19 @@
             postdata = {
                 items: shoppingCartSession,
                 instrucion: instrucion,
-                userInfo:{
-                 fname:$("#inputName").val(),
-                 lname:$("#inputLastName").val(),  
-                 email:$("#inputEmail").val(),
-                 telephone:$("#inputphone").val(),
-                 postCode:$("#inputpostCode").val(),
-                 streetName:$("#inputStreet").val(),
-                 address1:$("#inputAdress1").val(),
-                 address2:$("#inputAdress2").val(),
-                 city:$("#inputCity").val()
+                userInfo: {
+                    fname: $("#inputName").val(),
+                    lname: $("#inputLastName").val(),
+                    email: $("#inputEmail").val(),
+                    telephone: $("#inputphone").val(),
+                    postCode: $("#inputpostCode").val(),
+                    streetName: $("#inputStreet").val(),
+                    address1: $("#inputAdress1").val(),
+                    address2: $("#inputAdress2").val(),
+                    city: $("#inputCity").val()
                 },
-                paymentMethod:paymentMethod,
-                userType:"Guest",
+                paymentMethod: paymentMethod,
+                userType: "Guest",
             };
             console.log(postdata);
         }
@@ -532,27 +825,28 @@
             postdata = {
                 items: shoppingCartSession,
                 instrucion: instrucion,
-                paymentMethod:paymentMethod,
-                userType:"User",
+                paymentMethod: paymentMethod,
+                userType: "User",
+                userId: userId,
             };
-            // console.log(postdata);
+            console.log(postdata);
         }
-    
+
         $.ajax({
-        url: `http://localhost/restaurant/api/websiteOrder/create.php`,
-        type: "POST",
-        data:JSON.stringify(postdata),
-        contentType: "application/json",
-        success: function (response, status) {
-            console.log(response);
-            sessionStorage.removeItem('shoppingCart');
-            sessionStorage.removeItem('Instruction');
-            window.location.href="menu.php";    
-        },
-        error: function (error) {
-            console.log(error);
-        }
-    })
+            url: `${localurl}websiteOrder/create.php`,
+            type: "POST",
+            data: JSON.stringify(postdata),
+            contentType: "application/json",
+            success: function (response, status) {
+                console.log(response);
+                sessionStorage.removeItem('shoppingCart');
+                sessionStorage.removeItem('Instruction');
+                window.location.href = "menu.php";
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        })
 
 
 
@@ -560,6 +854,108 @@
 
     }
 
+    // stripe 
+
+    Stripe.setPublishableKey('pk_test_51NuUFzDgVxQRS4HbcB17j2prKLxa1wzaKevVlyknHR9D1V0RfQf1EtStSSLgYQ0KHeNfDnmahBG411DU1UmgkX3z00IEnzjizz');
+
+    function stripeResponseHandler(status, response) {
+        if (response.error) {
+            // Enable the submit button
+            $('#payBtn').removeAttr("disabled");
+            // Display the errors on the form
+            $(".payment-status").html('<p>' + response.error.message + '</p>');
+        } else {
+            var form$ = $("#payment-form");
+            // Get token id
+            var token = response.id;
+            alert(token);
+            // Insert the token into the form
+            form$.append("<input type='hidden' name='stripeToken' value='" + token + "' />");
+            // Submit form to the server
+            // form$.get(0).submit();
+            var formData = new FormData(form$[0]);
+            formData.append('stripeToken', token);
+
+            // Send the form data to the server using AJAX
+            sendDataFromStripe(token);
+        }
+    }
+
+    $(document).ready(function () {
+        // On form submit
+        $("#payment-form").submit(function () {
+            // Disable the submit button to prevent repeated clicks
+            $('#payBtn').attr("disabled", "disabled");
+
+            // Create single-use token to charge the user
+            Stripe.createToken({
+                number: $('#card_number').val(),
+                exp_month: $('#card_exp_month').val(),
+                exp_year: $('#card_exp_year').val(),
+                cvc: $('#card_cvc').val()
+            }, stripeResponseHandler);
+
+            // Submit from callback
+            return false;
+        });
+    });
 
 
+    function sendDataFromStripe(token) {
+        var postdata;
+        var collapseId;
+        var collapses = document.querySelectorAll('.collapse');
+        collapses.forEach(function (collapse) {
+            if (collapse.classList.contains('show')) {
+                collapseId = collapse.id;
+            }
+        });
+        if (collapseId == "collapseOne") {
+            postdata = {
+                items: shoppingCartSession,
+                instrucion: instrucion,
+                userInfo: {
+                    fname: $("#inputName").val(),
+                    lname: $("#inputLastName").val(),
+                    email: $("#inputEmail").val(),
+                    telephone: $("#inputphone").val(),
+                    postCode: $("#inputpostCode").val(),
+                    streetName: $("#inputStreet").val(),
+                    address1: $("#inputAdress1").val(),
+                    address2: $("#inputAdress2").val(),
+                    city: $("#inputCity").val(),
+                },
+                paymentMethod: paymentMethod,
+                userType: "Guest",
+                stripeToken: token,
+            };
+            console.log(postdata);
+        }
+        else {
+            postdata = {
+                items: shoppingCartSession,
+                instrucion: instrucion,
+                paymentMethod: paymentMethod,
+                userType: "User",
+                userId: userId,
+                stripeToken: token,
+            };
+            console.log(postdata);
+        }
+        $.ajax({
+            url: `${localurl}websiteOrder/create.php`,
+            type: "POST",
+            data: JSON.stringify(postdata),
+            contentType: "application/json",
+            success: function (response, status) {
+                console.log(response);
+                sessionStorage.removeItem('shoppingCart');
+                sessionStorage.removeItem('Instruction');
+                window.location.href = "index.php";
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        })
+    }
 </script>

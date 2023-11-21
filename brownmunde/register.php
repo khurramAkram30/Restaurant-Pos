@@ -184,7 +184,9 @@
                                 <label for=""><span>*</span>Password</label>
                             </div>
                             <div class="col-md-8 mb-1">
-                                <input type="text" id="pswd" class="form-control">
+                                <input type="password" id="pswd" class="form-control">
+                                <label for="repassword" id="password_message" style=""></label>
+
                             </div>
                             <div class="col-md-1 mb-1"></div>
 
@@ -192,28 +194,26 @@
                                 <label for=""><span>*</span>Password Confirm</label>
                             </div>
                             <div class="col-md-8 mb-1">
-                                <input type="text" id="confirm_pswd" class="form-control">
+                                <input type="password" id="confirm_pswd" class="form-control">
+                                <label for="repassword" id="statusOfPassword" style=""></label>
                             </div>
                             <div class="col-md-1 mb-1"></div>
 
-                            <div class="col-md-3 mb-1">
-                                <!-- <label for=""><span>*</span>Password Confirm</label> -->
+                            <!-- <div class="col-md-3 mb-1">
                             </div>
                             <div class="col-md-8 mb-1">
                                 <input type="checkbox" id="agree" class="">
                                 <label for="">I have read and agree to the Privacy Policy</label>
                             </div>
-                            <div class="col-md-1 mb-1"></div>
+                            <div class="col-md-1 mb-1"></div> -->
 
                             <div class="col-md-3 mb-1">
                                 <!-- <label for=""><span>*</span>Password Confirm</label> -->
                             </div>
                             <div class="col-md-8 mb-1">
-                                <button class="btn btn-login" id="btnContinue">Continue</button>
+                                <button class="btn btn-login"  onclick="Register()">Continue</button>
                             </div>
                             <div class="col-md-1 mb-1"></div>
-
-
                         </div>
 
                     </div>
@@ -237,7 +237,7 @@
     require "footer.php";
 
     ?>
-    <!-- End Footer -->
+    <!-- End Fo1oter -->
 
 
     <a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
@@ -254,6 +254,8 @@
     <script src="js/form-validator.min.js"></script>
     <script src="js/contact-form-script.js"></script>
     <script src="js/custom.js"></script>
+    <script src="js/registerValidation.js"></script>
+    <!-- <script src="js/getItem.js"></script> -->
 </body>
 
 </html>
@@ -269,4 +271,56 @@
             $(this).parent('li').addClass('nav-item active'); // Add class to the parent li
         }
     });
+
+
+    $("#confirm_pswd").on("change",function(){
+        var password=$("#pswd").val();
+    var confirm_pswd=$("#confirm_pswd").val();
+       if(confirm_pswd == password){
+        $("#statusOfPassword").html("");
+       console.log(password);
+       console.log(confirm_pswd);
+    }
+    else{
+        
+        $("#statusOfPassword").html("Password Not Match");
+        $("#statusOfPassword").css("color","red");
+    }
+    
+    })
+
+    function Register(){
+        
+        var postdata={
+            fname:$("#fname").val(),
+            lname:$("#lname").val(),
+            email:$("#email").val(),
+            telephone:$("#phone").val(),
+            fax:$("#fax").val(),
+            password:$("#pswd").val(),
+            postCode:$("#pcode").val(),
+            address1:$("#address1").val(),
+            address2:$("#address2").val(),
+            city:$("#city").val(),
+        }
+
+        $.ajax({
+        url: `http://localhost/restaurant/api/users/register.php`,
+        type: "POST",
+        data:JSON.stringify(postdata),
+        contentType: "application/json",
+        success: function (response, status) {
+            alert("User Inserted");
+            window.reload();
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+
+
+
+    }
+
+
 </script>

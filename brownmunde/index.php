@@ -57,7 +57,7 @@
                             <!-- <p class="m-b-40">See how your users experience your website in realtime or view  <br> 
                             trends to see any changes in performance over time.</p> -->
                             <p>
-                                <a class="btn btn-lg btn-circle btn-outline-new-white" href="#">Reservation</a>
+                                <a class="btn btn-lg btn-circle btn-outline-new-white" target="_blank" href="https://web.dojo.app/create_booking/vendor/upMUYtPGAXcLjIR3aZu-9m3PWMStlXlZ4fCFcqD5VBs_restaurant">Reservation</a>
                                 <a class="btn btn-lg btn-circle btn-outline-new-white" href="menu.php">Order</a>
                             </p>
                         </div>
@@ -73,7 +73,7 @@
                             <!-- <p class="m-b-40">See how your users experience your website in realtime or view  <br> 
                             trends to see any changes in performance over time.</p> -->
                             <p>
-                                <a class="btn btn-lg btn-circle btn-outline-new-white" href="#">Reservation</a>
+                                <a class="btn btn-lg btn-circle btn-outline-new-white" target="_blank" href="https://web.dojo.app/create_booking/vendor/upMUYtPGAXcLjIR3aZu-9m3PWMStlXlZ4fCFcqD5VBs_restaurant">Reservation</a>
                                 <a class="btn btn-lg btn-circle btn-outline-new-white" href="menu.php">Order</a>
                             </p>
                         </div>
@@ -89,7 +89,7 @@
                             <!-- <p class="m-b-40">See how your users experience your website in realtime or view  <br> 
                             trends to see any changes in performance over time.</p> -->
                             <p>
-                                <a class="btn btn-lg btn-circle btn-outline-new-white" href="#">Reservation</a>
+                                <a class="btn btn-lg btn-circle btn-outline-new-white" target="_blank" href="https://web.dojo.app/create_booking/vendor/upMUYtPGAXcLjIR3aZu-9m3PWMStlXlZ4fCFcqD5VBs_restaurant">Reservation</a>
                                 <a class="btn btn-lg btn-circle btn-outline-new-white" href="menu.php">Order</a>
                             </p>
                         </div>

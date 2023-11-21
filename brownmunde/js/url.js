@@ -1,0 +1,1 @@
+var local='http://localhost/restaurant/api/';

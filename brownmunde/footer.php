@@ -96,3 +96,16 @@
 
     </footer>
   
+    <script>
+        function logout(){
+            var loader=document.getElementById("loader");
+            loader.style.display="block";
+            sessionStorage.removeItem("userName");
+            sessionStorage.removeItem("userId");
+            sessionStorage.removeItem("userEmail");
+            setTimeout(() => {
+                window.location.href="index.php";
+            }, 2000);
+        }
+
+    </script>
