@@ -69,7 +69,7 @@
                             <th>Status</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="bodycat">
                         
                     </tbody>
                 </table>
@@ -100,10 +100,14 @@
     <script src="js/form-validator.min.js"></script>
     <script src="js/contact-form-script.js"></script>
     <script src="js/custom.js"></script>
+    <script src="js/url.js"></script>
+
 </body>
 
 </html>
 <script>
+    var localurl = local;
+
     var currentLocation = window.location.pathname;
     //   alert(currentLocation);
     // Find the matching link in the navigation and add the active class
@@ -116,4 +120,41 @@
             $(this).parent('li').addClass('nav-item active'); // Add class to the parent li
         }
     });
+
+    var id=sessionStorage.getItem("userId");
+    if(!id){
+        window.location.href="login.php";
+    }
+    // console.log(id);
+    $.ajax({
+        url:`${localurl}users/userHistory.php?id=${id}`,
+        type:"GET",
+        contentType:"application/json",
+        success:function(response){
+            // console.log(response);
+            displayTable(response.result);
+        },
+        error:function(error){
+            console.log(error);
+        }
+    })
+
+    function displayTable(data){
+        var i=1,tabledata="";
+        data.forEach(element => {
+                tabledata += `
+    <tr>
+    <td>${i}</td>
+    <td>Order${element.CustomOrderId}</td>
+    <td>${element.date}</td>
+    <td>${element.total}</td>
+    <td>${element.notes}</td>
+    <td>${element.status}</td>
+    </tr>
+    `;
+                i++;
+            });
+            $("#bodycat").html(tabledata);
+
+    }
 </script>

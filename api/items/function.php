@@ -67,15 +67,15 @@ function storeItems($Subcategories){
     global $conn;
     $itemname=mysqli_real_escape_string($conn,$Subcategories['name']);
     $price=mysqli_real_escape_string($conn,$Subcategories['price']);
-    $image=mysqli_real_escape_string($conn,$Subcategories['image']);
+    // $image=mysqli_real_escape_string($conn,$Subcategories['image']);
     $CategoryId=mysqli_real_escape_string($conn,$Subcategories['CategoryId']);
     $subCategoryId=mysqli_real_escape_string($conn,$Subcategories['subCategoryId']);
-    
+    $web_mobile=mysqli_real_escape_string($conn,$Subcategories['web_mobile']);
     if(empty(trim($itemname))){
         return error422('Enter subacategory name');
     }
     else{
-        $query="insert into items VALUES (NULL,'$CategoryId','$subCategoryId','$itemname',$price,'$image')";
+        $query="insert into items VALUES (NULL,'$CategoryId','$subCategoryId','$itemname',$price,'$web_mobile')";
         $result=mysqli_query($conn,$query);
         if($result){
             insertInventory();
@@ -83,7 +83,7 @@ function storeItems($Subcategories){
                 'status' => 201,
                 'message' => "items Created",
             ];
-            header("HTTP:/1.0 201 created");
+            header("HTTP:/1.0 200 created");
             return json_encode($data);
         
         }
@@ -102,7 +102,7 @@ function storeItems($Subcategories){
 $getallitems=array();
 function getallitems(){
     global $conn;
-    $query="SELECT i.id,c.name AS Category,s.name AS Subcategory,i.name,i.sell,i.image FROM items AS i INNER JOIN subcategories AS s ON i.subcategory_id = s.id INNER JOIN categories AS c ON s.category_id = c.id";
+    $query="SELECT i.id,c.name AS Category,s.name AS Subcategory,i.name,i.sell,i.type FROM items AS i INNER JOIN subcategories AS s ON i.subcategory_id = s.id INNER JOIN categories AS c ON s.category_id = c.id";
     $result=mysqli_query($conn,$query);
     if($result){
         if(mysqli_num_rows($result) > 0){
@@ -221,6 +221,42 @@ function updateitem($itemdata,$itemID){
         }
     }
 }
+$mobileItems=array();
+function mobileItems(){
+    global $conn;
+    $query="SELECT i.id,c.name AS Category,s.name AS Subcategory,i.name,i.sell FROM items AS i INNER JOIN subcategories AS s ON i.subcategory_id = s.id INNER JOIN categories AS c ON s.category_id = c.id where i.type='Mobile'";
+    $result=mysqli_query($conn,$query);
+    if($result){
+        if(mysqli_num_rows($result) > 0){
+            // $res=mysqli_fetch_all($result,MYSQLI_ASSOC);
+            while($row = mysqli_fetch_assoc($result)) {
+                $getallitems[] = $row;
+                }
+            $data=[
+                'status'=>200,
+                'message'=>"items Found",
+                'response'=> $getallitems,
+            ];
+            header("HTTP:/200 ok");
+            return json_encode($data);
+        }
+        else{
+            $data=[
+                'status' => 404,
+                'message' => "No item found",
+            ];
+            header("HTTP:/ 404 No subCategory Found");
+            return json_encode($data);
+        }
 
-
+    }
+    else{
+        $data=[
+            'status' => 500,
+            'message' => "internal server error",
+        ];
+        header('HTTP:/1.0 internal server error');
+        return json_encode($data);
+    }
+}
 ?>

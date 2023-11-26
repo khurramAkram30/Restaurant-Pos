@@ -159,7 +159,6 @@ function displayItems(data){
         product += `
         <div class="col-lg-4 col-md-6 special-grid ${item.Category} ${item.subCategories}">
                         <div class="gallery-single fix">
-                            <img src="images/img-02.jpg" class="img-fluid" alt="Image">
                             <div class="cartItem">
                                 <h4><b>${item.name}</b></h4>
                                 <!-- <p class="text-center">ladyfingers cooked with fresh tomatoes</p> -->
@@ -186,34 +185,5 @@ function resizeofrow(){
     }, 0);
 }
 
-    // function loadItem(){
-    //     $(".special-list").css("height", "auto");
-    //     $("#info").css("display", "contents");
-    //     $("#table").css("display", "block");
-    //     var collectionPrice=$("#collectPrice").val();
-    //     var servicePrice=$("#service").val();
-    //     var getItem=JSON.parse(sessionStorage.getItem('shoppingCart'));
-    //     console.log(getItem);
-    //     var tabledata = "", i = 0, subtotal = 0,total=0;
-    //     getItem.forEach(item => {
-    //         subtotal += item.price;
-    //         tabledata += `
-    // <tr>
-    // <td>${item.productname}</td>
-    // <td><input type="text" class="form-control quantity${i}" value="${item.quantity > 0 ? item.quantity : ""}" onkeyup="quantitychange('${i}')"></td>
-    // <td>${item.price > 0 ? item.price : ""}</td>
-    // <td><a class="btn text-danger btn-sm" onclick="removeObj('${i}')" data-bs-toggle="tooltip" data-bs-original-title="Edit"><span class="fa fa-trash-o fs-14"></span></a>
-    // </td>
   
-    // </tr>
-    
-    // `;
-    //         i++;
-    //     })
-    //     total=parseInt(collectionPrice+servicePrice)+subtotal;
-    //     $("#subtotal").val(subtotal);
-    //     $("#total").val(total);
-    //     $("#cart").html(tabledata);
-        
-    // }
 

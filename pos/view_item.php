@@ -395,7 +395,7 @@
                                                     <th>SubCategory</th>
                                                     <th>Item Name</th>
                                                     <th>Price</th>
-                                                    <th>Image</th>
+                                                    <th>Mob/Web</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
@@ -567,6 +567,7 @@ $.ajax({
 
 $.ajax({
     url:`${baseurl}items/read.php`,
+    // url:`http://localhost/restaurant/api/items/read.php`,
     type:"GET",
     contentType:"application/json",
     success:function(response,status){
@@ -590,7 +591,7 @@ data.forEach(element => {
     <td>${element.Subcategory}</td>
     <td>${element.name}</td>
     <td>${element.sell}</td>
-    <td><img src="../models/images/${element.image}" height="50px"></td>
+    <td>${element.type}</td>
     <td><a class="btn text-primary btn-sm" onclick="editSubcategory('${i-1}')" data-bs-toggle="tooltip" data-bs-original-title="Edit"><span class="fe fe-edit fs-14"></span></a>
     </td>
     </tr>

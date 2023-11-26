@@ -33,6 +33,7 @@
 						</li> -->
 						<li class="nav-item"><a class="nav-link" href="contact.php">Contact</a></li>
 						<li class="nav-item"><a class="nav-link" href="ShoppingCart.php">Shopping Cart</a></li>
+						<li class="nav-item"><a class="nav-link" target="_blank" href="https://web.dojo.app/create_booking/vendor/upMUYtPGAXcLjIR3aZu-9m3PWMStlXlZ4fCFcqD5VBs_restaurant">Table Booking</a></li>
 
 						<div class="d-flex" id="loginNavbar">
 								

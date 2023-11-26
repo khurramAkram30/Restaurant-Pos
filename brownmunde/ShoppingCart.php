@@ -184,7 +184,7 @@
 
                     <div class="form-group">
                         <label for="">Notes</label>
-                        <textarea name="" id="instruction" cols="30" class="form-control" rows="3"></textarea>
+                        <textarea name="" id="instruction" cols="30" class="form-control" readonly rows="3"></textarea>
                     </div>
 
                 </div>
@@ -433,7 +433,7 @@
                                     <div class="row mb-1">
                                         <label for="inputEmail3" class="col-md-3 col-form-label">Zip Code:</label>
                                         <div class="col-md-9">
-                                            <input type="number" value="1234" readonly class="form-control">
+                                            <input type="text" id="zipcodelogin"  readonly class="form-control">
                                         </div>
                                     </div>
 
@@ -441,7 +441,7 @@
                                     <div class="row mb-1">
                                         <label for="inputEmail3" class="col-md-3 col-form-label">Address:</label>
                                         <div class="col-md-9">
-                                            <textarea name="" class="form-control" id="" cols="30" rows="5"
+                                            <textarea name="" class="form-control" readonly id="addresslogin" cols="30" rows="5"
                                                 readonly></textarea>
                                         </div>
                                     </div>
@@ -672,6 +672,11 @@
         $("#two").css("display", "none");
         $("#third").css("display", "block");
         $("#collapseThree").addClass("show");
+        var userinformation=JSON.parse(sessionStorage.getItem('userInformation'));
+        console.log(userinformation.postcode);
+        $("#zipcodelogin").val(userinformation.postcode);
+        $("#addresslogin").val(userinformation.address1);
+        
     }
 
 </script>

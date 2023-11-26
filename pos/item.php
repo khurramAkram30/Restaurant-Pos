@@ -417,12 +417,24 @@
                                         </div>
                                         </div>
 
-                                        <div class="row mb-4">
+                                        <!-- <div class="row mb-4">
                                             <label class="col-md-3 form-label">Image:</label>
                                             <div class="col-md-9">
                                                 <input type="file" class="form-control" id="itemimg" placeholder="Enter image">
                                         </div>
+                                        </div> -->
+
+                                        <div class="row mb-4">
+                                            <label class="col-md-3 form-label">Mobile/Web :</label>
+                                            <div class="col-md-9">
+                                            <select name="" class="form-control" id="mobile_web" aria-placeholder="">
+                                                <option value="Website">Website</option>
+                                                <option value="Mobile">Mobile</option>
+
+                                            </select>       
                                         </div>
+                                        </div>
+
 
                                         <div class="row">
                                             <div class="col-md-3"></div>
@@ -612,40 +624,33 @@ var catid = document.getElementById("catrgory").value;
 var subcatid = document.getElementById("subcatrgory").value;
 var name = document.getElementById("itemname").value;
 var price = document.getElementById("price").value;
-var imge = document.getElementById("itemimg").files[0];
+var web_mobile = document.getElementById("mobile_web").value;
 
-formData.append("CategoryId", catid);
-formData.append("subCategoryId", subcatid);
-formData.append("name", name);
-formData.append("price", price);
-formData.append("image", imge); // Use "image" as the key for the image
-
-const catId = formData.get("CategoryId");
-const subcatId = formData.get("subCategoryId");
-const itemName = formData.get("name");
-const itemPrice = formData.get("price");
-const itemImage = formData.get("image");
-
-// console.log(catId);
-// console.log(itemName);
-// console.log(itemPrice);
-// console.log(itemImage);
-
+var postdata={
+    CategoryId:catid,
+    subCategoryId:subcatid,
+    name:name,
+    price:price,
+    web_mobile,web_mobile
+};
+// console.log(postdata);
 // console.log("formData", formData);
 $("#uploadButton").css("display", "none");
 $("#loaderbtn").css("display", "block");
 $.ajax({
     url:`${baseurl}items/create.php`,
+    // url:`http://localhost/restaurant/api/items/create.php`,
     type:"POST",
-    data:formData,
-    contentType:false,
-    processData:false,
+    data:JSON.stringify(postdata),
+    contentType:'application/json',
     success:function(status){
         console.log(status);
         window.location.reload();
     },
     error:function(error){
         console.log(error);
+        window.location.reload();
+
     }
 });
 

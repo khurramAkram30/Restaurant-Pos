@@ -33,6 +33,10 @@
     <![endif]-->
 
     <style>
+        .img-fluid {
+    max-width: 100%;
+    height: 350px !important;
+}
        
     </style>
 </head>
@@ -49,7 +53,7 @@
     <div id="slides" class="cover-slides">
         <ul class="slides-container">
             <li class="text-center">
-                <img src="images/slider-01.jpg" alt="">
+                <img src="images/slider.jpg" alt="">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
@@ -141,13 +145,12 @@
     <!-- End QT -->
 
     <!-- Start Menu -->
-    <div class="menu-box">
+    <!-- <div class="menu-box">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="heading-title text-center">
                         <h2>Special Menu</h2>
-                        <!-- <p>Lorem Ipsum is simply dummy text of the printing and typesetting</p> -->
                     </div>
                 </div>
             </div>
@@ -165,108 +168,11 @@
             </div>
 
             <div class="row special-list" id="items-list">
-                <!-- <div class="col-lg-4 col-md-6 special-grid drinks">
-                    <div class="gallery-single fix">
-                        <img src="images/img-01.jpg" class="img-fluid" alt="Image">
-                        <div class="why-text">
-                            <h4>Special Drinks 1</h4>
-                            <p>Sed id magna vitae eros sagittis euismod.</p>
-                            <h5> $7.79</h5>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 special-grid drinks">
-                    <div class="gallery-single fix">
-                        <img src="images/img-02.jpg" class="img-fluid" alt="Image">
-                        <div class="why-text">
-                            <h4>Special Drinks 2</h4>
-                            <p>Sed id magna vitae eros sagittis euismod.</p>
-                            <h5> $9.79</h5>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 special-grid drinks">
-                    <div class="gallery-single fix">
-                        <img src="images/img-03.jpg" class="img-fluid" alt="Image">
-                        <div class="why-text">
-                            <h4>Special Drinks 3</h4>
-                            <p>Sed id magna vitae eros sagittis euismod.</p>
-                            <h5> $10.79</h5>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 special-grid lunch">
-                    <div class="gallery-single fix">
-                        <img src="images/img-04.jpg" class="img-fluid" alt="Image">
-                        <div class="why-text">
-                            <h4>Special Lunch 1</h4>
-                            <p>Sed id magna vitae eros sagittis euismod.</p>
-                            <h5> $15.79</h5>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 special-grid lunch">
-                    <div class="gallery-single fix">
-                        <img src="images/img-05.jpg" class="img-fluid" alt="Image">
-                        <div class="why-text">
-                            <h4>Special Lunch 2</h4>
-                            <p>Sed id magna vitae eros sagittis euismod.</p>
-                            <h5> $18.79</h5>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 special-grid lunch">
-                    <div class="gallery-single fix">
-                        <img src="images/img-06.jpg" class="img-fluid" alt="Image">
-                        <div class="why-text">
-                            <h4>Special Lunch 3</h4>
-                            <p>Sed id magna vitae eros sagittis euismod.</p>
-                            <h5> $20.79</h5>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 special-grid dinner">
-                    <div class="gallery-single fix">
-                        <img src="images/img-07.jpg" class="img-fluid" alt="Image">
-                        <div class="why-text">
-                            <h4>Special Dinner 1</h4>
-                            <p>Sed id magna vitae eros sagittis euismod.</p>
-                            <h5> $25.79</h5>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 special-grid dinner">
-                    <div class="gallery-single fix">
-                        <img src="images/img-08.jpg" class="img-fluid" alt="Image">
-                        <div class="why-text">
-                            <h4>Special Dinner 2</h4>
-                            <p>Sed id magna vitae eros sagittis euismod.</p>
-                            <h5> $22.79</h5>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 special-grid dinner">
-                    <div class="gallery-single fix">
-                        <img src="images/img-09.jpg" class="img-fluid" alt="Image">
-                        <div class="why-text">
-                            <h4>Special Dinner 3</h4>
-                            <p>Sed id magna vitae eros sagittis euismod.</p>
-                            <h5> $24.79</h5>
-                        </div>
-                    </div>
-                </div> -->
+              
 
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- End Menu -->
 
     <!-- Start Gallery -->
@@ -283,33 +189,33 @@
             <div class="tz-gallery">
                 <div class="row">
                     <div class="col-sm-12 col-md-4 col-lg-4">
-                        <a class="lightbox" href="images/gallery-img-01.jpg">
-                            <img class="img-fluid" src="images/gallery-img-01.jpg" alt="Gallery Images">
+                        <a class="lightbox" href="images/1.jpg">
+                            <img class="img-fluid" src="images/1.jpg" alt="Gallery Images">
                         </a>
                     </div>
                     <div class="col-sm-6 col-md-4 col-lg-4">
-                        <a class="lightbox" href="images/gallery-img-02.jpg">
-                            <img class="img-fluid" src="images/gallery-img-02.jpg" alt="Gallery Images">
+                        <a class="lightbox" href="images/2.jpg">
+                            <img class="img-fluid" src="images/2.jpg" alt="Gallery Images">
                         </a>
                     </div>
                     <div class="col-sm-6 col-md-4 col-lg-4">
-                        <a class="lightbox" href="images/gallery-img-03.jpg">
-                            <img class="img-fluid" src="images/gallery-img-03.jpg" alt="Gallery Images">
+                        <a class="lightbox" href="images/3.jpg">
+                            <img class="img-fluid" src="images/3.jpg" alt="Gallery Images">
                         </a>
                     </div>
                     <div class="col-sm-12 col-md-4 col-lg-4">
-                        <a class="lightbox" href="images/gallery-img-04.jpg">
-                            <img class="img-fluid" src="images/gallery-img-04.jpg" alt="Gallery Images">
+                        <a class="lightbox" href="images/4.jpg">
+                            <img class="img-fluid" src="images/4.jpg" alt="Gallery Images">
                         </a>
                     </div>
                     <div class="col-sm-6 col-md-4 col-lg-4">
-                        <a class="lightbox" href="images/gallery-img-05.jpg">
-                            <img class="img-fluid" src="images/gallery-img-05.jpg" alt="Gallery Images">
+                        <a class="lightbox" href="images/5.jpg">
+                            <img class="img-fluid" src="images/5.jpg" alt="Gallery Images">
                         </a>
                     </div>
                     <div class="col-sm-6 col-md-4 col-lg-4">
-                        <a class="lightbox" href="images/gallery-img-06.jpg">
-                            <img class="img-fluid" src="images/gallery-img-06.jpg" alt="Gallery Images">
+                        <a class="lightbox" href="images/6.jpg">
+                            <img class="img-fluid" src="images/6.jpg" alt="Gallery Images">
                         </a>
                     </div>
                 </div>

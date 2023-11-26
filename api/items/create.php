@@ -10,41 +10,39 @@ include 'function.php';
 $requestMethod = $_SERVER["REQUEST_METHOD"];
 
 if ($requestMethod == "POST") {
-    $name = $_POST['name'];
-    $price = $_POST['price'];
-    $image = $_FILES['image'];
-    $catId = $_POST['CategoryId'];
-    $subcatId = $_POST['subCategoryId'];
-    
+    // $name = $_POST['name'];
+    // $price = $_POST['price'];
+    // $image = $_FILES['image'];
+    // $catId = $_POST['CategoryId'];
+    // $subcatId = $_POST['subCategoryId'];
+    // $web_mobile = $_POST['web_mobile'];
 
     // Check if the file upload is successful
-    if ($image['error'] === UPLOAD_ERR_OK) {
-        $imageFileName = $image['name'];
-        $imageTempName = $image['tmp_name'];
+    // if ($image['error'] === UPLOAD_ERR_OK) {
+    //     $imageFileName = $image['name'];
+    //     $imageTempName = $image['tmp_name'];
         
-        // Move the uploaded image to the "images" folder
-        $uploadPath = '../images/' . $imageFileName;
-        move_uploaded_file($imageTempName, $uploadPath);
+    //     // Move the uploaded image to the "images" folder
+    //     $uploadPath = '../images/' . $imageFileName;
+    //     move_uploaded_file($imageTempName, $uploadPath);
 
         // Store user data in the database, including the image file name
-        $inputData = [
-            'name' => $name,
-            'price' => $price,
-            'image' => $imageFileName,
-            'CategoryId'=>$catId,
-            'subCategoryId'=>$subcatId,
-        ];
+    $inputdata=json_decode(file_get_contents("php://input"),true);
+    // $createexpense=createexpense($inputdata);
+    // echo $createexpense;
 
-        $storeUser = storeItems($inputData);
+        // $inputData = [
+        //     'name' => $name,
+        //     'price' => $price,
+        //     'type' => $web_mobile,
+        //     'CategoryId'=>$catId,
+        //     'subCategoryId'=>$subcatId,
+        // ];
+
+        $storeUser = storeItems($inputdata);
 
         echo $storeUser;
-    } else {
-        $data = [
-            'status' => 400,
-            'message' => 'Image upload failed',
-        ];
-        echo json_encode($data);
-    }
+    
 } else {
     $data = [
         'status' => 405,

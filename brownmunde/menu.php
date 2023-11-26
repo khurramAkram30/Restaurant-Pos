@@ -244,11 +244,18 @@
                             style="display: none;">
                             <label for="sel1" class="form-label">We Are Delivering On These Zip Codes</label>
                             <select class="form-control " id="deliveryZipCode" name="sellist1">
-                            <!-- <option value="" disabled>Select the option</option> -->
-                                <option>743500</option>
-                                <option>12345</option>
-                                <option>12456</option>
-                                <option>09876</option>
+                                <!-- <option value="" disabled>Select the option</option> -->
+                                <option value="KA1">KA1 - 5 Euro</option>
+                                <option value="KA2">KA2 - 5 Euro</option>
+                                <option value="KA3">KA3 - 5 Euro</option>
+                                <option value="KA4">KA4 - 5 Euro</option>
+                                <option value="KA5">KA5 - 5 Euro</option>
+                                <option value="KA16">KA16 - 6 Euro</option>
+                                <option value="KA169">KA169 - 6 Euro</option>
+                                <option value="KA17">KA17 - 6 Euro</option>
+                                <option value="KA170">KA170 - 6 Euro</option>
+                                <option value="KA33">KA33 - 6 Euro</option>
+                                <option value="KA36">KA36 - 6 Euro</option>
                             </select>
                         </div>
 
@@ -291,7 +298,7 @@
                             <!-- collection -->
                             <div class="col-md-3"></div>
                             <div class="col-md-4 labels">
-                                <label for="">Collecetion</label>
+                                <label for="" id="type">Collecetion</label>
                             </div>
                             <div class="col-md-5 mb-1">
                                 <input type="text" id="collectPrice" value="0" readonly class="form-control">
@@ -305,7 +312,7 @@
                                 <label for="">Service Charge</label>
                             </div>
                             <div class="col-md-5 mb-1">
-                                <input type="text" id="service" value="50" readonly class="form-control">
+                                <input type="text" id="service" value=".5" readonly class="form-control">
                             </div>
 
                             <!-- Service -->
@@ -455,13 +462,13 @@
     }
 
     function showdata(data) {
-        var collectionPrice=$("#collectPrice").val();
-        var servicePrice=$("#service").val();
-        
-        sessionStorage.setItem('shoppingCart', JSON.stringify(data));
-   
+        var collectionPrice = $("#collectPrice").val();
+        var servicePrice = $("#service").val();
 
-        var tabledata = "", i = 0, subtotal = 0,total=0;
+        sessionStorage.setItem('shoppingCart', JSON.stringify(data));
+
+
+        var tabledata = "", i = 0, subtotal = 0, total = 0;
         data.forEach(item => {
             subtotal += item.price;
             tabledata += `
@@ -477,9 +484,17 @@
     `;
             i++;
         })
-        total=parseInt(collectionPrice+servicePrice)+subtotal;
+        // 
+        // total = parseInt(collectionPrice + servicePrice) + subtotal;
         $("#subtotal").val(subtotal);
+        var collectionPrice = parseFloat($("#collectPrice").val());
+        var servicePrice = parseFloat($("#service").val()); // Assuming #service contains a numeric value, if not, adjust accordingly
+        var subtotal = parseFloat($("#subtotal").val());
+        
+        var total = collectionPrice + servicePrice + subtotal;
         $("#total").val(total);
+           
+        
         $("#cart").html(tabledata);
     }
 
@@ -511,47 +526,49 @@
     function SaveData() {
         var home = $("#home").prop("checked");
         var collect = $("#collect").prop("checked");
-        var zipcode=$("#deliveryZipCode").val();
-        var collectTime=$("#collectTime").val();
-        var collectionPrice=$("#collectPrice").val();
-        var servicePrice=$("#service").val();
-        var total=$("#total").val();
-        var instrucion=$("#instruction").val();
-        var subs=$("#subtotal").val();
+        var zipcode = $("#deliveryZipCode").val();
+        var collectTime = $("#collectTime").val();
+        var collectionPrice = $("#collectPrice").val();
+        var servicePrice = $("#service").val();
+        var total = $("#total").val();
+        var instrucion = $("#instruction").val();
+        var subs = $("#subtotal").val();
         if (!home && !collect) {
             alert("Please Select the Delivery type ");
         }
-        if(home){
-            var postdata={
-            zipcode:zipcode,
-            collectionPrice:collectionPrice,
-            serviceCharges:servicePrice,
-            total:total,
-            specialInstruction:instrucion,
-            Subtotal:subs,
-            deliveryType:$("#home").val(),
+        if (home) {
+            var postdata = {
+                zipcode: zipcode,
+                collectionPrice: collectionPrice,
+                serviceCharges: servicePrice,
+                total: total,
+                specialInstruction: instrucion,
+                Subtotal: subs,
+                deliveryType: $("#home").val(),
             };
-            // console.log(postdata);
+            console.log(postdata);
             sessionStorage.setItem('Instruction', JSON.stringify(postdata));
-            window.location.href="ShoppingCart.php";
+            // window.location.href="ShoppingCart.php";
         }
-        if(collect){
-            var postdata={
-            CollectionTime:collectTime,
-            collectionPrice:collectionPrice,
-            serviceCharges:servicePrice,
-            total:total,
-            specialInstruction:instrucion,
-            Subtotal:subs,
-            deliveryType:$("#collect").val(),
+        if (collect) {
+            var postdata = {
+                CollectionTime: collectTime,
+                collectionPrice: collectionPrice,
+                serviceCharges: servicePrice,
+                total: total,
+                specialInstruction: instrucion,
+                Subtotal: subs,
+                deliveryType: $("#collect").val(),
             };
-   
-         sessionStorage.setItem('Instruction', JSON.stringify(postdata));
-         window.location.href="ShoppingCart.php";
-        }
 
-    
-        
+            sessionStorage.setItem('Instruction', JSON.stringify(postdata));
+
+        }
+        sessionStorage.setItem('shoppingCart', JSON.stringify(arr));
+         window.location.href="ShoppingCart.php";
+
+
+
     }
 
 
@@ -567,5 +584,58 @@
 
         }, 0); // 2000 milliseconds (2 seconds)
     });
+    loadItem();
 
+    function loadItem() {
+        $(".special-list").css("height", "auto");
+        $("#info").css("display", "contents");
+        $("#table").css("display", "block");
+        var collectionPrice = $("#collectPrice").val();
+        var servicePrice = $("#service").val();
+        var getItem = JSON.parse(sessionStorage.getItem('shoppingCart'));
+        // console.log(getItem);
+        var tabledata = "", i = 0, subtotal = 0, total = 0;
+        // arr.push(getItem);
+        if(getItem){   
+        for (var j = 0; j < getItem.length; j++) {
+            arr.push(getItem[j]);
+        }
+        // console.log(arr);
+        showdata(arr);
+    }
+
+    }
+    $("#deliveryZipCode").on("change", function () {
+        var zipcode = $("#deliveryZipCode").val();
+        var prices = {
+            "KA1": 5,
+            "KA2": 5,
+            "KA3": 5,
+            "KA4": 5,
+            "KA5": 5,
+            "KA16": 6,
+            "KA169": 6,
+            "KA17": 6,
+            "KA170": 6,
+            "KA33": 6,
+            "KA36": 6,
+        };
+
+        // Check if the entered ZIP code is a key in the prices object
+        if (prices.hasOwnProperty(zipcode)) {
+            var selectedPrice = prices[zipcode];
+            // console.log("Selected Price: " + selectedPrice + " Euro");
+            $("#type").html("Delivery");
+            $("#collectPrice").val(selectedPrice);
+            var collectionPrice = parseFloat($("#collectPrice").val());
+            var servicePrice = parseFloat($("#service").val()); // Assuming #service contains a numeric value, if not, adjust accordingly
+            var subtotal = parseFloat($("#subtotal").val());
+
+            var total = collectionPrice + servicePrice + subtotal;
+            // console.log(total);
+            $("#total").val(total);
+        } else {
+            console.log("ZIP code not found in prices object");
+        }
+    })
 </script>

@@ -584,9 +584,11 @@ $(document).ready(function(){
 //  let a:()=>void = () =>:void {
 
 //  };
+const baseurl=url;
+
 function product() {
     $.ajax({
-    url:`http://localhost/restaurant/api/inventory/showProductInventory.php`,
+    url:`${baseurl}inventory/showProductInventory.php`,
     type:"GET",
     contentType:"application/json",
     success:function(response,status){
@@ -623,7 +625,7 @@ function product() {
         $("#uploadButton").css("display", "none");
         $("#loaderbtn").css("display", "block");
         $.ajax({
-            url: `http://localhost/restaurant/api/inventory/update.php`,
+            url: `${baseurl}inventory/update.php`,
             type: "PUT",
             data: JSON.stringify(postdata),
             contentType: "application/json",

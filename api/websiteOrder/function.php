@@ -31,7 +31,7 @@ function createorder($datas)
             $userID = getUserId();
             // specialInstruction
             $orderID = cusomOrder();
-            $websiteOrder = "insert into websiteorder VALUES (NULL,'$orderID',$userID,'In Progress','" . $instruction['total'] . "','$time','$date','" . $instruction['specialInstruction'] . "')";
+            $websiteOrder = "insert into websiteorder VALUES (NULL,'$orderID',$userID,'In Progress','" . $instruction['serviceCharges'] . "','" . $instruction['collectionPrice'] . "','" . $instruction['total'] . "','$time','$date','" . $instruction['specialInstruction'] . "')";
             $websiteOrderResult = mysqli_query($conn, $websiteOrder);
             if ($websiteOrderResult) {
                 $ordResult = "";
@@ -67,6 +67,14 @@ function createorder($datas)
                             header("HTTP:/1.0 201 created");
                             return json_encode($data);
                         }
+                    }
+                    else{
+                        $data = [
+                            'status' => 201,
+                            'message' => "Order Created",
+                        ];
+                        header("HTTP:/1.0 201 created");
+                        return json_encode($data);
                     }
                    
                 }
@@ -77,7 +85,8 @@ function createorder($datas)
     else{
             $userID=$datas["userId"];
             $orderID = cusomOrder();
-            $websiteOrder = "insert into websiteorder VALUES (NULL,'$orderID',$userID,'In Progress','" . $instruction['total'] . "','$time','$date','" . $instruction['specialInstruction'] . "')";
+            // $websiteOrder = "insert into websiteorder VALUES (NULL,'$orderID',$userID,'In Progress','" . $instruction['total'] . "','$time','$date','" . $instruction['specialInstruction'] . "')";
+            $websiteOrder = "insert into websiteorder VALUES (NULL,'$orderID',$userID,'In Progress','" . $instruction['serviceCharges'] . "','" . $instruction['collectionPrice'] . "','" . $instruction['total'] . "','$time','$date','" . $instruction['specialInstruction'] . "')"; 
             $websiteOrderResult = mysqli_query($conn, $websiteOrder);
             if ($websiteOrderResult) {
                 $ordResult = "";
@@ -113,6 +122,15 @@ function createorder($datas)
                             header("HTTP:/1.0 201 created");
                             return json_encode($data);
                         }
+                    }
+
+                    else{
+                        $data = [
+                            'status' => 201,
+                            'message' => "Order Created",
+                        ];
+                        header("HTTP:/1.0 201 created");
+                        return json_encode($data);
                     }
                 }
             }
