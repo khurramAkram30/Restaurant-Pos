@@ -231,17 +231,14 @@
 
                         <div class="form-group w-100 text-center collectionTime" id="collectionselect">
                             <label for="sel1" class="form-label">Collection Time</label>
-                            <select class="form-control " id="collectTime" name="sellist1">
-                                <!-- <option value="" disabled>Select the option</option> -->
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                            </select>
+                            <h3>Collect Your order after</h3>
+                            <label for="" id="collecttimefromdatabase"></label>
                         </div>
 
                         <div class="form-group w-100 text-center collectionTime" id="homeDeliveryselect"
                             style="display: none;">
+                            <h3>We are deliver your Order after </h3>
+                            <label for="" id="deliverytimefromdatabase"></label>
                             <label for="sel1" class="form-label">We Are Delivering On These Zip Codes</label>
                             <select class="form-control " id="deliveryZipCode" name="sellist1">
                                 <!-- <option value="" disabled>Select the option</option> -->
@@ -268,7 +265,6 @@
                                         <th>Qty</th>
                                         <th>Price</th>
                                         <th>Remove</th>
-
                                     </tr>
                                 </thead>
 
@@ -422,6 +418,13 @@
 
             $('#homeDeliveryselect').css("display", "block");
 
+            timearr.forEach(item=>{
+                    if(item.name == "Home Delivery"){
+                        // console.log(item.name);
+                        $("#deliverytimefromdatabase").html(item.time);
+                    }
+                })
+
         }
         else {
             $('#homeDeliveryselect').css("display", "none");
@@ -440,7 +443,7 @@
         $(".special-list").css("height", "auto");
         $("#info").css("display", "contents");
         $("#table").css("display", "block");
-        var SubTotal = parseInt(qty * price);
+        var SubTotal = parseFloat(qty * price);
         var pushdata = {
             productid: id,
             quantity: qty,
@@ -503,7 +506,7 @@
         arr[index].quantity = quantityextra;
         var itemsprice = arr[index].itemprice;
         // console.log(itemsprice);
-        var subtotals = parseInt(quantityextra * itemsprice);
+        var subtotals = parseFloat(quantityextra * itemsprice);
         arr[index].price = subtotals;
 
         // console.log("updated",arr);
@@ -638,4 +641,32 @@
             console.log("ZIP code not found in prices object");
         }
     })
+
+
+    time();
+    var timearr="";
+    function time(){
+        $.ajax({
+            // url: `${baseurl}order/create.php`, 
+            url: `http://localhost/restaurant/api/orderTime/read.php`,
+            type: "GET",
+            contentType: "application/json",
+            success: function (response, status) {
+                // window.location.href="createorder.php";
+                timearr =response.response;
+                timearr.forEach(item=>{
+                    if(item.name == "Collection"){
+                        // console.log(item.name);
+                        $("#collecttimefromdatabase").html(item.time);
+                    }
+                }) 
+                // console.log(response.response);
+                // getInProgressOrder();
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
 </script>

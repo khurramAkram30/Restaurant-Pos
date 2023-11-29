@@ -5,8 +5,10 @@
                         <!-- sidebar-toggle-->
                         <a class="logo-horizontal " href="Dashboard.php">
                             <img src="../assets/images/brand/logo.png" class="header-brand-img desktop-logo" alt="logo">
-                            <img src="../assets/images/favicon2.png" class="header-brand-img light-logo1"
-                                alt="logo">
+                            <!-- <img src="../assets/images/favicon2.png" class="header-brand-img light-logo1"
+                                alt="logo"> -->
+                            <img src="../assets/images/brown-munde.png" height="50px" class="header-brand-img light-logo1" alt="logo">
+
                         </a>
                         <!-- LOGO -->
                         <!-- <div class="main-header-center ms-3 d-none d-lg-block">
@@ -185,7 +187,7 @@
                                                 <a class="dropdown-item" href="lockscreen.html">
                                                     <i class="dropdown-icon fe fe-lock"></i> Lockscreen
                                                 </a> -->
-                                                <a class="dropdown-item" href="login.html">
+                                                <a class="dropdown-item" href="index.php">
                                                     <i class="dropdown-icon fe fe-alert-circle"></i> Sign out
                                                 </a>
                                             </div>

@@ -2,6 +2,7 @@
 require "../config/conn.php";
 require "../inventory/function.php";
 require "payment.php";
+require "../mail/sendMail.php";
 function error422($message)
 {
     $data = [
@@ -54,10 +55,12 @@ function createorder($datas)
 
                     $paymentQuery = "insert into paymenttransaction values(NULL,'$orderID','$paymentType','" . $instruction['total'] . "','$time')";
                     $paymentQueryResult = mysqli_query($conn, $paymentQuery);
+                    $sendMail=sendMail($userID, $orderID);
                     if($paymentType == "card"){
                         $token = $datas["stripeToken"];
                         $amount= $instruction['total'] ;
                         $paymentStatus=paymentStripe($userID, $orderID,$token,$amount);
+                        $sendMail=sendMail($userID, $orderID);
                         if ($paymentQueryResult) {
                             $data = [
                                 'status' => 201,
@@ -109,10 +112,12 @@ function createorder($datas)
 
                     $paymentQuery = "insert into paymenttransaction values(NULL,'$orderID','$paymentType','" . $instruction['total'] . "','$time')";
                     $paymentQueryResult = mysqli_query($conn, $paymentQuery);
+                    $sendMail=sendMail($userID, $orderID);
                     if($paymentType == "card"){
                         $token = $datas["stripeToken"];
                         $amount= $instruction['total'] ;
                         $paymentStatus=paymentStripe($userID, $orderID,$token,$amount);
+                        $sendMail=sendMail($userID, $orderID);
                         if ($paymentQueryResult) {
                             $data = [
                                 'status' => 201,
@@ -233,7 +238,7 @@ $getCompleteOrder = array();
 function getCompleteOrder()
 {
     global $conn;
-    $query = "SELECT users.firstName,users.lastName,users.address1,users.phone,websiteorder.CustomOrderId,websiteorder.status,websiteorder.total,websiteorder.notes,deliveryorders.userId,paymenttransaction.paymentMethod,paymenttransaction.paymentAmount from users INNER JOIN websiteorder on users.id=websiteorder.userId INNER JOIN deliveryorders on deliveryorders.userId=websiteorder.userId INNER JOIN paymenttransaction on paymenttransaction.orderId=websiteorder.CustomOrderId AND websiteorder.status= 'Completed'";
+    $query = "SELECT DISTINCT users.firstName,users.lastName,users.address1,users.phone,websiteorder.CustomOrderId,websiteorder.status,websiteorder.total,websiteorder.notes,websiteorder.date,deliveryorders.userId,paymenttransaction.paymentMethod,paymenttransaction.paymentAmount from users INNER JOIN websiteorder on users.id=websiteorder.userId INNER JOIN deliveryorders on deliveryorders.userId=websiteorder.userId INNER JOIN paymenttransaction on paymenttransaction.orderId=websiteorder.CustomOrderId AND websiteorder.status= 'Completed'";
     $res = mysqli_query($conn, $query);
     if (mysqli_num_rows($res) > 0) {
         while ($row = mysqli_fetch_assoc($res)) {
@@ -241,7 +246,7 @@ function getCompleteOrder()
         }
         $data = [
             'status' => 201,
-            'message' => "Order Created",
+            'message' => "Order fetched",
             'Data' => $getCompleteOrder,
         ];
         header("HTTP:/1.0 201 created");

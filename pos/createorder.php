@@ -1170,7 +1170,8 @@
 
 
     function addtocart(pid, qty, name, price) {
-        var SubTotal = parseInt(qty * price);
+        // alert(price);
+        var SubTotal = parseFloat(qty * price);
         var pushdata = {
             productid: pid,
             quantity: qty,
@@ -1181,12 +1182,13 @@
             extprice: extraprice
         }
         var existingItem = arr.find(item => item.productid === pid);
-
+        
         if (existingItem) {
             alert("This item is already added to the cart.");
         } else {
             // If it doesn't exist, add a new item
             arr.push(pushdata);
+            console.log(arr)
         }
 
         // console.log("array",arr);
@@ -1203,7 +1205,7 @@
     <td><input type="text" class="form-control quantity${i}" value="${item.quantity > 0 ? item.quantity : ""}" onkeyup="quantitychange('${i}')"></td>
     <td><input type="text" class="form-control extraname${i}" value="${item.extname.length > 0 ? item.extname : ""}"  onChange="extNameChange('${i}')"></td>
     <td><input type="text" class="form-control extraprice${i}" value="${item.extprice > 0 ? item.extprice : ""}" onChange="myFunc('${i}')"></td>
-    <td>${item.price > 0 ? item.price : ""}</td>
+    <td>${item.price > 0 ? item.price.toFixed(1) : ""}</td>
     <td><a class="btn text-danger btn-sm" onclick="removeObj('${i}')" data-bs-toggle="tooltip" data-bs-original-title="Edit"><span class="fe fe-trash-2 fs-14"></span></a>
     </td>
   
@@ -1222,7 +1224,7 @@
         arr[index].quantity = quantityextra;
         var itemsprice = arr[index].itemprice;
         // console.log(itemsprice);
-        var subtotals = parseInt(quantityextra * itemsprice);
+        var subtotals = parseFloat(quantityextra * itemsprice);
         arr[index].price = subtotals + arr[index].extprice;
 
         // console.log("updated",arr);
@@ -1233,8 +1235,8 @@
 
     function myFunc(index) {
         var priceofextra = document.querySelector(`.extraprice${index}`).value;
-        arr[index].extprice = parseInt(priceofextra);
-        arr[index].price = parseInt(arr[index].price + arr[index].extprice);
+        arr[index].extprice = parseFloat(priceofextra);
+        arr[index].price = parseFloat(arr[index].price + arr[index].extprice);
 
         showdata(arr);
 

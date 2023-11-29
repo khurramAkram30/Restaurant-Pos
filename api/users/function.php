@@ -71,4 +71,29 @@ function getUserHistory($userId){
         return json_encode($data); 
     }
 }
+
+function getAllUser(){
+    $getAllUser=array();
+global $conn;
+$sql= "select * from users";
+$res=$conn->query($sql);
+if (mysqli_num_rows($res) > 0) {
+    while($row=mysqli_fetch_assoc($res)){
+        $getAllUser[] = $row;
+    }  
+    $data=[
+        "success"=>"users found",
+        "result"=> $getAllUser,
+    ];
+    header("HTTP:/1.0 200 fetched");
+    return json_encode($data);
+}
+else{
+    $data = [  
+        "result"=> "No user Found",
+    ];
+    header("HTTP:/1.0 500 Error");
+    return json_encode($data); 
+}
+}
 ?>

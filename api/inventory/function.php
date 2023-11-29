@@ -189,5 +189,31 @@ function insertInventory(){
     }
 }
 
+$remainingInventory=array();
+function remainingInventory(){
+global $conn;
+$query= "select items.id,items.name,inventory.quantity from items INNER join inventory on inventory.item_id = items.id";
+$result=mysqli_query($conn,$query);
+if($result){    
+    while($row = mysqli_fetch_assoc($result)) {
+        $remainingInventory[]=$row;
+        $data=[
+            'status'=>200,
+            'message'=>"Remaining Item",
+            'response'=>$remainingInventory,
+        ];
+        header("HTTP:/200 ok");
+        return json_encode($data);
+    }
+}
+else{
+    $data=[
+        'status' => 404,
+        'message' => "No Data Found",
+    ];
+    header("HTTP:/ 404 No Data Found");
+    return json_encode($data);
+}
+}
 
 ?>

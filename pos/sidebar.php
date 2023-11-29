@@ -5,8 +5,8 @@
                         <a class="header-brand1" href="Dashboard.php">
                             <img src="../assets/images/favicon1.png" class="header-brand-img desktop-logo" alt="logo">
                             <img src="../assets/images/brand/logo-1.png" class="header-brand-img toggle-logo" alt="logo">
-                            <img src="../assets/images/favicon2.png" class="header-brand-img light-logo" alt="logo">
-                            <img src="../assets/images/brown.png" class="header-brand-img light-logo1" alt="logo" style="
+                            <img src="../assets/images/brown-munde.png" height="50px" class="header-brand-img light-logo" alt="logo">
+                            <img src="../assets/images/brown-munde.png" class="header-brand-img light-logo1" alt="logo" style="
     height: 70px;
     width: 136px;
 ">
@@ -28,6 +28,9 @@
                                 <a class="side-menu__item has-link" data-bs-toggle="slide" href="subcategories.php"><i class="side-menu__icon fe fe-package"></i><span class="side-menu__label">Sub Categories</span></a>
                             </li>
 
+                            <li class="slide">
+                                <a class="side-menu__item has-link" data-bs-toggle="slide" href="orderTime.php"><i class="side-menu__icon fe fe-slack"></i><span class="side-menu__label">Order Time</span></a>
+                            </li>
                             <!-- <li class="slide">
                                 <a class="side-menu__item has-link" data-bs-toggle="slide" href="index.html"><i class="side-menu__icon fe fe-package"></i><span class="side-menu__label">Items</span></a>
                             </li> -->
@@ -38,8 +41,6 @@
                                 <ul class="slide-menu">
                                     <li><a href="item.php" class="slide-item"> Add Items</a></li>
                                     <li><a href="view_item.php" class="slide-item">View Items</a></li>
-                             
-
                                 </ul>
                             </li>
 
@@ -57,7 +58,8 @@
                                 <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i class="side-menu__icon fe fe-slack"></i><span class="side-menu__label">Inventory</span><i class="angle fe fe-chevron-right"></i></a>
                                 <ul class="slide-menu">
                                     <li><a href="addInventory.php" class="slide-item">Create Inventory</a></li>
-                                    <li><a href="viewInventory.php" class="slide-item">View Inventory</a></li>
+                                    <li><a href="RemainingInventory.php" class="slide-item">Remaining Inventory</a></li>
+                                    <li><a href="viewInventory.php" class="slide-item">Sale Inventory</a></li>
                              
 
                                 </ul>
@@ -78,6 +80,16 @@
                                 <ul class="slide-menu">
                                     <li><a href="pendingOrder.php" class="slide-item">Pending Orders</a></li>
                                     <li><a href="completedOrder.php" class="slide-item">Completed Order</a></li>
+                             
+
+                                </ul>
+                            </li>
+
+                            <li class="slide">
+                                <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i class="side-menu__icon fe fe-slack"></i><span class="side-menu__label">Finance</span><i class="angle fe fe-chevron-right"></i></a>
+                                <ul class="slide-menu">
+                                    <li><a href="posOrder.php" class="slide-item">Pos Orders</a></li>
+                                    <li><a href="websiteOrder.php" class="slide-item">Website Order</a></li>
                              
 
                                 </ul>
@@ -320,3 +332,14 @@
                 </div>
                 <!--/APP-SIDEBAR-->
             </div>
+
+
+            <script>
+            var getSession=sessionStorage.getItem("username");
+            if(getSession){
+               
+            }
+            else{
+                window.location.href="index.php";
+            }
+            </script>

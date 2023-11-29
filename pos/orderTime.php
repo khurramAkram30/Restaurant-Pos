@@ -36,45 +36,7 @@
     <link href="../assets/switcher/css/switcher.css" rel="stylesheet" />
     <link href="../assets/switcher/demo.css" rel="stylesheet" />
     <style>
-        .cardsetting {
-            padding: 10px;
-            background: aliceblue;
-            height: 205px;
-        }
 
-        .imgset {
-            height: 100px;
-            border-radius: 50%;
-        }
-
-        .displayfix {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            text-align: center;
-            margin-top: 8px;
-        }
-
-        .rowset {
-            padding-top: 50px;
-            padding-right: 20px;
-        }
-
-        .columnset {
-            display: flex;
-            justify-content: end;
-        }
-
-        .Subtotal {
-            font-size: 18px;
-            font-weight: 500;
-        }
-
-        .buttons {
-            color: white !important;
-            font-size: 15px !important;
-            font-weight: 500;
-        }
     </style>
 </head>
 
@@ -453,7 +415,7 @@
             include "sidebar.php";
             ?>
             <!--app-content open-->
-            <div class="main-content app-content mt-0" style="background-color: #f9f6f6 !important;">
+            <div class="main-content app-content mt-0" style="background-color: white !important;">
                 <div class="side-app p-0">
 
                     <!-- CONTAINER -->
@@ -464,243 +426,77 @@
                         <div class="row">
 
                             <div class="col-lg-12 p-0">
-
-                                <div class="row mt-3">
-                                    <div class="col-md-6">
-                                        <div class="row p-4">
-                                            <div class="col-sm-4 col-md-4">
-                                                <div class="form-group">
-                                                    <label class="form-label">ORDER ID <span
-                                                            class="text-red">*</span></label>
-                                                    <input type="text" id="orderid" class="form-control"
-                                                        value="" readonly>
+                                <form action="" enctype="multipart/form-data">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <div class="card-title">Add New Order Type Name</div>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row mb-4">
+                                                <label class="col-md-3 form-label">Order Type Name :</label>
+                                                <div class="col-md-9">
+                                                    <input type="text" class="form-control"
+                                                        placeholder="Enter Order Type" required id="type_name">
                                                 </div>
                                             </div>
-                                            <div class="col-sm-8 col-md-8">
-                                                <div class="form-group">
-                                                    <label class="form-label">Tables <span
-                                                            class="text-red">*</span></label>
-                                                    <!-- <input type="text" class="form-control" placeholder="Last name"> -->
-                                                    <!-- <select name="" >
-                                                        <option value="" disabled selected>Select Table</option>
-
-                                                    </select> -->
-
-                                                    <input type="text" readonly id="tableshow" class="form-control">
-
+                                            <div class="row mb-4">
+                                                <label class="col-md-3 form-label">Time :</label>
+                                                <div class="col-md-9">
+                                                    <input type="text" class="form-control"
+                                                        placeholder="Enter Time" required id="type_time">
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-12">
-                                                <div class="card">
-
-                                                    <div class="card-body">
-                                                        <div class="panel panel-primary">
-                                                            <div class="tab-menu-heading">
-                                                                <div class="tabs-menu">
-                                                                    <!-- Tabs -->
-                                                                    <ul class="nav panel-tabs panel-secondary">
-                                                                        <li><a href="#tab9" class="active"
-                                                                                data-bs-toggle="tab"><span>
-                                                                                    <!-- <i class="fe fe-user me-1"></i> -->
-                                                                                </span>
-                                                                                Drinks</a></li>
-                                                                        <li><a href="#tab10" data-bs-toggle="tab"
-                                                                                class="">
-                                                                                <!-- <span>
-                                                                                    <i class="fe fe-calendar me-1"></i></span> -->
-                                                                                Food</a></li>
-                                                                        <li><a href="#tab11" data-bs-toggle="tab"
-                                                                                class="">
-                                                                                <!-- <span><i
-                                                                                        class="fe fe-settings me-1"></i></span> -->
-
-                                                                                Sweet </a></li>
-
-                                                                        <!-- <li><a href="#tab12"
-                                                                                data-bs-toggle="tab"><span><i
-                                                                                        class="fe fe-bell me-1"></i></span>Tab
-                                                                                4</a></li>
-                                                                                 -->
-                                                                        <!-- <li style><input type="text" placeholder="Search Item By Name " class="form-control"></li> -->
-                                                                    </ul>
-
-                                                                </div>
-                                                            </div>
-                                                            <div class="panel-body tabs-menu-body">
-                                                                <div class="tab-content">
-                                                                    <div class="tab-pane active" id="tab9">
-                                                                        <div class="row" id="drinks">
-
-
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="tab-pane" id="tab10">
-                                                                        <div class="row" id="food">
-
-
-
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="tab-pane" id="tab11">
-                                                                        <div class="row" id="desert">
-
-
-
-                                                                        </div>
-                                                                    </div>
-
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                            <div class="row">
+                                                <div class="col-md-3"></div>
+                                                <div class="col-md-9">
+                                                    <!-- <a href="" onclick="" id="uploadButton" class="btn btn-primary">Add Product</a> -->
+                                                    <button onclick="" id="uploadButton" class="btn btn-primary">Add
+                                                         </button>
+                                                    <button type="button" id="loaderbtn"
+                                                        class="btn btn-primary btn-loading btn-icon"
+                                                        style="display:none"><i class="fe fe-check"></i></button>
                                                 </div>
                                             </div>
+
+
+                                            <div class="heading mt-8">
+
+                                                <h4>View All Categories</h4>
+
+                                            </div>
+
+                                            <div class="row mt-5">
+
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Name</th>
+                                                            <th>Time</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="bodycat">
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
 
 
                                         </div>
+                                        <div class="card-footer">
+                                            <!--Row-->
 
+                                            <!--End Row-->
+                                        </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="row rowset">
-                                            <div class="card">
-                                                <div class="table-responsive">
-                                                    <table class="table">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Items</th>
-                                                                <th>Qty</th>
-                                                                <th>Extra</th>
-                                                                <th>Extra price</th>
-                                                                <th>SubTotal</th>
-                                                                <th>Action</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody id="cartbody"></tbody>
-
-                                                    </table>
-
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-9 columnset">
-                                                <label for="" class="Subtotal">Sub Total</label>
-                                            </div>
-
-                                            <div class="col-md-2">
-                                                <input type="number" id="subtotal" class="form-control">
-                                            </div>
-
-
-                                            <div class="col-md-9 columnset mt-2">
-                                                <label for="" class="Subtotal">Discount (%)</label>
-                                            </div>
-
-                                            <div class="col-md-2 mt-2">
-                                                <input type="number" id="Discount" onkeyup="discountedPrice()"
-                                                    class="form-control">
-                                            </div>
-
-                                            <div class="col-md-9 columnset mt-2">
-                                                <label for="" class="Subtotal ">Grand Total</label>
-                                            </div>
-
-                                            <div class="col-md-2 mt-2">
-                                                <input type="number" id="PaidAmount" class="form-control">
-                                            </div>
-
-                                            <div class="col-md-1">
-                                            </div>
-
-                                            <div class="col-md-6 mt-3">
-                                                <button class="btn btn-primary buttons form-control" id="holdCart">Hold
-                                                    Order</button>
-                                            </div>
-
-                                            <div class="col-md-6 mt-3">
-                                                <button class="btn btn-success buttons form-control"
-                                                    id="Proceed">Proceed</button>
-                                            </div>
-                                        </div>
-
-
-                                        <div class="row mt-2" id="paymentMethod" style="display:none">
-                                            <div class="col-md-12">
-                                                <div class="card">
-                                                    <div class="row mb-2">
-                                                        <div class="col-md-8 columnset mt-2">
-                                                            <label for="" class="Payment Subtotal">Payment
-                                                                Method</label>
-                                                        </div>
-
-                                                        <div class="col-md-3 mt-2">
-                                                            <select name="" class="form-control" id="paymentMethods">
-                                                                <option value="Card">Card</option>
-                                                                <option value="Cash">Cash</option>
-                                                            </select>
-                                                        </div>
-
-                                                        <div class="col-md-1">
-                                                        </div>
-
-
-                                                        <div class="col-md-8 columnset mt-2">
-                                                            <label for="" class="Subtotal ">Paid Amount</label>
-                                                        </div>
-
-                                                        <div class="col-md-3 mt-2">
-                                                            <input type="number" id="Paid" class="form-control">
-                                                        </div>
-
-                                                        <div class="col-md-1">
-                                                        </div>
-
-                                                        <div class="col-md-9 columnset mt-2">
-                                                            <!-- <label for="" class="Subtotal ">Paid Amount</label> -->
-                                                        </div>
-
-                                                        <div class="col-md-2 mt-2">
-                                                            <input type="button" name="btn" id="finishBtn"
-                                                                onclick="finish()" class="btn btn-primary form-control"
-                                                                value="Finish">
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-
-
+                                </form>
                             </div>
 
                         </div>
                         <!-- /Row -->
-
-                        <!-- <div class="row p-4 bg-white">
-                            <h3>Order (In Progress)</h3>
-                            <div class="col-md-12">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Order Id</th>
-                                            <th>Total</th>
-                                            <th>Status</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="Progress">
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div> -->
-
-
                     </div>
                     <!-- CONTAINER CLOSED -->
                 </div>
@@ -709,27 +505,32 @@
         </div>
 
         <!-- edit modal -->
-        <div class="modal fade" id="RequiredPswd">
+        <div class="modal fade" id="editmodal">
             <div class="modal-dialog" role="document">
                 <div class="modal-content modal-content-demo">
                     <div class="modal-header">
-                        <h6 class="modal-title">Required Password</h6><button aria-label="Close" class="btn-close"
+                        <h6 class="modal-title">Edit Category</h6><button aria-label="Close" class="btn-close"
                             data-bs-dismiss="modal"><span aria-hidden="true">&times;</span></button>
                     </div>
                     <div class="modal-body">
 
                         <input type="hidden" id="idd">
                         <div class="row mb-4">
-                            <label class="col-md-3 form-label">Password:</label>
+                            <label class="col-md-3 form-label">Order Type Name:</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="pswd" placeholder="Enter Password">
-                                <label for="alert" id="notify"></label>
+                                <input type="text" readonly class="form-control" id="editcategory" placeholder="Enter category">
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <label class="col-md-3 form-label">Time:</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" id="time" placeholder="Enter time">
                             </div>
                         </div>
 
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-primary" onclick="submitPswd()">Submit Password</button>
+                        <button class="btn btn-primary" onclick="edit()">Edit SubCategory</button>
                     </div>
                 </div>
             </div>
@@ -738,23 +539,6 @@
         <!-- edit modal end -->
 
 
-        <!-- Sidebar-right -->
-
-        <!--/Sidebar-right-->
-
-        <!-- Country-selector modal-->
-
-        <!-- FOOTER -->
-        <!-- <footer class="footer">
-            <div class="container">
-                <div class="row align-items-center flex-row-reverse">
-                    <div class="col-md-12 col-sm-12 text-center">
-                        Copyright © <span id="year"></span> <a href="javascript:void(0)">Sash</a>. Designed with <span class="fa fa-heart text-danger"></span> by <a href="javascript:void(0)"> Spruko </a> All rights reserved.
-                    </div>
-                </div>
-            </div>
-        </footer> -->
-        <!-- FOOTER CLOSED -->
     </div>
 
     <!-- BACK-TO-TOP -->
@@ -795,7 +579,6 @@
     <script src="../assets/switcher/js/switcher.js"></script>
 
     <script src="../assets/js/url.js"></script>
-    <script src="../assets/js/items.js"></script>
 </body>
 
 </html>
@@ -804,188 +587,40 @@
 <script>
 
     const baseurl = url;
-    var datas = "",updatetablearr=[];
-    var arr = [];
-    var extraname = "", extraprice = 0;
-
-    function getDrinksItem() {
-        $.ajax({
-            url: `${baseurl}items/read.php?id=1`,
-            type: "GET",
-            contentType: "application/json",
-            success: function (response, status) {
-                var data = response.response;
-                // console.log(data);
-                var items = "";
-                data.forEach(item => {
-                    items += `  <div class="col-md-4">
-                                     <div class="card cardsetting"
-                                         onclick="addtocart(${item.id},1,'${item.name}',${item.sell})">
-                                         <img src="../api/images/burger.jpg" class="imgset" alt="">
-                                             <div class="displayfix">
-                                                 <h5>${item.name}
-                                                    </h5>
-                                                <h4>${item.sell}</h4>
-                                                </div>
-                                                 </div>
-                                                 </div>`;
-                });
-                $("#drinks").html(items);
-            },
-            error: function (error) {
-                console.log(error);
-            }
-        });
-    }
-
-    function getFoodItem() {
-        $.ajax({
-            url: `${baseurl}items/read.php?id=2`,
-            type: "GET",
-            contentType: "application/json",
-            success: function (response, status) {
-                var data = response.response;
-                // console.log(data);
-                var items = "";
-                data.forEach(item => {
-                    items += `  <div class="col-md-4">
-                                     <div class="card cardsetting"
-                                         onclick="addtocart(${item.id},1,'${item.name}',${item.sell})">
-                                         <img src="../api/images/burger.jpg" class="imgset" alt="">
-                                             <div class="displayfix">
-                                                 <h5>${item.name}
-                                                    </h5>
-                                                <h4>${item.sell}</h4>
-                                                </div>
-                                                 </div>
-                                                 </div>`;
-                });
-                $("#food").html(items);
-            },
-            error: function (error) {
-                console.log(error);
-            }
-        });
-    }
-
-    function getDesertItem() {
-        $.ajax({
-            url: `${baseurl}items/read.php?id=3`,
-            type: "GET",
-            contentType: "application/json",
-            success: function (response, status) {
-                var data = response.response;
-                // console.log(data);
-                var items = "";
-                data.forEach(item => {
-                    items += `  <div class="col-md-4">
-                                     <div class="card cardsetting"
-                                         onclick="addtocart(${item.id},1,'${item.name}',${item.sell})">
-                                         <img src="../api/images/burger.jpg" class="imgset" alt="">
-                                             <div class="displayfix">
-                                                 <h5>${item.name}
-                                                    </h5>
-                                                <h4>${item.sell}</h4>
-                                                </div>
-                                                 </div>
-                                                 </div>`;
-                });
-                $("#desert").html(items);
-            },
-            error: function (error) {
-                console.log(error);
-            }
-        });
-    }
-    var tableid;
-    function getOrderById() {
-        const urlParams = new URLSearchParams(window.location.search);
-        var id = urlParams.get('id');
-        // alert(id);
-        $.ajax({
-            url: `${baseurl}order/read.php?id=${id}`,
-            // url:`http://localhost/restaurant/api/order/read.php?id=${id}`,
-            type: "GET",
-            contentType: "application/json",
-            success: function (response, status) {
-                tableid=response.response[0].table_id;
-                var orderId = $("#orderid").val(id);
-                $("#tableshow").val(tableid);
-                updatetablearr=response.response;
-                console.log("found",updatetablearr);
-                updateTable(updatetablearr);
-            },
-            error: function (status, error) {
-                console.log(error);
-            }
-        });
-    }
-
-    function updateTable(data) {
-        var tabledata = "", i = 0, subtotal = 0;
-        data.forEach(item => {
-            subtotal += parseFloat(item.subtotal);
-            tabledata += `
-    <tr>
-    <td>${item.Product_Name}</td>
-    <td><input type="text" class="form-control" readonly value="${item.quantity}" onkeyup="quantitychange('${i}')"></td>
-    <td><input type="text" class="form-control" readonly value="${item.modifiers}"  onChange="extNameChange('${i}')"></td>
-    <td><input type="text" class="form-control" readonly value="${item.modifier_price}" onChange="myFunc('${i}')"></td>
-    <td>${item.subtotal}</td>
-    <td><a class="btn text-danger btn-sm" onclick="removeItem('${item.itemId}')" data-bs-toggle="tooltip" data-bs-original-title="Edit"><span class="fe fe-trash-2 fs-14"></span></a>
-    </td>
-
-    </tr>
-    
-    `;
-            i++;
-        })
-        $("#subtotal").val(subtotal);
-        $("#PaidAmount").val(subtotal);
-        $("#cartbody").html(tabledata);
-    }
-
-    function removeItem(id){
-        $("#RequiredPswd").modal("show");
-        $("#idd").val(id);
-    }
-
-    function submitPswd(){
-    var pswd=$("#pswd").val();
-    var itemid=$("#idd").val();
-    console.log(itemid);
-    if(pswd == "admin"){
-        $.ajax({
-            url: `${baseurl}order/delete.php?id=${itemid}`,
-            type: "DELETE",
-            contentType: "application/json",
-            success: function (response, status) {
-                $("#RequiredPswd").modal("hide"); 
-                getOrderById(); 
-                console.log("adas",arr);
-                if(arr.length > 0){
-                    console.log("testtt")
-                    showdata(arr);
-                }
-            },
-            error: function (status, error) {
-                console.log(error);
-            }
-        });
-    
-    }
-    }
-
-    function editorder(index) {
-        var new_url = `editorder.php?id=${index}`;
-        window.location.href = new_url;
-    }
-    
+    const locals=local;
+    var datas = "";
     $(document).ready(function () {
-        getDrinksItem();
-        getFoodItem();
-        getDesertItem();
-        getOrderById();
+
+        $.ajax({
+            url: `${locals}orderTime/read.php`,
+            type: "GET",
+            contentType: "application/json",
+            success: function (response, status) {
+                datas = response.response;
+                displayTable(datas);
+                // console.log(response.response);
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        })
+
+        function displayTable(data) {
+            var tabledata = '', i = 1;
+            data.forEach(element => {
+                tabledata += `
+    <tr>
+    <td>${element.id}</td>
+    <td>${element.name}</td>
+    <td>${element.time}</td>
+    <td><a class="btn text-primary btn-sm" onclick="editSubcategory('${i - 1}')" data-bs-toggle="tooltip" data-bs-original-title="Edit"><span class="fe fe-edit fs-14"></span></a>
+    </td>
+    </tr>
+    `;
+                i++;
+            });
+            $("#bodycat").html(tabledata);
+        }
 
     });
 
@@ -997,212 +632,27 @@
         $("#editmodal").modal('show');
         $("#idd").val(result.id);
         $("#editcategory").val(result.name);
-
+        $("#time").val(result.time);
     }
 
 
-    function discountedPrice() {
-        var discount = parseInt($("#Discount").val());
-        var discounted = (discount / 100);
-        var subTotal = parseInt($("#subtotal").val());
-        var afterdiscount = parseInt(discounted * subTotal);
-
-        var discountedPrice = subTotal - afterdiscount;
-        // console.log(discountedPrice);
-        $("#PaidAmount").val(discountedPrice);
-
-    }
- 
-   $("#holdCart").on("click", function (event) {
-        event.preventDefault();
-        var orderId = $("#orderid").val();
-        var tableId = $("#tableshow").val();
-        var subtotal = $("#subtotal").val();
-        var paidAmount = $("#PaidAmount").val();
-        var discount = $("#Discount").val();
-        var OrderData = {
-            Items: arr,
-            order_Id: orderId,
-            table_Id: tableId,
-            subTotal: subtotal,
-            paidAmount: paidAmount,
-            Discount: discount
-        };
-
-        $.ajax({
-            url: `${baseurl}order/create.php`,
-            // url:`http://localhost/restaurant/api/order/create.php`,
-            type: "POST",
-            data: JSON.stringify(OrderData),
-            contentType: "application/json",
-            success: function (response, status) {
-                console.log(response);
-                window.location.href="createorder.php";
-                // getInProgressOrder();
-            },
-            error: function (error) {
-                console.log(error);
-            }
-        });
-
-
-    });
-    
-
-</script>
-<script>
-
-
-
-    function addtocart(pid, qty, name, price) {
-        var SubTotal = parseFloat(qty * price);
-        var pushdata = {
-            productid: pid,
-            quantity: qty,
-            productname: name,
-            itemprice: price,
-            price: SubTotal,
-            extname: extraname,
-            extprice: extraprice
-        }
-        var existingItem = arr.find(item => item.productid === pid);
-
-        if (existingItem) {
-            alert("This item is already added to the cart.");
-        } else {
-            // If it doesn't exist, add a new item
-            arr.push(pushdata);
-        }
-
-        // console.log("array",arr);
-        showdata(arr);
-    }
-
-    function showdata(data) {
-        updateTable(updatetablearr);
-        var sub=parseInt($("#subtotal").val());
-        var tabledatas= "", i = 0, subtotal = 0;
-        data.forEach(item => {
-            // alert(123);
-            sub += item.price;
-            tabledatas += `
-    <tr>
-    <td>${item.productname}</td>
-    <td><input type="text" class="form-control quantity${i}" value="${item.quantity > 0 ? item.quantity : ""}" onkeyup="quantitychange('${i}')"></td>
-    <td><input type="text" class="form-control extraname${i}" value="${item.extname.length > 0 ? item.extname : ""}"  onChange="extNameChange('${i}')"></td>
-    <td><input type="text" class="form-control extraprice${i}" value="${item.extprice > 0 ? item.extprice : ""}" onChange="myFunc('${i}')"></td>
-    <td>${item.price > 0 ? item.price : ""}</td>
-    <td><a class="btn text-danger btn-sm" onclick="removeObj('${i}')" data-bs-toggle="tooltip" data-bs-original-title="Edit"><span class="fe fe-trash-2 fs-14"></span></a>
-    </td>
-  
-    </tr>
-    
-    `;
-            i++;
-        })
-        // console.log(tabledata);
-        $("#cartbody").append(tabledatas);
-        $("#subtotal").val(sub);
-        $("#PaidAmount").val(sub);
-    }
-
-    function quantitychange(index) {
-        var quantityextra = parseInt(document.querySelector(`.quantity${index}`).value);
-        arr[index].quantity = quantityextra;
-        var itemsprice = arr[index].itemprice;
-        // console.log(itemsprice);
-        var subtotals = parseFloat(quantityextra * itemsprice);
-        arr[index].price = subtotals + arr[index].extprice;
-
-        // console.log("updated",arr);
-
-        showdata(arr);
-
-    }
-
-    function myFunc(index) {
-        var priceofextra = document.querySelector(`.extraprice${index}`).value;
-        arr[index].extprice = parseFloat(priceofextra);
-        arr[index].price = parseFloat(arr[index].price + arr[index].extprice);
-
-        showdata(arr);
-
-    }
-
-    function extNameChange(index) {
-        var nameofextra = document.querySelector(`.extraname${index}`).value;
-        arr[index].extname = nameofextra;
-        console.log(arr);
-    }
-
-    function removeObj(index) {
-        arr.splice(index, 1);
-        console.log(arr);
-        showdata(arr);
-    }
-
-
-    $("#Proceed").on("click", function (event) {
-        // event.preventDefault();
-        console.log(arr.length);
-        if(arr.length == 0){
-            $("#paymentMethod").css("display", "block");
-        }
-        else{
-                addInDatabase();
-                $("#paymentMethod").css("display", "block");
-        }
-    });
-
-    function addInDatabase() {
-        var orderId = $("#orderid").val();
-        var tableId = $("#tableshow").val();
-        var subtotal = $("#subtotal").val();
-        var paidAmount = $("#PaidAmount").val();
-        var discount = $("#Discount").val();
-        var OrderData = {
-            Items: arr,
-            order_Id: orderId,
-            table_Id: tableId,
-            subTotal: subtotal,
-            paidAmount: paidAmount,
-            Discount: discount
-        };
-        // console.log(OrderData);
-        $.ajax({
-            // url: `${baseurl}order/create.php`, 
-            url: `${baseurl}order/create.php`,
-            type: "POST",
-            data: JSON.stringify(OrderData),
-            contentType: "application/json",
-            success: function (response, status) {
-                // window.location.reload();
-                // console.log(response);
-                // getInProgressOrder();
-            },
-            error: function (error) {
-                console.log(error);
-            }
-        });
-    }
-
-    function finish() {
-        var payment = $("#paymentMethods").val();
-        var id = $("#orderid").val();
+    function edit() {
+        var idofdata = parseInt($("#idd").val());
+        var typename = $("#editcategory").val();
+        var times= $("#time").val();
         const postdata = {
-            id: id,
-            payment: payment
-        }
+            id:idofdata,
+            name: typename,
+            time:times
+        };
+        // console.log(idofdata);
         $.ajax({
-            // url: `${baseurl}order/create.php`, 
-            url: `${baseurl}order/updateorderStatus.php`,
-            type: "PUT",
+            url: `${locals}orderTime/update.php`,
+            type: "POST",
             data: JSON.stringify(postdata),
             contentType: "application/json",
-            success: function (response, status) {
-                window.location.href="createorder.php";
-                // console.log(response);
-                // getInProgressOrder();
+            success: function (status) {
+                window.location.reload();
             },
             error: function (error) {
                 console.log(error);
@@ -1210,6 +660,35 @@
         });
     }
 
-    
+
+    $("#uploadButton").on("click", function (event) {
+        event.preventDefault();
+        var names = $("#type_name").val();
+        var time = $("#type_time").val();
+
+        const postdata = {
+            name: names,
+            time:time
+        };
+
+        $("#uploadButton").css("display", "none");
+        $("#loaderbtn").css("display", "block");
+        $.ajax({
+            url: `${locals}orderTime/create.php`,
+            type: "POST",
+            data: JSON.stringify(postdata),
+            contentType: "application/json",
+            success: function (status) {
+                window.location.reload();
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+
+
+    });
+
+
 
 </script>

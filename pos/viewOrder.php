@@ -381,7 +381,7 @@
                                 <form action="" enctype="multipart/form-data">
                                 <div class="card">
                                     <div class="card-header">
-                                        <div class="card-title">View All Items</div>
+                                        <div class="card-title">View All order</div>
                                     </div>
                                     <div class="card-body">
 
