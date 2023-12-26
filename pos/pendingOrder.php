@@ -38,7 +38,10 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
 
 <style>
-   
+   .borderbtn{  
+    border: 1px solid;
+
+   }
 </style>
 </head>
 
@@ -413,7 +416,7 @@
                                                     <th>Notes</th>
                                                     <th>Total</th>
                                                     <th>Time</th>
-                                                    <th>Payment Method</th>
+                                                    <th>Status</th>
                                                     <th>Kitchen Print</th>
                                                     <th>Final bill</th>
                                                     
@@ -435,7 +438,7 @@
                                                     <th>Address</th>
                                                     <th>Notes</th>
                                                     <th>Total</th>
-                                                    <th>Payment Method</th>
+                                                    <th>Status</th>
                                                     <th>Kitchen Print</th>
                                                     <th>Final bill</th>
                                                     
@@ -618,11 +621,11 @@ data.forEach(element => {
     <td>${element.address1}</td>
     <td>${element.notes}</td>
     <td>${element.total}</td>
-    <td>${element.paymentMethod}</td>
+    <td>${element.status}</td>
     <td>
-            <a class="btn text-primary btn-sm" onclick="Printorder('${element.CustomOrderId}')" data-bs-toggle="tooltip" data-bs-original-title="Edit"><span class="fa fa-print fs-14"></span></a></td>
+            <a class="btn borderbtn text-primary btn-sm" onclick="Printorder('${element.CustomOrderId}')" data-bs-toggle="tooltip" data-bs-original-title="Edit"> In Progress  <span class="fa fa-print fs-14"></span></a></td>
             <td>
-            <a class="btn text-primary btn-sm" onclick="FinalPrintorder('${element.CustomOrderId}')" data-bs-toggle="tooltip" data-bs-original-title="Edit"><span class="fa fa-print fs-14"></span></a></td>
+            <a class="btn borderbtn text-primary btn-sm" onclick="FinalPrintorder('${element.CustomOrderId}')" data-bs-toggle="tooltip" data-bs-original-title="Edit">Complete <span class="fa fa-print fs-14"></span></a></td>
 
     </tr>
     `;
@@ -645,11 +648,11 @@ data.forEach(element => {
     <td>${element.notes}</td>
     <td>${element.total}</td>
     <td>${element.time}</td>
-    <td>${element.paymentMethod}</td>
+    <td>${element.status}</td>
     <td>
-            <a class="btn text-primary btn-sm" onclick="Printorder('${element.CustomOrderId}')" data-bs-toggle="tooltip" data-bs-original-title="Edit"><span class="fa fa-print fs-14"></span></a></td>
+            <a class="btn borderbtn text-primary btn-sm" onclick="Printorder('${element.CustomOrderId}')" data-bs-toggle="tooltip" data-bs-original-title="Edit">In Progress <span class="fa fa-print fs-14"></span></a></td>
             <td>
-            <a class="btn text-primary btn-sm" onclick="FinalPrintorder('${element.CustomOrderId}')" data-bs-toggle="tooltip" data-bs-original-title="Edit"><span class="fa fa-print fs-14"></span></a></td>
+            <a class="btn  borderbtn text-primary btn-sm" onclick="FinalPrintorder('${element.CustomOrderId}')" data-bs-toggle="tooltip" data-bs-original-title="Edit">Complete <span class="fa fa-print fs-14"></span></a></td>
 
     </tr>
     `;

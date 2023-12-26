@@ -162,7 +162,7 @@ function displayItems(data){
                             <div class="cartItem">
                                 <h4><b>${item.name}</b></h4>
                                 <!-- <p class="text-center">ladyfingers cooked with fresh tomatoes</p> -->
-                                <label class="labelSet" for="">$${item.sell}</label>
+                                <label class="labelSet" for="">&#163;${item.sell}</label>
                                 <button class="btn mb-1 btnset"
                                     onclick="cart(${item.id},'${item.name}',${item.sell},1)">Add To Cart</button>
                             </div>

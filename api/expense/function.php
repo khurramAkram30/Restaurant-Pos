@@ -100,4 +100,26 @@ function updateExpense($expense){
     }
     }
 
+
+ function DeleteExpense($data){
+        global $conn;
+        $query="Delete from expenses where expense_id=$data[id]";
+        $result=mysqli_query($conn,$query);
+        if($result){
+            $data=[
+                'status' => 201,
+                'message' => "expense Deleted",
+            ];
+            header("HTTP:/1.0 201 Deleted");
+            return json_encode($data); 
+        }
+        else{
+            $data=[
+                'status' => 500,
+                'message' => "internal Server Error",
+            ];
+            header("HTTP:/1.0 500 internal Server Error");
+            return json_encode($data);
+        }  
+    }
 ?>

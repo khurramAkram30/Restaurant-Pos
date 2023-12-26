@@ -15,7 +15,7 @@ if($res){
     }
 }
 require 'fpdf/fpdf.php';
-$pdf = new FPDF('P','mm',array(80,250));
+$pdf = new FPDF('P','mm',array(80,200));
 
 // Add a page to the PDF
 $pdf->AddPage();
@@ -43,31 +43,50 @@ $pdf->Cell(20,10,"Order-Id:$result[1]",0,0,'C');
  
 $pdf->Cell(60,10,"Table-Id:$result[2]",0,1,'C'); 
 
-$pdf->Cell(2,5,'Date:',0,0,'C'); // 'C' parameter for center alignment
-$pdf->Cell(20,5,$result[4],0,1,'C'); // 'C' parameter for center alignment
+// $pdf->Cell(2,5,'Date:',0,0,'C'); // 'C' parameter for center alignment
+// $pdf->Cell(20,5,$result[4],0,1,'C'); // 'C' parameter for center alignment
 
 // $pdf->Line(7,50,72,50);
 
 //
 $pdf->SetX(7);
 $pdf->SetFont('courier','B',8);
-$pdf->Cell(30,8,"Product",1,0,'C');
-$pdf->Cell(10,8,"Qty",1,0,'C');
-$pdf->Cell(25,8,"Customize",1,1,'C');
+$pdf->Cell(2,8,"Qty",0,0,'C');
+$pdf->Cell(20,8,"Product",0,0,'C');
+$pdf->Cell(60,8,"Customize",0,1,'C');
 // $pdf->Cell(12,8,"Price",1,1,'C')
 $orderItems="SELECT items.name AS itemName , order_items.quantity AS qty,order_items.modifiers FROM items INNER JOIN order_items ON items.id = order_items.item_id WHERE order_id = '$idGet'";
 $orderResult=mysqli_query($conn,$orderItems);
+$orderResult=mysqli_query($conn,$orderItems);
 if($orderResult){
-    if(mysqli_num_rows($orderResult) > 0){
+    if (mysqli_num_rows($orderResult) > 0) {
         while($row=mysqli_fetch_array($orderResult)){
             $pdf->SetX(7);
-            $pdf->SetFont('courier','B',8);
-            $pdf->Cell(30,8,"$row[0]",1,0,'C');
-            $pdf->Cell(10,8,"$row[1]",1,0,'C');
-            $pdf->SetFont('courier','B',10);
-            $pdf->Cell(25,8,"$row[2]",1,1,'C');
+            $pdf->Cell(5, 5, "$row[1] X", 0, 0, 'C');
+
+            $y = $pdf->GetY();
+            $x = $pdf->GetX();
+            $width = 50;
+        
+            // Save Y position before MultiCell
+           $beforeMultiCellY = $pdf->GetY();
+
+    $pdf->MultiCell($width, 5, "$row[0]", 0, 'L');
+
+    // Set XY to the right of the MultiCell
+    $pdf->SetXY($x + $width, $beforeMultiCellY);
+
+    // Third Cell
+    $pdf->Cell(10, 5, "$row[2]", 0, 1, "R");
+    // $pdf->SetY($pdf->GetY() + 5);
+
+    // $pdf->Line(7, $pdf->GetY(), 72, $pdf->GetY());
         }
+        $pdf->SetY($pdf->GetY() );
+
+        $pdf->Line(7, $pdf->GetY(), 72, $pdf->GetY());
     }
+
 
 }
 
@@ -123,4 +142,4 @@ $pdf->Output();
 
 ?>
 
-</script>
+<!-- Embed the generated PDF in your HTML page -->

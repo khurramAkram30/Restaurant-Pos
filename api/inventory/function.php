@@ -192,19 +192,21 @@ function insertInventory(){
 $remainingInventory=array();
 function remainingInventory(){
 global $conn;
-$query= "select items.id,items.name,inventory.quantity from items INNER join inventory on inventory.item_id = items.id";
+$query="select items.id,items.name,inventory.quantity from items INNER join inventory on inventory.item_id = items.id";
 $result=mysqli_query($conn,$query);
-if($result){    
+if(mysqli_num_rows($result) > 0){    
     while($row = mysqli_fetch_assoc($result)) {
+        // print_r($row);
         $remainingInventory[]=$row;
+    }
         $data=[
             'status'=>200,
             'message'=>"Remaining Item",
-            'response'=>$remainingInventory,
+            'response'=> $remainingInventory,
         ];
         header("HTTP:/200 ok");
         return json_encode($data);
-    }
+    
 }
 else{
     $data=[

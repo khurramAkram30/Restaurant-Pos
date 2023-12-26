@@ -549,6 +549,7 @@
 
 </html>
 <script>
+    var liveUrl=url;
 var datas="",categoryresult="";
 $(document).ready(function(){
     product();
@@ -558,11 +559,11 @@ $(document).ready(function(){
 //  };
 function product() {
     $.ajax({
-    url:`http://localhost/restaurant/api/inventory/remainingInventory.php`,
+    url:`${liveUrl}inventory/remainingInventory.php`,
     type:"GET",
     contentType:"application/json",
     success:function(response,status){
-        console.log(response.result);  
+        console.log(response);  
         var data=response.response;
         console.log(data);
         displayTable(data);

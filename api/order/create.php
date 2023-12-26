@@ -30,8 +30,9 @@ if($requestMethod == "POST"){
     }else{
         $createOrder=createorder($inputdata);
     }
+    $data=$inputdata['order_Id'];
     echo $createOrder;
-    $pusher->trigger('my-channel', 'my-event', "khurram");
+    $pusher->trigger('my-channel', 'my-event', $data);
 
     }
 else{

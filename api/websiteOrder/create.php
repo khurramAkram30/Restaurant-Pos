@@ -13,16 +13,16 @@ include 'function.php';
 $requestMethod=$_SERVER["REQUEST_METHOD"];
 
 if($requestMethod == "POST"){
-    // $options = array(
-    //     'cluster' => 'ap2',
-    //     'useTLS' => true
-    // );
-    // $pusher = new Pusher\Pusher(
-    //     'f0d52bc6ef75ef4b297e',
-    //     '368ef18d47248daa89c6',
-    //     '1694989',
-    //     $options
-    // );
+    $options = array(
+        'cluster' => 'ap2',
+        'useTLS' => true
+    );
+    $pusher = new Pusher\Pusher(
+        '13f373ebd75cbc52d306',
+        '8488a70efe634002c44c',
+        '1727775',
+        $options
+    );
 
     $inputdata=json_decode(file_get_contents("php://input"),true);
     if(empty($inputdata)){
@@ -31,7 +31,7 @@ if($requestMethod == "POST"){
         $createOrder=createorder($inputdata);
     }
     echo $createOrder;
-    // $pusher->trigger('my-channel', 'my-event', "khurram");
+    $pusher->trigger('my-channel', 'my-event', "khurram");
     }
 else{
     $data=[

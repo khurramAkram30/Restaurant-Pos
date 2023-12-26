@@ -1,3 +1,7 @@
+<?php 
+require_once "../api/config/conn.php";
+
+?>
 <!doctype html>
 <html lang="en" dir="ltr">
 
@@ -85,7 +89,13 @@
                                                 <div class="d-flex">
                                                     <div class="mt-2">
                                                         <h6 class="">Total Users</h6>
-                                                        <h2 class="mb-0 number-font">44,278</h2>
+                                                        <?php
+                                                        $query="SELECT COUNT(id) as users FROM users";
+                                                        $result=mysqli_query($conn,$query);
+                                                        while($row=mysqli_fetch_array($result)){
+                                                        ?>
+
+                                                        <h2 class="mb-0 number-font"><?php echo $row[0];} ?></h2>
                                                     </div>
                                                     <div class="ms-auto">
                                                         <div class="chart-wrapper mt-1">
@@ -94,9 +104,9 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <span class="text-muted fs-12"><span class="text-secondary"><i
+                                                <!-- <span class="text-muted fs-12"><span class="text-secondary"><i
                                                             class="fe fe-arrow-up-circle  text-secondary"></i> 5%</span>
-                                                    Last week</span>
+                                                    Last week</span> -->
                                             </div>
                                         </div>
                                     </div>
@@ -105,8 +115,15 @@
                                             <div class="card-body">
                                                 <div class="d-flex">
                                                     <div class="mt-2">
-                                                        <h6 class="">Total Profit</h6>
-                                                        <h2 class="mb-0 number-font">67,987</h2>
+                                                        <h6 class="">Website Order</h6>
+                                                        <?php
+                                                        $query="SELECT COUNT(id) as users FROM websiteorder";
+                                                        $result=mysqli_query($conn,$query);
+                                                        while($row=mysqli_fetch_array($result)){
+                                                        ?>
+
+                                                        <h2 class="mb-0 number-font"><?php echo $row[0];} ?></h2>
+                                                        
                                                     </div>
                                                     <div class="ms-auto">
                                                         <div class="chart-wrapper mt-1">
@@ -115,9 +132,9 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <span class="text-muted fs-12"><span class="text-pink"><i
+                                                <!-- <span class="text-muted fs-12"><span class="text-pink"><i
                                                             class="fe fe-arrow-down-circle text-pink"></i> 0.75%</span>
-                                                    Last 6 days</span>
+                                                    Last 6 days</span> -->
                                             </div>
                                         </div>
                                     </div>
@@ -126,8 +143,16 @@
                                             <div class="card-body">
                                                 <div class="d-flex">
                                                     <div class="mt-2">
-                                                        <h6 class="">Total Expenses</h6>
-                                                        <h2 class="mb-0 number-font">$76,965</h2>
+                                                        <h6 class="">Pos & Mobile </h6>
+                                                        <!-- <h2 class="mb-0 number-font">$76,965</h2> -->
+                                                        <?php
+                                                        $query="SELECT COUNT(order_id) as users FROM orders";
+                                                        $result=mysqli_query($conn,$query);
+                                                        while($row=mysqli_fetch_array($result)){
+                                                        ?>
+
+                                                        <h2 class="mb-0 number-font"><?php echo $row[0];} ?></h2>
+                                                  
                                                     </div>
                                                     <div class="ms-auto">
                                                         <div class="chart-wrapper mt-1">
@@ -136,9 +161,9 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <span class="text-muted fs-12"><span class="text-green"><i
+                                                <!-- <span class="text-muted fs-12"><span class="text-green"><i
                                                             class="fe fe-arrow-up-circle text-green"></i> 0.9%</span>
-                                                    Last 9 days</span>
+                                                    Last 9 days</span> -->
                                             </div>
                                         </div>
                                     </div>
@@ -147,8 +172,16 @@
                                             <div class="card-body">
                                                 <div class="d-flex">
                                                     <div class="mt-2">
-                                                        <h6 class="">Total Cost</h6>
-                                                        <h2 class="mb-0 number-font">$59,765</h2>
+                                                        <h6 class="">Total Item</h6>
+                                                        <!-- <h2 class="mb-0 number-font">$59,765</h2> -->
+                                                        <?php
+                                                        $query="SELECT COUNT(id) as users FROM items";
+                                                        $result=mysqli_query($conn,$query);
+                                                        while($row=mysqli_fetch_array($result)){
+                                                        ?>
+
+                                                        <h2 class="mb-0 number-font"><?php echo $row[0];} ?></h2>
+                                                   
                                                     </div>
                                                     <div class="ms-auto">
                                                         <div class="chart-wrapper mt-1">
@@ -157,9 +190,9 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <span class="text-muted fs-12"><span class="text-warning"><i
+                                                <!-- <span class="text-muted fs-12"><span class="text-warning"><i
                                                             class="fe fe-arrow-up-circle text-warning"></i> 0.6%</span>
-                                                    Last year</span>
+                                                    Last year</span> -->
                                             </div>
                                         </div>
                                     </div>
@@ -170,7 +203,7 @@
 
                         <!-- ROW-2 -->
                         <div class="row">
-                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-9">
+                            <!-- <div class="col-sm-12 col-md-12 col-lg-12 col-xl-9">
                                 <div class="card">
                                     <div class="card-header">
                                         <h3 class="card-title">Sales Analytics</h3>
@@ -188,7 +221,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <!-- COL END -->
                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-3">
                                 <div class="card overflow-hidden">
@@ -207,11 +240,19 @@
                                             </div>
                                             <div class="">
                                                 <h6 class="mb-1 fw-semibold">Delivered Orders</h6>
-                                                <p class="fw-normal fs-12"> <span class="text-success">3.5%</span>
-                                                    increased </p>
+                                                <!-- <p class="fw-normal fs-12"> <span class="text-success">3.5%</span>
+                                                    increased </p> -->
                                             </div>
                                             <div class=" ms-auto my-auto">
-                                                <p class="fw-bold fs-20"> 1,768 </p>
+                                            <?php
+                                                        $query="SELECT COUNT(deliveryOrderId) as users FROM deliveryorders";
+                                                        $result=mysqli_query($conn,$query);
+                                                        while($row=mysqli_fetch_array($result)){
+                                                        ?>
+
+                                                        <!-- <h2 class="mb-0 number-font"></h2> -->
+                                                  
+                                                <p class="fw-bold fs-20"> <?php echo $row[0];} ?> </p>
                                             </div>
                                         </div>
                                         <div class="d-flex">
@@ -219,12 +260,20 @@
                                                 <i class="fe fe-x"></i>
                                             </div>
                                             <div class="">
-                                                <h6 class="mb-1 fw-semibold">Cancelled Orders</h6>
-                                                <p class="fw-normal fs-12"> <span class="text-success">1.2%</span>
-                                                    increased </p>
+                                                <h6 class="mb-1 fw-semibold">Collection Orders</h6>
+                                                <!-- <p class="fw-normal fs-12"> <span class="text-success">1.2%</span>
+                                                    increased </p> -->
                                             </div>
                                             <div class=" ms-auto my-auto">
-                                                <p class="fw-bold fs-20 mb-0"> 3,675 </p>
+                                            <?php
+                                                        $query="SELECT COUNT(collectionOrderId) as users FROM collectionorder";
+                                                        $result=mysqli_query($conn,$query);
+                                                        while($row=mysqli_fetch_array($result)){
+                                                        ?>
+
+                                                        <!-- <h2 class="mb-0 number-font"></h2> -->
+                                                  
+                                                <p class="fw-bold fs-20"> <?php echo $row[0];} ?> </p>
                                             </div>
                                         </div>
                                     </div>

@@ -435,6 +435,13 @@
                                         </div>
                                         </div>
 
+                                        <div class="row mb-4">
+                                            <label class="col-md-3 form-label">Description :</label>
+                                            <div class="col-md-9">
+                                            <textarea name="" id="description" cols="30" rows="5" class="form-control"></textarea>       
+                                        </div>
+                                        </div>
+
 
                                         <div class="row">
                                             <div class="col-md-3"></div>
@@ -625,13 +632,17 @@ var subcatid = document.getElementById("subcatrgory").value;
 var name = document.getElementById("itemname").value;
 var price = document.getElementById("price").value;
 var web_mobile = document.getElementById("mobile_web").value;
+var desc = document.getElementById("description").value;
+
+
 
 var postdata={
     CategoryId:catid,
     subCategoryId:subcatid,
     name:name,
     price:price,
-    web_mobile,web_mobile
+    web_mobile:web_mobile,
+    description:desc
 };
 // console.log(postdata);
 // console.log("formData", formData);

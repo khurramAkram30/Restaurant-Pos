@@ -292,9 +292,10 @@ function updateorderStatus($status){
     }
 $id=mysqli_real_escape_string($conn,$status["id"]);
 $payment=mysqli_real_escape_string($conn,$status["payment"]);
-$query= "update orders set order_status='Finish',paymentMethod='$payment' where CustomOrderId='$id'";
+$query= "update orders set order_status='Completed',paymentMethod='$payment' where CustomOrderId='$id'";
 $result=mysqli_query($conn,$query);
 if($result){
+    updateTable($id);
     $data=[
         "status"=> 200,
         "message"=> "Data Updated",
@@ -303,4 +304,45 @@ if($result){
         return json_encode($data);
 }
 }
+
+function getOrderStatusById($data){
+    global $conn;
+    $query="Select order_status from orders where CustomOrderId='$data[id]'";
+    $res=mysqli_query($conn,$query);
+    if(mysqli_num_rows($res)>0){
+        while($row=mysqli_fetch_assoc($res)){
+            $orderstatus=$row['order_status'];
+            $data=[
+                "status"=> 200,
+                "message"=> "Order Status",
+                "Statuss"=>$orderstatus,
+                ];
+                header("HTTP:/1.0 201 created");
+                return json_encode($data);
+       
+        }
+         }
+        // return json_encode($status);
+
+}
+
+function updateTable($id){
+    global $conn;
+    $query="select * from orders where CustomOrderId='$id'";
+    $res=mysqli_query($conn,$query);
+    if(mysqli_num_rows($res) > 0){
+        while($row=mysqli_fetch_assoc($res)){
+            // print_r($row);
+          $table_id = $row['table_id'];
+          $updateTable="UPDATE tables set staus='Available' where id=$table_id";
+          $result=mysqli_query($conn,$updateTable);
+          if($result){
+            // echo "updated";
+          }
+        }
+    }
+}
+
 ?>
+
+

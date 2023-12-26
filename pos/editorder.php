@@ -39,7 +39,7 @@
         .cardsetting {
             padding: 10px;
             background: aliceblue;
-            height: 205px;
+            height: auto;
         }
 
         .imgset {
@@ -492,43 +492,29 @@
                                             </div>
 
                                             <div class="col-md-12">
-                                                <div class="card">
+                                                <div class="card" style="height: 500px;overflow: scroll;">
 
                                                     <div class="card-body">
                                                         <div class="panel panel-primary">
                                                             <div class="tab-menu-heading">
                                                                 <div class="tabs-menu">
                                                                     <!-- Tabs -->
-                                                                    <ul class="nav panel-tabs panel-secondary">
-                                                                        <li><a href="#tab9" class="active"
-                                                                                data-bs-toggle="tab"><span>
-                                                                                    <!-- <i class="fe fe-user me-1"></i> -->
-                                                                                </span>
-                                                                                Drinks</a></li>
-                                                                        <li><a href="#tab10" data-bs-toggle="tab"
-                                                                                class="">
-                                                                                <!-- <span>
-                                                                                    <i class="fe fe-calendar me-1"></i></span> -->
-                                                                                Food</a></li>
-                                                                        <li><a href="#tab11" data-bs-toggle="tab"
-                                                                                class="">
-                                                                                <!-- <span><i
-                                                                                        class="fe fe-settings me-1"></i></span> -->
-
-                                                                                Sweet </a></li>
-
-                                                                        <!-- <li><a href="#tab12"
-                                                                                data-bs-toggle="tab"><span><i
-                                                                                        class="fe fe-bell me-1"></i></span>Tab
-                                                                                4</a></li>
-                                                                                 -->
-                                                                        <!-- <li style><input type="text" placeholder="Search Item By Name " class="form-control"></li> -->
-                                                                    </ul>
+                                                                    <ul class="nav panel-tabs panel-secondary"
+                                                                        id="dynamicTabs">
+                                                               </ul>
 
                                                                 </div>
                                                             </div>
                                                             <div class="panel-body tabs-menu-body">
-                                                                <div class="tab-content">
+                                                            <div class="row mb-2">
+                                                                    <div class="col-md-12">
+                                                                        <input type="text" class="form-control" placeholder="Search By Name" id="searchByName">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row" id="itemsShow">
+
+                                                                </div>
+                                                                <!-- <div class="tab-content">
                                                                     <div class="tab-pane active" id="tab9">
                                                                         <div class="row" id="drinks">
 
@@ -550,7 +536,7 @@
                                                                         </div>
                                                                     </div>
 
-                                                                </div>
+                                                                </div> -->
                                                             </div>
                                                         </div>
                                                     </div>
@@ -737,6 +723,59 @@
 
         <!-- edit modal end -->
 
+         <!-- ntification modal -->
+         <div class="modal fade" id="notificationmodal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content modal-content-demo">
+                    <div class="modal-header">
+                        <h6 class="modal-title">Website Order</h6><button aria-label="Close" class="btn-close"
+                            data-bs-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+
+                        <input type="hidden" id="idd">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3>
+                                You have a new website order! 
+                                </h3>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" onclick="WebsiteOrderPage()">Website Order Page</button>
+                        <!-- <button class="btn btn-primary" onclick="finish()">Print Order</button> -->
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+<!-- ntification modal -->
+
+
+        <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+        <script>
+
+            // Enable pusher logging - don't include this in production
+            Pusher.logToConsole = true;
+
+     
+            var pusher = new Pusher('13f373ebd75cbc52d306', {
+                cluster: 'ap2'
+            });
+            var channel = pusher.subscribe('my-channel');
+            channel.bind('my-event', function (data) {
+              $("#notificationmodal").modal("show");
+                
+
+            });
+
+            function WebsiteOrderPage(){
+                window.location.href="pendingOrder.php"
+            }
+        </script>
 
         <!-- Sidebar-right -->
 
@@ -808,95 +847,110 @@
     var arr = [];
     var extraname = "", extraprice = 0;
 
-    function getDrinksItem() {
+    function getItem() {
         $.ajax({
-            url: `${baseurl}items/read.php?id=1`,
+            url: `${baseurl}items/mobileItems.php`,
             type: "GET",
             contentType: "application/json",
             success: function (response, status) {
                 var data = response.response;
-                // console.log(data);
-                var items = "";
-                data.forEach(item => {
-                    items += `  <div class="col-md-4">
-                                     <div class="card cardsetting"
-                                         onclick="addtocart(${item.id},1,'${item.name}',${item.sell})">
-                                         <img src="../api/images/burger.jpg" class="imgset" alt="">
-                                             <div class="displayfix">
-                                                 <h5>${item.name}
-                                                    </h5>
-                                                <h4>${item.sell}</h4>
-                                                </div>
-                                                 </div>
-                                                 </div>`;
-                });
-                $("#drinks").html(items);
+                console.log(data);
+                displayItem(data)
             },
             error: function (error) {
                 console.log(error);
             }
         });
     }
+    getCategories();
+    function getCategories() {
 
-    function getFoodItem() {
         $.ajax({
-            url: `${baseurl}items/read.php?id=2`,
+            url: `${baseurl}categories/read.php`,
             type: "GET",
             contentType: "application/json",
             success: function (response, status) {
-                var data = response.response;
-                // console.log(data);
-                var items = "";
-                data.forEach(item => {
-                    items += `  <div class="col-md-4">
-                                     <div class="card cardsetting"
-                                         onclick="addtocart(${item.id},1,'${item.name}',${item.sell})">
-                                         <img src="../api/images/burger.jpg" class="imgset" alt="">
-                                             <div class="displayfix">
-                                                 <h5>${item.name}
-                                                    </h5>
-                                                <h4>${item.sell}</h4>
-                                                </div>
-                                                 </div>
-                                                 </div>`;
-                });
-                $("#food").html(items);
+                datas = response.response;
+                displayTable(datas);
+                console.log(response.response);
             },
             error: function (error) {
                 console.log(error);
             }
-        });
+        })
     }
+    function displayTable(data) {
+    var catHtml = "";
+    
+    data.forEach(item => {
+        catHtml += `<li><a href="#tab${item.id}" onclick="itemsById(${item.id})" data-bs-toggle="tab"><span></span>${item.name}</a></li>`;
+    });
 
-    function getDesertItem() {
-        $.ajax({
-            url: `${baseurl}items/read.php?id=3`,
+    $("#dynamicTabs").html(catHtml);
+}
+var getId="";
+function itemsById(id){
+    getId=id;
+    $.ajax({
+            url: `${baseurl}items/read.php?id=${id}`,
             type: "GET",
             contentType: "application/json",
             success: function (response, status) {
                 var data = response.response;
-                // console.log(data);
-                var items = "";
-                data.forEach(item => {
-                    items += `  <div class="col-md-4">
-                                     <div class="card cardsetting"
-                                         onclick="addtocart(${item.id},1,'${item.name}',${item.sell})">
-                                         <img src="../api/images/burger.jpg" class="imgset" alt="">
-                                             <div class="displayfix">
-                                                 <h5>${item.name}
-                                                    </h5>
-                                                <h4>${item.sell}</h4>
-                                                </div>
-                                                 </div>
-                                                 </div>`;
-                });
-                $("#desert").html(items);
+                displayItem(data);
+                console.log(data)
             },
             error: function (error) {
                 console.log(error);
             }
         });
-    }
+}
+
+function displayItem(data){
+    var items = "";
+    if(data){
+                data.forEach(item => {
+                    items += `  <div class="col-md-4">
+                                     <div class="card cardsetting"
+                                         onclick="addtocart(${item.id},1,'${item.name}',${item.sell})">
+                                   
+                                             <div class="displayfix">
+                                                 <h5>${item.name}
+                                                    </h5>
+                                                <h4>&#163;${item.sell}</h4>
+                                                </div>
+                                                 </div>
+                                                 </div>`;
+                });
+                $("#itemsShow").html(items);
+            }else{
+                $("#itemsShow").html("No Item Found In this Category");
+            }
+            
+}
+
+$("#searchByName").on("keyup",function(){
+   var postdata={
+    catId:getId,
+    itemName:$("#searchByName").val()
+   };
+   $.ajax({
+            url: `http://localhost/restaurant/api/items/itemsByName.php`,
+            type: "POST",
+            data:JSON.stringify(postdata),
+            contentType: "application/json",
+            success: function (response, status) {
+                var data = response.response;
+                displayItem(data);
+                console.log(data)
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+})
+
+
     var tableid;
     function getOrderById() {
         const urlParams = new URLSearchParams(window.location.search);
@@ -982,9 +1036,7 @@
     }
     
     $(document).ready(function () {
-        getDrinksItem();
-        getFoodItem();
-        getDesertItem();
+        getItem();
         getOrderById();
 
     });
@@ -1015,6 +1067,7 @@
  
    $("#holdCart").on("click", function (event) {
         event.preventDefault();
+        if(arr.length > 0){
         var orderId = $("#orderid").val();
         var tableId = $("#tableshow").val();
         var subtotal = $("#subtotal").val();
@@ -1031,7 +1084,6 @@
 
         $.ajax({
             url: `${baseurl}order/create.php`,
-            // url:`http://localhost/restaurant/api/order/create.php`,
             type: "POST",
             data: JSON.stringify(OrderData),
             contentType: "application/json",
@@ -1044,9 +1096,11 @@
                 console.log(error);
             }
         });
-
-
-    });
+    }
+    else{
+        alert("Please Select atleast one product");
+    }
+   });
     
 
 </script>
@@ -1068,7 +1122,9 @@
         var existingItem = arr.find(item => item.productid === pid);
 
         if (existingItem) {
-            alert("This item is already added to the cart.");
+            var quant = existingItem.quantity++;
+            var stotal = parseInt((quant + 1) * price);
+            existingItem.price = stotal;
         } else {
             // If it doesn't exist, add a new item
             arr.push(pushdata);
@@ -1144,14 +1200,14 @@
 
     $("#Proceed").on("click", function (event) {
         // event.preventDefault();
-        console.log(arr.length);
-        if(arr.length == 0){
-            $("#paymentMethod").css("display", "block");
+        // console.log(arr.length);
+        var id = $("#orderid").val();
+        if(arr.length == 0){   
+            var newUrl = `finalbill.php?id=${id}`;
+            window.open(newUrl,'_blank');
+           $("#paymentMethod").css("display", "block");
         }
-        else{
-                addInDatabase();
-                $("#paymentMethod").css("display", "block");
-        }
+       
     });
 
     function addInDatabase() {
@@ -1210,6 +1266,22 @@
         });
     }
 
-    
+   
+    var status = "";
+    function getstatus() {
+        var id = $("#orderid").val();
+        $.ajax({
+            // url: `${baseurl}order/create.php`, 
+            url: `${baseurl}order/orderStatus.php?id=${id}`,
+            type: "GET",
+            contentType: "application/json",
+            success: function (response) {
+                status = response;
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
 
 </script>

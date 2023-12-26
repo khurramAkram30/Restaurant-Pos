@@ -239,21 +239,24 @@
                             style="display: none;">
                             <h3>We are deliver your Order after </h3>
                             <label for="" id="deliverytimefromdatabase"></label>
-                            <label for="sel1" class="form-label">We Are Delivering On These Zip Codes</label>
-                            <select class="form-control " id="deliveryZipCode" name="sellist1">
-                                <!-- <option value="" disabled>Select the option</option> -->
-                                <option value="KA1">KA1 - 5 Euro</option>
-                                <option value="KA2">KA2 - 5 Euro</option>
-                                <option value="KA3">KA3 - 5 Euro</option>
-                                <option value="KA4">KA4 - 5 Euro</option>
-                                <option value="KA5">KA5 - 5 Euro</option>
-                                <option value="KA16">KA16 - 6 Euro</option>
-                                <option value="KA169">KA169 - 6 Euro</option>
-                                <option value="KA17">KA17 - 6 Euro</option>
-                                <option value="KA170">KA170 - 6 Euro</option>
-                                <option value="KA33">KA33 - 6 Euro</option>
-                                <option value="KA36">KA36 - 6 Euro</option>
-                            </select>
+                            <br>
+                            <label for="sel1" class="form-label">Enter Post Code</label>
+                            <input type="text" class="form-control" id="deliveryZipCode" name="sellist1">
+
+                            <!-- <select class="form-control "  name="sellist1">
+
+                                <option value="KA1">KA1 - 5 Pounds</option>
+                                <option value="KA2">KA2 - 5 Pounds</option>
+                                <option value="KA3">KA3 - 5 Pounds</option>
+                                <option value="KA4">KA4 - 5 Pounds</option>
+                                <option value="KA5">KA5 - 5 Pounds</option>
+                                <option value="KA16">KA16 - 6 Pounds</option>
+                                <option value="KA169">KA169 - 6 Pounds</option>
+                                <option value="KA17">KA17 - 6 Pounds</option>
+                                <option value="KA170">KA170 - 6 Pounds</option>
+                                <option value="KA33">KA33 - 6 Pounds</option>
+                                <option value="KA36">KA36 - 6 Pounds</option>
+                            </select> -->
                         </div>
 
 
@@ -285,7 +288,10 @@
                                 <label for="">Sub-Total</label>
                             </div>
                             <div class="col-md-5 mb-1">
-                                <input type="text" id="subtotal" readonly class="form-control">
+                                <div class="input-group">
+                                    <span class="input-group-text">£</span>
+                                    <input type="text" id="subtotal" readonly class="form-control">
+                                </div>
                             </div>
 
                             <!-- sub total -->
@@ -294,12 +300,14 @@
                             <!-- collection -->
                             <div class="col-md-3"></div>
                             <div class="col-md-4 labels">
-                                <label for="" id="type">Collecetion</label>
+                                <label for="" id="type">Collection</label>
                             </div>
                             <div class="col-md-5 mb-1">
+                                <div class="input-group">
+                                    <span class="input-group-text">£</span>
                                 <input type="text" id="collectPrice" value="0" readonly class="form-control">
                             </div>
-
+                            </div>  
                             <!-- Collection -->
 
                             <!-- Service  -->
@@ -308,7 +316,10 @@
                                 <label for="">Service Charge</label>
                             </div>
                             <div class="col-md-5 mb-1">
-                                <input type="text" id="service" value=".5" readonly class="form-control">
+                                <div class="input-group">
+                                    <span class="input-group-text">£</span>
+                              <input type="text" id="service" value=".5" readonly class="form-control">
+                            </div>
                             </div>
 
                             <!-- Service -->
@@ -319,7 +330,10 @@
                                 <label for="">Total</label>
                             </div>
                             <div class="col-md-5 mb-1">
+                                <div class="input-group">
+                                    <span class="input-group-text">£</span>
                                 <input type="text" id="total" readonly class="form-control">
+                            </div>
                             </div>
                             <!-- Total -->
 
@@ -331,7 +345,7 @@
                             <!-- special -->
 
                             <div class="col-md-12 mb-1">
-                                <button class="btn btn-primary form-control" onclick="SaveData()"
+                                <button class="btn btn-primary form-control" id="checks" onclick="SaveData()"
                                     style="background:#d0a772;"> Checkout
                                 </button>
                             </div>
@@ -418,12 +432,12 @@
 
             $('#homeDeliveryselect').css("display", "block");
 
-            timearr.forEach(item=>{
-                    if(item.name == "Home Delivery"){
-                        // console.log(item.name);
-                        $("#deliverytimefromdatabase").html(item.time);
-                    }
-                })
+            timearr.forEach(item => {
+                if (item.name == "Home Delivery") {
+                    // console.log(item.name);
+                    $("#deliverytimefromdatabase").html(item.time);
+                }
+            })
 
         }
         else {
@@ -493,11 +507,11 @@
         var collectionPrice = parseFloat($("#collectPrice").val());
         var servicePrice = parseFloat($("#service").val()); // Assuming #service contains a numeric value, if not, adjust accordingly
         var subtotal = parseFloat($("#subtotal").val());
-        
+
         var total = collectionPrice + servicePrice + subtotal;
         $("#total").val(total);
-           
-        
+
+
         $("#cart").html(tabledata);
     }
 
@@ -530,49 +544,62 @@
         var home = $("#home").prop("checked");
         var collect = $("#collect").prop("checked");
         var zipcode = $("#deliveryZipCode").val();
-        var collectTime = $("#collectTime").val();
+        var collectTime = $("#collecttimefromdatabase").text();
         var collectionPrice = $("#collectPrice").val();
         var servicePrice = $("#service").val();
         var total = $("#total").val();
         var instrucion = $("#instruction").val();
         var subs = $("#subtotal").val();
-        if (!home && !collect) {
-            alert("Please Select the Delivery type ");
+        var zipcode = $("#deliveryZipCode").val();
+
+        if (arr.length > 0) {
+            if (!home && !collect) {
+                alert("Please Select the Delivery type ");
+            }
+            if (home) {
+                if (zipcode == "") {
+                    alert("Please enter post code");
+                }
+                else {
+                    var postdata = {
+                        zipcode: zipcode,
+                        collectionPrice: collectionPrice,
+                        serviceCharges: servicePrice,
+                        total: total,
+                        specialInstruction: instrucion,
+                        Subtotal: subs,
+                        deliveryType: $("#home").val(),
+                    };
+                    console.log(postdata);
+                    sessionStorage.setItem('Instruction', JSON.stringify(postdata));
+                    sessionStorage.setItem('shoppingCart', JSON.stringify(arr));
+                    window.location.href = "ShoppingCart.php";
+                    // window.location.href="ShoppingCart.php"
+                }
+            }
+            if (collect) {
+                var postdata = {
+                    CollectionTime: collectTime,
+                    collectionPrice: collectionPrice,
+                    serviceCharges: servicePrice,
+                    total: total,
+                    specialInstruction: instrucion,
+                    Subtotal: subs,
+                    deliveryType: $("#collect").val(),
+                };
+
+                sessionStorage.setItem('Instruction', JSON.stringify(postdata));
+                sessionStorage.setItem('shoppingCart', JSON.stringify(arr));
+                window.location.href = "ShoppingCart.php";
+            }
         }
-        if (home) {
-            var postdata = {
-                zipcode: zipcode,
-                collectionPrice: collectionPrice,
-                serviceCharges: servicePrice,
-                total: total,
-                specialInstruction: instrucion,
-                Subtotal: subs,
-                deliveryType: $("#home").val(),
-            };
-            console.log(postdata);
-            sessionStorage.setItem('Instruction', JSON.stringify(postdata));
-            // window.location.href="ShoppingCart.php";
+        else {
+            alert("Select atleast One Product");
         }
-        if (collect) {
-            var postdata = {
-                CollectionTime: collectTime,
-                collectionPrice: collectionPrice,
-                serviceCharges: servicePrice,
-                total: total,
-                specialInstruction: instrucion,
-                Subtotal: subs,
-                deliveryType: $("#collect").val(),
-            };
-
-            sessionStorage.setItem('Instruction', JSON.stringify(postdata));
-
-        }
-        sessionStorage.setItem('shoppingCart', JSON.stringify(arr));
-         window.location.href="ShoppingCart.php";
-
-
 
     }
+
+
 
 
 
@@ -599,37 +626,27 @@
         // console.log(getItem);
         var tabledata = "", i = 0, subtotal = 0, total = 0;
         // arr.push(getItem);
-        if(getItem){   
-        for (var j = 0; j < getItem.length; j++) {
-            arr.push(getItem[j]);
+        if (getItem) {
+            for (var j = 0; j < getItem.length; j++) {
+                arr.push(getItem[j]);
+            }
+            // console.log(arr);
+            showdata(arr);
         }
-        // console.log(arr);
-        showdata(arr);
-    }
 
     }
     $("#deliveryZipCode").on("change", function () {
         var zipcode = $("#deliveryZipCode").val();
-        var prices = {
-            "KA1": 5,
-            "KA2": 5,
-            "KA3": 5,
-            "KA4": 5,
-            "KA5": 5,
-            "KA16": 6,
-            "KA169": 6,
-            "KA17": 6,
-            "KA170": 6,
-            "KA33": 6,
-            "KA36": 6,
-        };
+        // var zipcode = $("#deliveryZipCode").val();
+        var pattern = /^(KA1|KA2|KA3|KA4|KA5|ka1|ka2|ka3|ka4|ka5|Ka1|Ka2|Ka3|Ka4|Ka5)/;
 
-        // Check if the entered ZIP code is a key in the prices object
-        if (prices.hasOwnProperty(zipcode)) {
-            var selectedPrice = prices[zipcode];
-            // console.log("Selected Price: " + selectedPrice + " Euro");
+        if (pattern.test(zipcode)) {
+            // Valid input, it starts with "KA1", "KA2", "KA3", "KA4", or "KA5"
+            // console.log("Valid Zip Code");
+            $("#checks").prop("disabled", false);
+
             $("#type").html("Delivery");
-            $("#collectPrice").val(selectedPrice);
+            $("#collectPrice").val(5);
             var collectionPrice = parseFloat($("#collectPrice").val());
             var servicePrice = parseFloat($("#service").val()); // Assuming #service contains a numeric value, if not, adjust accordingly
             var subtotal = parseFloat($("#subtotal").val());
@@ -638,14 +655,48 @@
             // console.log(total);
             $("#total").val(total);
         } else {
-            console.log("ZIP code not found in prices object");
+            // Invalid input
+            alert("We Are Deliver only in these Post Code: KA1,KA2,KA3,KA4,KA5");
+            $("#checks").prop("disabled", true);
+            // You can show an alert or perform other actions here
         }
+
     })
 
+    // var prices = {
+    //     "KA1": 5,
+    //     "KA2": 5,
+    //     "KA3": 5,
+    //     "KA4": 5,
+    //     "KA5": 5,
+    //     "KA16": 6,
+    //     "KA169": 6,
+    //     "KA17": 6,
+    //     "KA170": 6,
+    //     "KA33": 6,
+    //     "KA36": 6,
+    // };
+
+    // // Check if the entered ZIP code is a key in the prices object
+    // if (prices.hasOwnProperty(zipcode)) {
+    //     var selectedPrice = prices[zipcode];
+    //     // console.log("Selected Price: " + selectedPrice + " Euro");
+    //     $("#type").html("Delivery");
+    //     $("#collectPrice").val(selectedPrice);
+    //     var collectionPrice = parseFloat($("#collectPrice").val());
+    //     var servicePrice = parseFloat($("#service").val()); // Assuming #service contains a numeric value, if not, adjust accordingly
+    //     var subtotal = parseFloat($("#subtotal").val());
+
+    //     var total = collectionPrice + servicePrice + subtotal;
+    //     // console.log(total);
+    //     $("#total").val(total);
+    // } else {
+    //     console.log("ZIP code not found in prices object");
+    // }
 
     time();
-    var timearr="";
-    function time(){
+    var timearr = "";
+    function time() {
         $.ajax({
             // url: `${baseurl}order/create.php`, 
             url: `http://localhost/restaurant/api/orderTime/read.php`,
@@ -653,13 +704,13 @@
             contentType: "application/json",
             success: function (response, status) {
                 // window.location.href="createorder.php";
-                timearr =response.response;
-                timearr.forEach(item=>{
-                    if(item.name == "Collection"){
+                timearr = response.response;
+                timearr.forEach(item => {
+                    if (item.name == "Collection") {
                         // console.log(item.name);
                         $("#collecttimefromdatabase").html(item.time);
                     }
-                }) 
+                })
                 // console.log(response.response);
                 // getInProgressOrder();
             },

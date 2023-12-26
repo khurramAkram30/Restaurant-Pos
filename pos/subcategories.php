@@ -424,7 +424,8 @@
                                                     <th>#</th>
                                                     <th>Category</th>
                                                     <th>SubCategory</th>
-                                                    <th>Action</th>
+                                                    <th>Edit</th>
+                                                    <th>Delete</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="bodycat">
@@ -686,6 +687,9 @@ data.forEach(element => {
     <td>${element.name}</td>
     <td><a class="btn text-primary btn-sm" onclick="editSubcategory('${i-1}')" data-bs-toggle="tooltip" data-bs-original-title="Edit"><span class="fe fe-edit fs-14"></span></a>
     </td>
+ 
+    <td><a class="btn text-primary btn-sm" onclick="deleteSubcategory('${1}')" data-bs-toggle="tooltip" data-bs-original-title="Edit"><span class="fe fe-trash fs-14"></span></a>
+    </td>
     </tr>
     `;
     i++;
@@ -744,6 +748,21 @@ categoryresult.forEach(item =>{
 $("#idd").val(result.id);
 $("#editsubcategory").val(result.name);
 
+}
+
+function deleteSubcategory(index){
+    $.ajax({
+            url: `http://localhost/restaurant/api/subcategories/delete.php?id=${index}`,
+            type: "DELETE",
+            // data: JSON.stringify(postdata),
+            contentType: "application/json",
+            success: function (status) {
+                window.location.reload();
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
 }
 
 function edit(){

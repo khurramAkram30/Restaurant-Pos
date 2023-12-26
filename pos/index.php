@@ -9,7 +9,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="Sash – Bootstrap 5  Admin & Dashboard Template">
     <meta name="author" content="Spruko Technologies Private Limited">
-    <meta name="keywords" content="admin,admin dashboard,admin panel,admin template,bootstrap,clean,dashboard,flat,jquery,modern,responsive,premium admin templates,responsive admin,ui,ui kit.">
+    <meta name="keywords"
+        content="admin,admin dashboard,admin panel,admin template,bootstrap,clean,dashboard,flat,jquery,modern,responsive,premium admin templates,responsive admin,ui,ui kit.">
 
     <!-- FAVICON -->
     <!-- <link rel="shortcut icon" type="image/x-icon" href="../assets/images/brand/favicon.ico" /> -->
@@ -36,12 +37,12 @@
 
     <style>
         .login-img::before {
-    content: "";
-    background: linear-gradient(to right, rgb(0 0 0 / 60%) 0%, #dcf7ff91 100%) !important;
-    height: 100%;
-    width: 100%;
-    position: absolute;
-}
+            content: "";
+            background: linear-gradient(to right, rgb(0 0 0 / 60%) 0%, #dcf7ff91 100%) !important;
+            height: 100%;
+            width: 100%;
+            position: absolute;
+        }
     </style>
 </head>
 
@@ -63,7 +64,8 @@
                 <!-- CONTAINER OPEN -->
                 <div class="col col-login mx-auto mt-7">
                     <div class="text-center">
-                        <a href="index.html"><img src="../assets/images/brown-munde.png" height="120px" class="header-brand-img" alt=""></a>
+                        <a href="index.html"><img src="../assets/images/brown-munde.png" height="120px"
+                                class="header-brand-img" alt=""></a>
                     </div>
                 </div>
 
@@ -86,24 +88,30 @@
                                 <div class="panel-body tabs-menu-body p-0 pt-5">
                                     <div class="tab-content">
                                         <div class="tab-pane active" id="tab5">
-                                            <div class="wrap-input100 validate-input input-group" data-bs-validate="Valid email is required: ex@abc.xyz">
-                                                <a href="javascript:void(0)" class="input-group-text bg-white text-muted">
+                                            <div class="wrap-input100 validate-input input-group"
+                                                data-bs-validate="Valid email is required: ex@abc.xyz">
+                                                <a href="javascript:void(0)"
+                                                    class="input-group-text bg-white text-muted">
                                                     <i class="zmdi zmdi-account text-muted" aria-hidden="true"></i>
                                                 </a>
-                                                <input class="input100 border-start-0 form-control ms-0" type="text" id="username" placeholder="Email">
+                                                <input class="input100 border-start-0 form-control ms-0" type="text"
+                                                    id="username" placeholder="Email">
                                             </div>
                                             <div class="wrap-input100 validate-input input-group" id="Password-toggle">
-                                                <a href="javascript:void(0)" class="input-group-text bg-white text-muted">
+                                                <a href="javascript:void(0)"
+                                                    class="input-group-text bg-white text-muted">
                                                     <i class="zmdi zmdi-eye text-muted" aria-hidden="true"></i>
                                                 </a>
-                                                <input class="input100 border-start-0 form-control ms-0" type="password" id="password" placeholder="Password">
+                                                <input class="input100 border-start-0 form-control ms-0" type="password"
+                                                    id="password" placeholder="Password">
                                             </div>
                                             <div class="text-end pt-4">
                                                 <!-- <p class="mb-0"><a href="forgot-password.html" class="text-primary ms-1">Forgot Password?</a></p> -->
                                             </div>
                                             <div class="container-login100-form-btn">
-                                                <a onclick="login()" class="login100-form-btn " style="background: #cccccc;">
-                                                        Login
+                                                <a onclick="login()" class="login100-form-btn "
+                                                    style="background: #cccccc;">
+                                                    Login
                                                 </a>
                                             </div>
                                             <!-- <div class="text-center pt-3">
@@ -130,7 +138,8 @@
                                         </div>
                                         <div class="tab-pane" id="tab6">
                                             <div id="mobile-num" class="wrap-input100 validate-input input-group mb-4">
-                                                <a href="javascript:void(0)" class="input-group-text bg-white text-muted">
+                                                <a href="javascript:void(0)"
+                                                    class="input-group-text bg-white text-muted">
                                                     <span>+91</span>
                                                 </a>
                                                 <input class="input100 border-start-0 form-control ms-0">
@@ -143,7 +152,8 @@
                                             </div>
                                             <span>Note : Login with registered mobile number to generate OTP.</span>
                                             <div class="container-login100-form-btn ">
-                                                <a href="javascript:void(0)" class="login100-form-btn btn-primary" id="generate-otp">
+                                                <a href="javascript:void(0)" class="login100-form-btn btn-primary"
+                                                    id="generate-otp">
                                                     Proceed
                                                 </a>
                                             </div>
@@ -181,20 +191,76 @@
 
     <!-- Color Theme js -->
     <script src="../assets/js/themeColors.js"></script>
-
+    <script src="../assets/js/amigos.js"></script>
     <!-- CUSTOM JS -->
     <script src="../assets/js/custom.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-messaging.js"></script>
 
 
 </body>
 <script>
-    function login(){
-    var username=$("#username").val();
-    var pswd=$("#password").val();
+     const firebaseConfig = {
+            apiKey: "AIzaSyAz7ZADD0Rp2faTg3xXkfwG6dUQ0TVtXFc",
+            authDomain: "pushnotificationkhurram.firebaseapp.com",
+            projectId: "pushnotificationkhurram",
+            storageBucket: "pushnotificationkhurram.appspot.com",
+            messagingSenderId: "739387410055",
+            appId: "1:739387410055:web:62960343d9b7eea45b9a22"
+        };
 
-    if(username == "BrownMunde" && pswd == "BrownMunde12345"){
-        sessionStorage.setItem("username",username);
-        window.location.href="Dashboard.php";
+        const app = firebase.initializeApp(firebaseConfig);
+        const messaging = firebase.messaging();
+
+        document.addEventListener('DOMContentLoaded', function () {
+    Notification.requestPermission().then(permission => {
+        if (permission === "granted") {
+            messaging.getToken({ vapidKey: "BJ1xR-TyHNF61iEy5KgMzHgIo6_bGPPJkeC3_gCHQ9lPejvgcmqBF49CRlK7-xK220QVAwXT4KbOFBDZuxeFupg" })
+       .then(function (fcmToken) {
+                    console.log("Current Token: " + fcmToken);
+                })
+                .catch(function (error) {
+                    console.error("Error getting FCM token:", error);
+                });
+        }
+    });
+});
+function login() {
+    var username = $("#username").val();
+    var pswd = $("#password").val();
+
+    if (username == "BrownMunde" && pswd == "BrownMunde12345") {
+        messaging.getToken({ vapidKey: "BJ1xR-TyHNF61iEy5KgMzHgIo6_bGPPJkeC3_gCHQ9lPejvgcmqBF49CRlK7-xK220QVAwXT4KbOFBDZuxeFupg" })
+         .then(function (fcmToken) {
+                console.log("New Token: " + fcmToken);
+
+                var postdata = {
+                    name: username,
+                    token: fcmToken
+                };
+
+                // Now you can make your AJAX call or perform other actions that depend on the fcmToken
+                $.ajax({
+                    url: "http://localhost/restaurant/api/firebase_push_notification/create.php",
+                    type: "POST",
+                    data: JSON.stringify(postdata),
+                    contentType: "application/json",
+                    success: function (response) {
+                        console.log(response);
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    },
+                });
+
+                sessionStorage.setItem("username", username);
+                window.location.href = "Dashboard.php";
+            })
+            .catch(function (error) {
+                console.error("Error getting FCM token:", error);
+            });
+    } else {
+        alert("Incorrect username and Password");
     }
 }
 

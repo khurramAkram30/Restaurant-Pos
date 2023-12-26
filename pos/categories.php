@@ -439,6 +439,17 @@
                                                         placeholder="Enter Category Name" required id="category_name">
                                                 </div>
                                             </div>
+                                            <div class="row mb-4">
+                                                <label class="col-md-3 form-label">Type :</label>
+                                                <div class="col-md-9">
+                                                <select name="" id="categoryType" class="form-control">
+                                                    <option value="mobile">Mobile</option>
+                                                    <option value="website">Website</option>
+                                                </select>      
+                                            
+                                            </div>
+                                            </div>
+
 
                                             <div class="row">
                                                 <div class="col-md-3"></div>
@@ -466,7 +477,10 @@
                                                         <tr>
                                                             <th>#</th>
                                                             <th>Name</th>
-                                                            <th>Action</th>
+                                                            <th>Type</th>
+                                                            <th>Edit</th>
+                                                            <th>Delete</th>
+                                                            
                                                         </tr>
                                                     </thead>
                                                     <tbody id="bodycat">
@@ -513,6 +527,15 @@
                                 <input type="text" class="form-control" id="editcategory" placeholder="Enter category">
                             </div>
                         </div>
+                        <div class="row mb-4">
+                                                <label class="col-md-3 form-label">Type :</label>
+                                                <div class="col-md-9">
+                                                <select name="" id="editCategoryType" class="form-control">
+                                                    <option value="mobile">Mobile</option>
+                                                    <option value="website">Website</option>
+                                                </select>      
+                                            
+                                            </div>
 
                     </div>
                     <div class="modal-footer">
@@ -577,7 +600,7 @@
     $(document).ready(function () {
 
         $.ajax({
-            url: `${baseurl}categories/read.php`,
+            url: `http://localhost/restaurant/api/categories/read.php`,
             type: "GET",
             contentType: "application/json",
             success: function (response, status) {
@@ -597,8 +620,12 @@
     <tr>
     <td>${element.id}</td>
     <td>${element.name}</td>
+    <td>${element.type}</td>
     <td><a class="btn text-primary btn-sm" onclick="editSubcategory('${i - 1}')" data-bs-toggle="tooltip" data-bs-original-title="Edit"><span class="fe fe-edit fs-14"></span></a>
     </td>
+    <td><a class="btn text-primary btn-sm" onclick="deleteSubcategory('${i}')" data-bs-toggle="tooltip" data-bs-original-title="Edit"><span class="fe fe-trash     fs-14"></span></a>
+    </td>
+    
     </tr>
     `;
                 i++;
@@ -619,16 +646,33 @@
 
     }
 
+    function deleteSubcategory(index){
+        $.ajax({
+            url: `http://localhost/restaurant/api/categories/delete.php?id=${index}`,
+            type: "DELETE",
+            // data: JSON.stringify(postdata),
+            contentType: "application/json",
+            success: function (status) {
+                window.location.reload();
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
 
     function edit() {
         var idofdata = parseInt($("#idd").val());
         var category = $("#editcategory").val();
+        var typecat=$("#editCategoryType").val();
         const postdata = {
-            name: category
+            name: category,
+            type:typecat
         };
+        // ${baseurl}
         // console.log(idofdata);
-        $.ajax({
-            url: `${baseurl}categories/update.php?id=${idofdata}`,
+        $.ajax({         
+            url: ` http://localhost/restaurant/api/categories/update.php?id=${idofdata}`,
             type: "PUT",
             data: JSON.stringify(postdata),
             contentType: "application/json",
@@ -645,14 +689,16 @@
     $("#uploadButton").on("click", function (event) {
         event.preventDefault();
         var names = $("#category_name").val();
+        var type=$("#categoryType").val();
         const postdata = {
-            name: names
+            name: names,
+            type:type
         };
 
         $("#uploadButton").css("display", "none");
         $("#loaderbtn").css("display", "block");
         $.ajax({
-            url: `${baseurl}categories/create.php`,
+            url: `http://localhost/restaurant/api/categories/create.php`,
             type: "POST",
             data: JSON.stringify(postdata),
             contentType: "application/json",

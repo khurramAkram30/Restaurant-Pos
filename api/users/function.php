@@ -3,7 +3,7 @@ require "../config/conn.php";
 function createUser($userinfo)
 {
     global $conn;
-    $sql = "insert into users VALUES (NULL,'" . $userinfo['fname'] . "','" . $userinfo['lname'] . "','" . $userinfo['email'] . "','" . $userinfo['telephone'] . "','" . $userinfo['fax'] . "','" . $userinfo['password'] . "','" . $userinfo['postCode'] . "','" . $userinfo['address1'] . "','" . $userinfo['address2'] . "','" . $userinfo['city'] . "','user')";
+    $sql = "insert into users VALUES (NULL,'" . $userinfo['fname'] . "','" . $userinfo['lname'] . "','" . $userinfo['email'] . "','" . $userinfo['telephone'] . "','" . $userinfo['fax'] . "','" . $userinfo['password'] . "','" . $userinfo['postCode'] . "','" . $userinfo['address1'] . "','" . $userinfo['city'] . "','user')";
     $res = $conn->query($sql);
     if ($res) {
         $data = [
@@ -96,4 +96,52 @@ else{
     return json_encode($data); 
 }
 }
+
+
+function updateAddress($data){
+global $conn;
+$query="update users set address1= '".$data["address1"]."',postcode='".$data["postcode"]."' where id='".$data["id"]."'";
+$result=mysqli_query($conn,$query);
+if ($result) {
+    $data = [
+        "result" => "Updated"
+    ];
+    header("HTTP:/1.0 201 updated");
+    return json_encode($data);
+} else {
+    $data = [
+        "result" => "Error"
+    ];
+    header("HTTP:/1.0 500 Error");
+    return json_encode($data);
+
+}
+}
+
+function getOrderDetail($orderid){
+    $getAllOrder=array();
+    global $conn;
+    $order=mysqli_real_escape_string($conn,$orderid['id']);
+    $sql="SELECT * FROM websiteorderitems INNER JOIN items on websiteorderitems.item_id=items.id WHERE websiteorderitems.websiteOrderId=$order";
+    $res=$conn->query($sql);
+    if (mysqli_num_rows($res) > 0) {
+        while($row=mysqli_fetch_assoc($res)){
+            $getAllOrder[] = $row;
+        }  
+        $data=[
+            "success"=>"order found",
+            "result"=> $getAllOrder,
+        ];
+        header("HTTP:/1.0 200 fetched");
+        return json_encode($data);
+    }
+    else{
+        $data = [  
+            "result"=> "No user Found",
+        ];
+        header("HTTP:/1.0 500 Error");
+        return json_encode($data); 
+    }
+}
+
 ?>

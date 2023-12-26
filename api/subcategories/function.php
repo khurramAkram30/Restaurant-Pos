@@ -176,4 +176,25 @@ function getSubCatById($customerData){
     }
 }
 
+function DeleteSubCategories($data){
+    global $conn;
+    $query="Delete from subcategories where id=$data[id]";
+    $result=mysqli_query($conn,$query);
+    if($result){
+        $data=[
+            'status' => 201,
+            'message' => "subcategories Deleted",
+        ];
+        header("HTTP:/1.0 201 Deleted");
+        return json_encode($data); 
+    }
+    else{
+        $data=[
+            'status' => 500,
+            'message' => "internal Server Error",
+        ];
+        header("HTTP:/1.0 500 internal Server Error");
+        return json_encode($data);
+    }  
+}
 ?>

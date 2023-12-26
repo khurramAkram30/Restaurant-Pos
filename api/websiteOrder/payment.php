@@ -28,11 +28,11 @@ function paymentStripe($userID, $orderID, $token,$amount)
             'description'=> $row['email'],
         ));
      
-       
+        $amountInCents = intval($amount * 100); 
         // Charge a credit or a debit card 
         $charge = \Stripe\Charge::create(array( 
             'customer' => $customer->id, 
-            'amount'   => $amount, 
+            'amount'   => $amountInCents, 
             'currency' => 'eur', 
             'description' => "testing", 
             'metadata' => array( 

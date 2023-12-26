@@ -12,8 +12,14 @@ $requestMethod=$_SERVER["REQUEST_METHOD"];
 
 if($requestMethod == "GET"){
 
-        $categories=getallCategories();
-        echo $categories;
+        if(isset($_GET['type'])){
+            $categoriestype=getCategoryByType($_GET);
+            echo $categoriestype; 
+        }
+        else{
+            $categories=getallCategories();
+            echo $categories;    
+        }
 
 }
 else{

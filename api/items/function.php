@@ -71,11 +71,13 @@ function storeItems($Subcategories){
     $CategoryId=mysqli_real_escape_string($conn,$Subcategories['CategoryId']);
     $subCategoryId=mysqli_real_escape_string($conn,$Subcategories['subCategoryId']);
     $web_mobile=mysqli_real_escape_string($conn,$Subcategories['web_mobile']);
+    $desc=mysqli_real_escape_string($conn,$Subcategories['description']);
+    
     if(empty(trim($itemname))){
         return error422('Enter subacategory name');
     }
     else{
-        $query="insert into items VALUES (NULL,'$CategoryId','$subCategoryId','$itemname',$price,'$web_mobile')";
+        $query="insert into items VALUES (NULL,'$CategoryId','$subCategoryId','$itemname',$price,'$web_mobile','$desc')";
         $result=mysqli_query($conn,$query);
         if($result){
             insertInventory();
@@ -102,7 +104,7 @@ function storeItems($Subcategories){
 $getallitems=array();
 function getallitems(){
     global $conn;
-    $query="SELECT i.id,c.name AS Category,s.name AS Subcategory,i.name,i.sell,i.type FROM items AS i INNER JOIN subcategories AS s ON i.subcategory_id = s.id INNER JOIN categories AS c ON s.category_id = c.id";
+    $query="SELECT i.id,c.name AS Category,s.name AS Subcategory,i.name,i.sell,i.type,i.description FROM items AS i INNER JOIN subcategories AS s ON i.subcategory_id = s.id INNER JOIN categories AS c ON s.category_id = c.id";
     $result=mysqli_query($conn,$query);
     if($result){
         if(mysqli_num_rows($result) > 0){
@@ -194,14 +196,14 @@ function updateitem($itemdata,$itemID){
     $cat_id=mysqli_real_escape_string($conn,$itemdata['categoryId']);
     $subcat_id=mysqli_real_escape_string($conn,$itemdata['subCategoryId']);
     $price=mysqli_real_escape_string($conn,$itemdata['price']);
-
+    $desc=mysqli_real_escape_string($conn,$itemdata['description']);
     // $email=mysqli_real_escape_string($conn,$subcategorydata['email']);
 
     if(empty(trim($name))){
         return error422('Enter name');
     }
     else{
-        $query="update items set category_id=$cat_id,subcategory_id=$subcat_id,name='$name',sell='$price' where id = '$id'";
+        $query="update items set category_id=$cat_id,subcategory_id=$subcat_id,name='$name',sell='$price',description='$desc' where id = '$id'";
         $result=mysqli_query($conn,$query);
         if($result){
             $data=[
@@ -225,6 +227,45 @@ $mobileItems=array();
 function mobileItems(){
     global $conn;
     $query="SELECT i.id,c.name AS Category,s.name AS Subcategory,i.name,i.sell FROM items AS i INNER JOIN subcategories AS s ON i.subcategory_id = s.id INNER JOIN categories AS c ON s.category_id = c.id where i.type='Mobile'";
+    $result=mysqli_query($conn,$query);
+    if($result){
+        if(mysqli_num_rows($result) > 0){
+            // $res=mysqli_fetch_all($result,MYSQLI_ASSOC);
+            while($row = mysqli_fetch_assoc($result)) {
+                $mobileItems[] = $row;
+                }
+            $data=[
+                'status'=>200,
+                'message'=>"items Found",
+                'response'=> $mobileItems,
+            ];
+            header("HTTP:/200 ok");
+            return json_encode($data);
+        }
+        else{
+            $data=[
+                'status' => 404,
+                'message' => "No item found",
+            ];
+            header("HTTP:/ 404 No subCategory Found");
+            return json_encode($data);
+        }
+
+    }
+    else{
+        $data=[
+            'status' => 500,
+            'message' => "internal server error",
+        ];
+        header('HTTP:/1.0 internal server error');
+        return json_encode($data);
+    }
+}
+
+$webItems=array();
+function webItems(){
+    global $conn;
+    $query="SELECT i.id,c.name AS Category,s.name AS Subcategory,i.name,i.sell FROM items AS i INNER JOIN subcategories AS s ON i.subcategory_id = s.id INNER JOIN categories AS c ON s.category_id = c.id where i.type='Website'";
     $result=mysqli_query($conn,$query);
     if($result){
         if(mysqli_num_rows($result) > 0){
@@ -259,4 +300,64 @@ function mobileItems(){
         return json_encode($data);
     }
 }
+
+$itemsByName=array();
+function itemsByName($itemData){
+    global $conn;
+    $catid=$itemData['catId'];
+    $itemname=$itemData['itemName'];
+    $query="";
+    if($catid != Null){
+    $query="SELECT i.id,c.name AS Category,s.name AS Subcategory,i.name,i.sell,i.type FROM items AS i INNER JOIN subcategories AS s ON i.subcategory_id = s.id INNER JOIN categories AS c ON s.category_id = c.id where c.id= $catid And i.type='Mobile' AND i.name LIKE '%$itemname%'";
+    }
+    else{
+    $query="SELECT i.id,c.name AS Category,s.name AS Subcategory,i.name,i.sell,i.type FROM items AS i INNER JOIN subcategories AS s ON i.subcategory_id = s.id INNER JOIN categories AS c ON s.category_id = c.id where i.type='Mobile' And i.name LIKE '%$itemname%'";
+
+    }
+    $result=mysqli_query($conn,$query);
+    if(mysqli_num_rows($result) > 0){
+        while($row=mysqli_fetch_assoc($result)){
+            $itemsByName[]=$row;
+        }
+        
+        $data=[
+            'status'=>200,
+            'message'=>"items Found",
+            'response'=> $itemsByName,
+        ];
+        header("HTTP:/200 ok");
+        return json_encode($data);
+    }
+    else{
+        $data=[
+            'status' => 404,
+            'message' => "No item found",
+        ];
+        header("HTTP:/ 404 No subCategory Found");
+        return json_encode($data);
+    }   
+    }
+
+function Deleteitems($data){
+    global $conn;
+    $query="Delete from items where id=$data[id]";
+    $result=mysqli_query($conn,$query);
+    if($result){
+        $data=[
+            'status' => 201,
+            'message' => "items Deleted",
+        ];
+        header("HTTP:/1.0 201 Deleted");
+        return json_encode($data); 
+    }
+    else{
+        $data=[
+            'status' => 500,
+            'message' => "internal Server Error",
+        ];
+        header("HTTP:/1.0 500 internal Server Error");
+        return json_encode($data);
+    }  
+}
+
 ?>

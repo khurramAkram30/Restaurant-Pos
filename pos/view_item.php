@@ -396,7 +396,9 @@
                                                     <th>Item Name</th>
                                                     <th>Price</th>
                                                     <th>Mob/Web</th>
-                                                    <th>Action</th>
+                                                    <th>Description</th>
+                                                    <th>Edit</th>
+                                                    <th>Delete</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="bodycat">
@@ -470,6 +472,12 @@
                                             <label class="col-md-3 form-label">Price:</label>
                                             <div class="col-md-9">
                                                 <input type="number" class="form-control" id="price" placeholder="Enter Price">
+                                        </div>
+                                        </div>
+                                        <div class="row mb-4">
+                                            <label class="col-md-3 form-label">Description:</label>
+                                            <div class="col-md-9">
+                                                <textarea name="editDescription" id="editDescription" class="form-control" cols="30" rows="5"></textarea>
                                         </div>
                                         </div>
                                     
@@ -574,7 +582,7 @@ $.ajax({
         datas=response.response;
         displayTable(datas);
         var table = new DataTable('#showtable');
-        // console.log(datas);
+        console.log(datas);
     },
     error:function(error){
         console.log(error);
@@ -592,7 +600,10 @@ data.forEach(element => {
     <td>${element.name}</td>
     <td>${element.sell}</td>
     <td>${element.type}</td>
+    <td>${element.description}</td>
     <td><a class="btn text-primary btn-sm" onclick="editSubcategory('${i-1}')" data-bs-toggle="tooltip" data-bs-original-title="Edit"><span class="fe fe-edit fs-14"></span></a>
+    </td>
+    <td><a class="btn text-primary btn-sm" onclick="deleteitems('${i}')" data-bs-toggle="tooltip" data-bs-original-title="Edit"><span class="fe fe-trash fs-14"></span></a>
     </td>
     </tr>
     `;
@@ -632,8 +643,23 @@ subcategoryresult.forEach(element =>{
 $("#itemname").val(result.name);
 $("#price").val(result.sell);
 $("#idd").val(result.id);
+$("#editDescription").val(result.description);
 }
 
+function deleteitems(index){
+    $.ajax({
+            url: `${baseurl}items/delete.php?id=${index}`,
+            type: "DELETE",
+            // data: JSON.stringify(postdata),
+            contentType: "application/json",
+            success: function (status) {
+                window.location.reload();
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+}
 
  $("#catrgory").on("change",function(){
     const catid=$("#catrgory").val();
@@ -667,16 +693,18 @@ var category=$("#catrgory").val();
 var subcategory=$("#subcatrgory").val();
 var itemname=$("#itemname").val();
 var price=$("#price").val();
-
+var description= $("#editDescription").val();
 const postdata={
     categoryId:category,
     subCategoryId:subcategory,
     name:itemname,
-    price:price
+    price:price,
+    description:description
 };
 console.log(postdata);
 $.ajax({
     url:`${baseurl}items/update.php?id=${idofdata}`,
+    // url:`http://localhost/restaurant/api/items/update.php?id=${idofdata}`,
     type:"PUT",
     data:JSON.stringify(postdata),
     contentType:"application/json",

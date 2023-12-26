@@ -449,7 +449,9 @@
                                                             <th>Amount</th>
                                                             <th>Date</th>
                                                             <th>Description</th>
-                                                            <th>Action</th>
+                                                            <th>Edit</th>
+                                                            <th>Delete</th>
+
                                                         </tr>
                                                     </thead>
                                                     <tbody id="bodycat">
@@ -457,8 +459,9 @@
                                                     </tbody>
                                                 </table>
                                             </div>
-
-
+                                            <div class="col-md-10">
+                                                <input type="number" readonly id="total"> 
+                                            </div>
 
                                         </div>
                                         <div class="card-footer">
@@ -603,9 +606,12 @@ function product() {
             var tableBody = document.getElementById("bodycat");
 
 // Loop through the data and create table rows
+var total=0;
 for (var key in data) {
     if (data.hasOwnProperty(key)) {
         var item = data[key];
+        total+=parseFloat(item.expense_amount);
+        // alert(total);
         var row = tableBody.insertRow(tableBody.rows.length);
         var cell1 = row.insertCell(0);
         var cell2 = row.insertCell(1);
@@ -613,18 +619,39 @@ for (var key in data) {
         var cell4 = row.insertCell(3);
         var cell5 = row.insertCell(4);
         var cell6= row.insertCell(5);
+        var cell7= row.insertCell(6);
+  
         cell1.innerHTML = i;
         cell2.innerHTML = item.expense_type;
         cell3.innerHTML = item.expense_amount;
         cell4.innerHTML = item.expense_date;
         cell5.innerHTML = item.expense_description;
         cell6.innerHTML = `<a class="btn text-primary btn-sm" onclick="editExpense('${i - 1}')" data-bs-toggle="tooltip" data-bs-original-title="Edit"><span class="fe fe-edit fs-14"></span></a>
- `;
+        `;
+        cell7.innerHTML = `<a class="btn text-primary btn-sm" onclick="deleteExpense('${item.expense_id}')" data-bs-toggle="tooltip" data-bs-original-title="Edit"><span class="fe fe-trash fs-14"></span></a>
+        `;
         
         i++;
     }
-}  }
+} 
+$("#total").val(total); 
 
+}
+
+function deleteExpense(index){
+        $.ajax({
+            url: `http://localhost/restaurant/api/expense/delete.php?id=${index}`,
+            type: "DELETE",
+            // data: JSON.stringify(postdata),
+            contentType: "application/json",
+            success: function (status) {
+                window.location.reload();
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
     
 function editExpense(i){
     var result = datas[i];
