@@ -226,7 +226,7 @@ function updateitem($itemdata,$itemID){
 $mobileItems=array();
 function mobileItems(){
     global $conn;
-    $query="SELECT i.id,c.name AS Category,s.name AS Subcategory,i.name,i.sell FROM items AS i INNER JOIN subcategories AS s ON i.subcategory_id = s.id INNER JOIN categories AS c ON s.category_id = c.id where i.type='Mobile'";
+    $query="SELECT i.id,c.name AS Category,s.name AS Subcategory,i.name,i.sell FROM items AS i INNER JOIN subcategories AS s ON i.subcategory_id = s.id INNER JOIN categories AS c ON s.category_id = c.id where i.type='mobile'";
     $result=mysqli_query($conn,$query);
     if($result){
         if(mysqli_num_rows($result) > 0){
@@ -360,4 +360,44 @@ function Deleteitems($data){
     }  
 }
 
+function getItemFilter($data){
+    global $conn;
+    $getItemFilter=array();
+    $catid=mysqli_real_escape_string($conn,$data['catid']);
+    $subid=mysqli_real_escape_string($conn,$data['subcatid']);
+    $query="select * from items where category_id=$catid And subcategory_id=$subid";
+    $result=mysqli_query($conn,$query);
+    if($result){
+        if(mysqli_num_rows($result) > 0){
+            // $res=mysqli_fetch_all($result,MYSQLI_ASSOC);
+            while($row = mysqli_fetch_assoc($result)) {
+                $getItemFilter[] = $row;
+                }
+            $data=[
+                'status'=>200,
+                'message'=>"items Found",
+                'response'=>$getItemFilter,
+            ];
+            header("HTTP:/200 ok");
+            return json_encode($data);
+        }
+        else{
+            $data=[
+                'status' => 404,
+                'message' => "No items found in this category",
+            ];
+            header("HTTP:/ 404 No items found in this category");
+            return json_encode($data);
+        }
+
+    }
+    else{
+        $data=[
+            'status' => 500,
+            'message' => "internal server error",
+        ];
+        header('HTTP:/1.0 internal server error');
+        return json_encode($data);
+    }
+}
 ?>

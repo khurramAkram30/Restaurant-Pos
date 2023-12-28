@@ -511,6 +511,21 @@
 
                                                                                 Sweet </a></li> -->
                                                                     </ul>
+                                                                    <ul class="nav panel-tabs panel-secondary"
+                                                                        id="subcategories">
+                                                                        <!-- <li><a href="#tab9" class="active"
+                                                                                data-bs-toggle="tab"><span>
+                                                                                </span>
+                                                                                Drinks</a></li>
+                                                                        <li><a href="#tab10" data-bs-toggle="tab"
+                                                                                class="">
+                                                                                Food</a></li>
+
+                                                                        <li><a href="#tab11" data-bs-toggle="tab"
+                                                                                class="">
+
+                                                                                Sweet </a></li> -->
+                                                                    </ul>
 
                                                                 </div>
                                                             </div>
@@ -979,12 +994,13 @@
 
     function getItem() {
         $.ajax({
-            url: `${baseurl}items/mobileItems.php`,
+            // url: `${baseurl}items/mobileItems.php`,
+            url: `http://localhost/restaurant/api/items/mobileItems.php`,
             type: "GET",
             contentType: "application/json",
             success: function (response, status) {
                 var data = response.response;
-                console.log(data);
+                console.log("dada",data);
                 displayItem(data)
             },
             error: function (error) {
@@ -996,7 +1012,7 @@
     function getCategories() {
 
         $.ajax({
-            url: `${baseurl}categories/read.php`,
+            url: `http://localhost/restaurant/api/categories/read.php?type=mobile`,
             type: "GET",
             contentType: "application/json",
             success: function (response, status) {
@@ -1013,7 +1029,8 @@
         var catHtml = "";
 
         data.forEach(item => {
-            catHtml += `<li><a href="#tab${item.id}" onclick="itemsById(${item.id})" data-bs-toggle="tab"><span></span>${item.name}</a></li>`;
+            catHtml += `<li>
+            <a href="#tab${item.id}" onclick="itemsById(${item.id})" data-bs-toggle="tab"><span></span>${item.name}</a></li>`;
         });
 
         $("#dynamicTabs").html(catHtml);
@@ -1021,8 +1038,11 @@
     var getId = "";
     function itemsById(id) {
         getId = id;
+        displaySubcategories(id);
+        // alert(id)
         $.ajax({
-            url: `${baseurl}items/read.php?id=${id}`,
+            // url: `${baseurl}items/read.php?id=${id}`,
+            url: `http://localhost/restaurant/api/items/read.php?id=${id}`,
             type: "GET",
             contentType: "application/json",
             success: function (response, status) {
@@ -1035,7 +1055,54 @@
             }
         });
     }
+    
+    function displaySubcategories(id){
+        $.ajax({
+    url:`http://localhost/restaurant/api/subcategories/read.php?id=${id}`,
+    type:"GET",
+    contentType:"application/json",
+    success:function(response,status){
+        showsubcategories(response.response);
+        console.log(response);
+    },
+    error:function(error){
+        console.log(error);
+    }
+})
+    }
 
+    function showsubcategories(data){
+        var catHtml = "";
+
+data.forEach(item => {
+    catHtml += `<li>
+    <a href="#tab${item.id}" onclick="itemsBySubCatId(${item.id})" data-bs-toggle="tab"><span></span>${item.name}</a></li>`;
+});
+
+$("#subcategories").html(catHtml);
+    }
+
+    function itemsBySubCatId(id){
+        var postdata={
+            catid:getId,
+            subcatid:id
+        };
+        $.ajax({
+            url: `http://localhost/restaurant/api/items/getItemsUsingCatAndSubcat.php`,
+            type: "POST",
+            data: JSON.stringify(postdata),
+            contentType: "application/json",
+            success: function (response, status) {
+                var data = response.response;
+                displayItem(data);
+                console.log(data)
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+
+    }
     function displayItem(data) {
         var items = "";
         if (data) {
@@ -1223,10 +1290,10 @@
 
     }
     function discountedPrice() {
-        var discount = parseInt($("#Discount").val());
+        var discount = parseFloat($("#Discount").val());
         var discounted = (discount / 100);
-        var subTotal = parseInt($("#subtotal").val());
-        var afterdiscount = parseInt(discounted * subTotal);
+        var subTotal = parseFloat($("#subtotal").val());
+        var afterdiscount = parseFloat(discounted * subTotal);
 
         var discountedPrice = subTotal - afterdiscount;
         // console.log(discountedPrice);
@@ -1234,7 +1301,7 @@
     }
 
     function edit() {
-        var idofdata = parseInt($("#idd").val());
+        var idofdata = parseFloat($("#idd").val());
         var category = $("#editcategory").val();
         const postdata = {
             name: category
@@ -1368,7 +1435,7 @@
         if (existingItem) {
             // alert("This item is already added to the cart.");
             var quant = existingItem.quantity++;
-            var stotal = parseInt((quant + 1) * price);
+            var stotal = parseFloat((quant + 1) * price);
             existingItem.price = stotal;
         } else {
             // If it doesn't exist, add a new item
@@ -1405,7 +1472,7 @@
     }
 
     function quantitychange(index) {
-        var quantityextra = parseInt(document.querySelector(`.quantity${index}`).value);
+        var quantityextra = parseFloat(document.querySelector(`.quantity${index}`).value);
         arr[index].quantity = quantityextra;
         var itemsprice = arr[index].itemprice;
         // console.log(itemsprice);

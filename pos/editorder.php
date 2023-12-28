@@ -866,7 +866,8 @@
     function getCategories() {
 
         $.ajax({
-            url: `${baseurl}categories/read.php`,
+            // url: `${baseurl}categories/read.php`,
+            url:`http://localhost/restaurant/api/categories/read.php?type=mobile`,
             type: "GET",
             contentType: "application/json",
             success: function (response, status) {
@@ -892,7 +893,8 @@ var getId="";
 function itemsById(id){
     getId=id;
     $.ajax({
-            url: `${baseurl}items/read.php?id=${id}`,
+            // url: `${baseurl}items/read.php?id=${id}`,
+            url: `http://localhost/restaurant/api/items/read.php?id=${id}`,
             type: "GET",
             contentType: "application/json",
             success: function (response, status) {
@@ -957,8 +959,8 @@ $("#searchByName").on("keyup",function(){
         var id = urlParams.get('id');
         // alert(id);
         $.ajax({
-            url: `${baseurl}order/read.php?id=${id}`,
-            // url:`http://localhost/restaurant/api/order/read.php?id=${id}`,
+            // url: `${baseurl}order/read.php?id=${id}`,
+            url:`http://localhost/restaurant/api/order/read.php?id=${id}`,
             type: "GET",
             contentType: "application/json",
             success: function (response, status) {
@@ -1054,10 +1056,10 @@ $("#searchByName").on("keyup",function(){
 
 
     function discountedPrice() {
-        var discount = parseInt($("#Discount").val());
+        var discount = parseFloat($("#Discount").val());
         var discounted = (discount / 100);
-        var subTotal = parseInt($("#subtotal").val());
-        var afterdiscount = parseInt(discounted * subTotal);
+        var subTotal = parseFloat($("#subtotal").val());
+        var afterdiscount = parseFloat(discounted * subTotal);
 
         var discountedPrice = subTotal - afterdiscount;
         // console.log(discountedPrice);
@@ -1083,13 +1085,16 @@ $("#searchByName").on("keyup",function(){
         };
 
         $.ajax({
-            url: `${baseurl}order/create.php`,
-            type: "POST",
-            data: JSON.stringify(OrderData),
-            contentType: "application/json",
-            success: function (response, status) {
-                console.log(response);
+            url: `http://localhost/restaurant/api/order/create.php`,
+                    type: "POST",
+                    data: JSON.stringify(OrderData),
+                    contentType: "application/json",
+                    success: function (response, status) {
+                        var newUrl = `print.php?id=${orderId}`;
+                        // window.location.href=newUrl;
+                        window.open(newUrl, '_blank');
                 window.location.href="createorder.php";
+                
                 // getInProgressOrder();
             },
             error: function (error) {
@@ -1123,7 +1128,7 @@ $("#searchByName").on("keyup",function(){
 
         if (existingItem) {
             var quant = existingItem.quantity++;
-            var stotal = parseInt((quant + 1) * price);
+            var stotal = parseFloat((quant + 1) * price);
             existingItem.price = stotal;
         } else {
             // If it doesn't exist, add a new item
@@ -1136,10 +1141,11 @@ $("#searchByName").on("keyup",function(){
 
     function showdata(data) {
         updateTable(updatetablearr);
-        var sub=parseInt($("#subtotal").val());
+        var sub=parseFloat($("#subtotal").val());
         var tabledatas= "", i = 0, subtotal = 0;
         data.forEach(item => {
             // alert(123);
+            
             sub += item.price;
             tabledatas += `
     <tr>
@@ -1156,14 +1162,14 @@ $("#searchByName").on("keyup",function(){
     `;
             i++;
         })
-        // console.log(tabledata);
+        // console.log(sub);
         $("#cartbody").append(tabledatas);
         $("#subtotal").val(sub);
         $("#PaidAmount").val(sub);
     }
 
     function quantitychange(index) {
-        var quantityextra = parseInt(document.querySelector(`.quantity${index}`).value);
+        var quantityextra = parseFloat(document.querySelector(`.quantity${index}`).value);
         arr[index].quantity = quantityextra;
         var itemsprice = arr[index].itemprice;
         // console.log(itemsprice);
@@ -1251,7 +1257,7 @@ $("#searchByName").on("keyup",function(){
         }
         $.ajax({
             // url: `${baseurl}order/create.php`, 
-            url: `${baseurl}order/updateorderStatus.php`,
+            url: `http://localhost/restaurant/api/order/updateorderStatus.php`,
             type: "PUT",
             data: JSON.stringify(postdata),
             contentType: "application/json",

@@ -496,35 +496,51 @@
                                                             <div class="tab-menu-heading">
                                                                 <div class="tabs-menu">
                                                                     <!-- Tabs -->
-                                                                    <ul class="nav panel-tabs panel-secondary">
-                                                                        <li><a href="#tab9" class="active"
+                                                                    <ul class="nav panel-tabs panel-secondary"
+                                                                        id="dynamicTabs">
+                                                                        <!-- <li><a href="#tab9" class="active"
                                                                                 data-bs-toggle="tab"><span>
-                                                                                    <!-- <i class="fe fe-user me-1"></i> -->
                                                                                 </span>
                                                                                 Drinks</a></li>
                                                                         <li><a href="#tab10" data-bs-toggle="tab"
                                                                                 class="">
                                                                                 Food</a></li>
-                                                                                
+
                                                                         <li><a href="#tab11" data-bs-toggle="tab"
                                                                                 class="">
-                                                                                <!-- <span><i
-                                                                                        class="fe fe-settings me-1"></i></span> -->
 
-                                                                                Sweet </a></li>
+                                                                                Sweet </a></li> -->
+                                                                    </ul>
+                                                                    <ul class="nav panel-tabs panel-secondary"
+                                                                        id="subcategories">
+                                                                        <!-- <li><a href="#tab9" class="active"
+                                                                                data-bs-toggle="tab"><span>
+                                                                                </span>
+                                                                                Drinks</a></li>
+                                                                        <li><a href="#tab10" data-bs-toggle="tab"
+                                                                                class="">
+                                                                                Food</a></li>
 
-                                                                        <!-- <li><a href="#tab12"
-                                                                                data-bs-toggle="tab"><span><i
-                                                                                        class="fe fe-bell me-1"></i></span>Tab
-                                                                                4</a></li>
-                                                                                 -->
-                                                                        <!-- <li style><input type="text" placeholder="Search Item By Name " class="form-control"></li> -->
+                                                                        <li><a href="#tab11" data-bs-toggle="tab"
+                                                                                class="">
+
+                                                                                Sweet </a></li> -->
                                                                     </ul>
 
                                                                 </div>
                                                             </div>
                                                             <div class="panel-body tabs-menu-body">
-                                                                <div class="tab-content">
+                                                                <div class="row mb-2">
+                                                                    <div class="col-md-12">
+                                                                        <input type="text" class="form-control"
+                                                                            placeholder="Search By Name"
+                                                                            id="searchByName">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row" id="itemsShow">
+
+                                                                </div>
+                                                                <!-- <div class="tab-content">
                                                                     <div class="tab-pane active" id="tab9">
                                                                         <div class="row" id="drinks">
 
@@ -546,7 +562,7 @@
                                                                         </div>
                                                                     </div>
 
-                                                                </div>
+                                                                </div> -->
                                                             </div>
                                                         </div>
                                                     </div>
@@ -629,7 +645,7 @@
                                                         </div>
 
                                                         <div class="col-md-3 mt-2">
-                                                            <select name="" class="form-control" id="paymentMethods">
+                                                            <select name="" class="form-control" id="paymentMethods1">
                                                                 <option value="Card">Card</option>
                                                                 <option value="Cash">Cash</option>
                                                             </select>
@@ -691,6 +707,7 @@
                                     <thead>
                                         <tr>
                                             <th>#</th>
+                                            <th>table</th>
                                             <th>Order Id</th>
                                             <th>Total</th>
                                             <th>Status</th>
@@ -713,6 +730,7 @@
                                             <th>Status</th>
                                             <th>Kitchen Print</th>
                                             <th>Final Bill</th>
+                                            <th>Edit</th>
                                         </tr>
                                     </thead>
                                     <tbody id="finishBody">
@@ -736,30 +754,103 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content modal-content-demo">
                     <div class="modal-header">
-                        <h6 class="modal-title">Edit Category</h6><button aria-label="Close" class="btn-close"
+                        <h6 class="modal-title">Finish Order</h6><button aria-label="Close" class="btn-close"
                             data-bs-dismiss="modal"><span aria-hidden="true">&times;</span></button>
                     </div>
                     <div class="modal-body">
 
-                        <input type="hidden" id="idd">
+                        <!-- <input type="hidden" id="idd"> -->
                         <div class="row mb-4">
-                            <label class="col-md-3 form-label">Category:</label>
+                            <label class="col-md-3 form-label">Order Id:</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="editcategory" placeholder="Enter category">
+                                <input type="text" class="form-control" id="editOrderId" readonly>
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <label class="col-md-3 form-label">Payment Type:</label>
+                            <div class="col-md-9">
+                                <select name="" class="form-control" id="paymentMethods">
+                                    <option value="Card">Card</option>
+                                    <option value="Cash">Cash</option>
+                                </select>
                             </div>
                         </div>
 
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-primary" onclick="edit()">Edit SubCategory</button>
+                        <button class="btn btn-primary" onclick="finish()">Finish</button>
                     </div>
                 </div>
             </div>
         </div>
+<!-- edit modal end -->
+      
+        <!-- ntification modal website -->
+        <div class="modal fade" id="notificationmodal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content modal-content-demo">
+                    <div class="modal-header">
+                        <h6 class="modal-title">Website Order</h6><button aria-label="Close" class="btn-close"
+                            data-bs-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+
+                        <input type="hidden" id="idd">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3>
+                                You have a new website order! 
+                                </h3>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" onclick="WebsiteOrderPage()">Website Order Page</button>
+                        <!-- <button class="btn btn-primary" onclick="finish()">Print Order</button> -->
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+<!-- ntification modal -->
+
+     <!-- ntification modal pos -->
+     <div class="modal fade" id="posnotificationmodal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content modal-content-demo">
+                    <div class="modal-header">
+                        <h6 class="modal-title">Pos Order</h6><button aria-label="Close" class="btn-close"
+                            data-bs-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+
+                        <input type="hidden" id="idd">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3>
+                                You have a new Pos order! 
+                                </h3>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <!-- <button class="btn btn-primary" onclick="WebsiteOrderPage()">Website Order Page</button> -->
+                        <button class="btn btn-primary" onclick="printOrder()">Print Order</button>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+<!-- ntification modal -->
+
 
         <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
         <script>
-
+            var posOrderId;
             // Enable pusher logging - don't include this in production
             Pusher.logToConsole = true;
 
@@ -769,10 +860,11 @@
 
             var channel = pusher.subscribe('my-channel');
             channel.bind('my-event', function (data) {
-                //   alert(JSON.stringify(data));
+                posOrderId=data;
+               $("#posnotificationmodal").modal("show");
                 $.ajax({
-                    url: `${baseurl}order/read.php`,
-                    // url: `http://localhost/restaurant/api/order/read.php`,
+                    // url: `${baseurl}order/read.php`,
+                    url: `http://localhost/restaurant/api/order/read.php`,
                     type: "GET",
                     contentType: "application/json",
                     success: function (response, status) {
@@ -785,10 +877,71 @@
                 });
 
             });
+
+            var pusher = new Pusher('13f373ebd75cbc52d306', {
+                cluster: 'ap2'
+            });
+            var channel = pusher.subscribe('my-channel');
+            channel.bind('my-event', function (data) {
+              $("#notificationmodal").modal("show");
+                
+
+            });
+
+            function WebsiteOrderPage(){
+                window.location.href="pendingOrder.php"
+            }
+
+            function printOrder(){
+                var newUrl = `print.php?id=${posOrderId}`;
+                        // window.location.href=newUrl;
+                window.open(newUrl, '_blank');
+            //    $("#posnotificationmodal").modal("hide");
+                
+            }
         </script>
 
 
     </div>
+
+
+
+    <!-- edit modal -->
+    <div class="modal fade" id="editmodal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content modal-content-demo">
+                <div class="modal-header">
+                    <h6 class="modal-title">Edit SubCategory</h6><button aria-label="Close" class="btn-close"
+                        data-bs-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row mb-4">
+                        <label class="col-md-3 form-label">Category:</label>
+                        <div class="col-md-9">
+                            <select name="" class="form-control" id="editcatrgory" aria-placeholder="">
+                                <option value="" disabled>Select Category</option>
+
+                            </select>
+                        </div>
+                    </div>
+                    <input type="hidden" id="idd">
+                    <div class="row mb-4">
+                        <label class="col-md-3 form-label">SubCategory:</label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" id="editsubcategory"
+                                placeholder="Enter Sub category">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" onclick="edit()">Edit SubCategory</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- edit modal end -->
 
     <!-- BACK-TO-TOP -->
     <a href="#top" id="back-to-top"><i class="fa fa-angle-up"></i></a>
@@ -828,39 +981,73 @@
     <script src="../assets/switcher/js/switcher.js"></script>
 
     <script src="../assets/js/url.js"></script>
-    <!-- <script src="../assets/js/items.js"></script> -->
+    <script src="../assets/js/amigos.js"></script>
 </body>
 
 </html>
 
 
 <script>
-//   <img src="../api/images/burger.jpg" class="imgset" alt="">
+    //   <img src="../api/images/burger.jpg" class="imgset" alt="">
     const baseurl = url;
     var datas = "";
-    function getDrinksItem() {
+
+    function getItem() {
         $.ajax({
-            url: `${baseurl}items/read.php?id=1`,
+            // url: `${baseurl}items/mobileItems.php`,
+            url: `http://localhost/restaurant/api/items/mobileItems.php`,
             type: "GET",
             contentType: "application/json",
             success: function (response, status) {
                 var data = response.response;
-                console.log(data);
-                var items = "";
-                data.forEach(item => {
-                    items += `  <div class="col-md-4">
-                                     <div class="card cardsetting"
-                                         onclick="addtocart(${item.id},1,'${item.name}',${item.sell})">
-                                       
-                                             <div class="displayfix">
-                                                 <h5>${item.name}
-                                                    </h5>
-                                                <h4>&#163;${item.sell}</h4>
-                                                </div>
-                                                 </div>
-                                                 </div>`;
-                });
-                $("#drinks").html(items);
+                console.log("dada",data);
+                displayItem(data)
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+    getCategories();
+    function getCategories() {
+
+        $.ajax({
+            url: `http://localhost/restaurant/api/categories/read.php?type=mobile`,
+            type: "GET",
+            contentType: "application/json",
+            success: function (response, status) {
+                datas = response.response;
+                displayTable(datas);
+                console.log(response.response);
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        })
+    }
+    function displayTable(data) {
+        var catHtml = "";
+
+        data.forEach(item => {
+            catHtml += `<li>
+            <a href="#tab${item.id}" onclick="itemsById(${item.id})" data-bs-toggle="tab"><span></span>${item.name}</a></li>`;
+        });
+
+        $("#dynamicTabs").html(catHtml);
+    }
+    var getId = "";
+    function itemsById(id) {
+        getId = id;
+        // alert(id)
+        $.ajax({
+            // url: `${baseurl}items/read.php?id=${id}`,
+            url: `http://localhost/restaurant/api/items/read.php?id=${id}`,
+            type: "GET",
+            contentType: "application/json",
+            success: function (response, status) {
+                var data = response.response;
+                displayItem(data);
+                console.log(data)
             },
             error: function (error) {
                 console.log(error);
@@ -868,47 +1055,11 @@
         });
     }
 
-    function getFoodItem() {
-        $.ajax({
-            url: `${baseurl}items/read.php?id=2`,
-            type: "GET",
-            contentType: "application/json",
-            success: function (response, status) {
-                var data = response.response;
-                console.log(data);
-                var items = "";
-                data.forEach(item => {
-                    items += `  <div class="col-md-4">
-                                     <div class="card cardsetting"
-                                         onclick="addtocart(${item.id},1,'${item.name}',${item.sell})">
-                                       
-                                             <div class="displayfix">
-                                                 <h5>${item.name}
-                                                    </h5>
-                                                <h4>&#163;${item.sell}</h4>
-                                                </div>
-                                                 </div>
-                                                 </div>`;
-                });
-                $("#food").html(items);
-            },
-            error: function (error) {
-                console.log(error);
-            }
-        });
-    }
-
-    function getDesertItem() {
-        $.ajax({
-            url: `${baseurl}items/read.php?id=3`,
-            type: "GET",
-            contentType: "application/json",
-            success: function (response, status) {
-                var data = response.response;
-                console.log(data);
-                var items = "";
-                data.forEach(item => {
-                    items += `  <div class="col-md-4">
+    function displayItem(data) {
+        var items = "";
+        if (data) {
+            data.forEach(item => {
+                items += `  <div class="col-md-4">
                                      <div class="card cardsetting"
                                          onclick="addtocart(${item.id},1,'${item.name}',${item.sell})">
                                    
@@ -919,14 +1070,37 @@
                                                 </div>
                                                  </div>
                                                  </div>`;
-                });
-                $("#desert").html(items);
+            });
+            $("#itemsShow").html(items);
+        } else {
+            $("#itemsShow").html("No Item Found In this Category");
+        }
+
+    }
+
+    $("#searchByName").on("keyup", function () {
+        var postdata = {
+            catId: getId,
+            itemName: $("#searchByName").val()
+        };
+        $.ajax({
+            url: `http://localhost/restaurant/api/items/itemsByName.php`,
+            type: "POST",
+            data: JSON.stringify(postdata),
+            contentType: "application/json",
+            success: function (response, status) {
+                var data = response.response;
+                displayItem(data);
+                console.log(data)
             },
             error: function (error) {
                 console.log(error);
             }
         });
-    }
+    })
+
+
+
 
     $("#tableshow").on("change", function () {
         var table_id = $("#tableshow").val();
@@ -948,11 +1122,11 @@
     function getInProgressOrder() {
         $.ajax({
             // url: `${baseurl}order/read.php`,
-            url: `${baseurl}order/read.php`,
+            url: `http://localhost/restaurant/api/order/read.php`,
             type: "GET",
             contentType: "application/json",
             success: function (response, status) {
-                // console.log(response);
+                console.log(response);
                 updateTable(response);
             },
             error: function (status, error) {
@@ -962,9 +1136,9 @@
     }
 
     function updateTable(data) {
-        $("#finish").css("display","none");
-        $("#inProgress").css("display","inline-table");
-        
+        $("#finish").css("display", "none");
+        $("#inProgress").css("display", "inline-table");
+
         var tabledata = '', i = 1;
 
         if (data.response.length > 0) {
@@ -972,6 +1146,7 @@
                 tabledata += `
     <tr>
     <td>${i}</td>
+    <td>${element.table_id}</td>
     <td>${element.CustomOrderId}</td>
     <td>${element.Total}</td>
     <td>${element.order_status}</td>
@@ -1013,7 +1188,7 @@
 
     }
 
-  
+
     function Printorder(id) {
         var newUrl = `print.php?id=${id}`;
         // window.location.href=newUrl;
@@ -1025,12 +1200,14 @@
         window.location.href = new_url;
     }
     $(document).ready(function () {
-        getDrinksItem();
-        getFoodItem();
-        getDesertItem();
+        // getDrinksItem();
+        // getFoodItem();
+        // getDesertItem();
+        getItem();
         getInProgressOrder();
         $.ajax({
-            url: `${baseurl}tables/read.php`,
+            // url: `${baseurl}tables/read.php`,
+            url: `http://localhost/restaurant/api/tables/read.php`,
             type: "GET",
             contentType: "application/json",
             success: function (response, status) {
@@ -1065,18 +1242,18 @@
 
     }
     function discountedPrice() {
-        var discount = parseInt($("#Discount").val());
+        var discount = parseFloat($("#Discount").val());
         var discounted = (discount / 100);
-        var subTotal = parseInt($("#subtotal").val());
-        var afterdiscount = parseInt(discounted * subTotal);
+        var subTotal = parseFloat($("#subtotal").val());
+        var afterdiscount = parseFloat(discounted * subTotal);
 
         var discountedPrice = subTotal - afterdiscount;
         // console.log(discountedPrice);
         $("#PaidAmount").val(discountedPrice);
     }
 
-    function edit(){
-        var idofdata = parseInt($("#idd").val());
+    function edit() {
+        var idofdata = parseFloat($("#idd").val());
         var category = $("#editcategory").val();
         const postdata = {
             name: category
@@ -1099,19 +1276,31 @@
     $("#Proceed").on("click", function (event) {
         // event.preventDefault();
         addInDatabase();
-        $("#paymentMethod").css("display", "block");
+        getstatus();
+        var id = $("#orderid").val();
+        if (status == "In Progress") {
+            var newUrl = `finalbill.php?id=${id}`;
+
+            window.open(newUrl, '_blank');
+            $("#paymentMethod").css("display", "block");
+        }
+        if (status == "Finish") {
+            $("#paymentMethod").css("display", "block");
+        }
+        // $("#paymentMethod").css("display", "block");
     });
 
     function finish() {
         var payment = $("#paymentMethods").val();
-        var id = $("#orderid").val();
+        var id = $("#editOrderId").val();
         const postdata = {
             id: id,
             payment: payment
         }
         $.ajax({
             // url: `${baseurl}order/create.php`, 
-            url: `${baseurl}order/updateorderStatus.php`,
+            // url: `${baseurl}order/updateorderStatus.php`,
+            url: `http://localhost/restaurant/api/order/updateorderStatus.php`,
             type: "PUT",
             data: JSON.stringify(postdata),
             contentType: "application/json",
@@ -1128,46 +1317,49 @@
 
     $("#holdCart").on("click", function (event) {
         event.preventDefault();
-        if(arr.length > 0){
-        
-        var orderId = $("#orderid").val();
-        var tableId = $("#tableshow").val();
-        var subtotal = $("#subtotal").val();
-        var paidAmount = $("#PaidAmount").val();
-        var discount = $("#Discount").val();
-        if(tableId == null){
-            alert("please Select the table id");
-        }
-        else{
-        var OrderData = {
-            Items: arr,
-            order_Id: orderId,
-            table_Id: tableId,
-            subTotal: subtotal,
-            paidAmount: paidAmount,
-            Discount: discount
-        };
+        if (arr.length > 0) {
 
-        $.ajax({
-            url: `${baseurl}order/create.php`,
-            // url: `http://localhost/restaurant/api/order/create.php`,
-            type: "POST",
-            data: JSON.stringify(OrderData),
-            contentType: "application/json",
-            success: function (response, status) {
-                window.location.reload();
-                // console.log(response);
-                // getInProgressOrder();
-            },
-            error: function (error) {
-                console.log(error);
+            var orderId = $("#orderid").val();
+            var tableId = $("#tableshow").val();
+            var subtotal = $("#subtotal").val();
+            var paidAmount = $("#PaidAmount").val();
+            var discount = $("#Discount").val();
+            if (tableId == null) {
+                alert("please Select the table id");
             }
-        });
-    }
-    }
-    else{
-        alert("please Select at least one product");
-    }
+            else {
+                var OrderData = {
+                    Items: arr,
+                    order_Id: orderId,
+                    table_Id: tableId,
+                    subTotal: subtotal,
+                    paidAmount: paidAmount,
+                    Discount: discount
+                };
+
+                $.ajax({
+                    // url: `${baseurl}order/create.php`,
+                    url: `http://localhost/restaurant/api/order/create.php`,
+                    type: "POST",
+                    data: JSON.stringify(OrderData),
+                    contentType: "application/json",
+                    success: function (response, status) {
+                        var newUrl = `print.php?id=${orderId}`;
+                        // window.location.href=newUrl;
+                        window.open(newUrl, '_blank');
+                        // window.location.reload();
+                        // console.log(response);
+                        // getInProgressOrder();
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            }
+        }
+        else {
+            alert("please Select at least one product");
+        }
 
     });
     var arr = [];
@@ -1191,9 +1383,12 @@
             extprice: extraprice
         }
         var existingItem = arr.find(item => item.productid === pid);
-        
+
         if (existingItem) {
-            alert("This item is already added to the cart.");
+            // alert("This item is already added to the cart.");
+            var quant = existingItem.quantity++;
+            var stotal = parseFloat((quant + 1) * price);
+            existingItem.price = stotal;
         } else {
             // If it doesn't exist, add a new item
             arr.push(pushdata);
@@ -1229,7 +1424,7 @@
     }
 
     function quantitychange(index) {
-        var quantityextra = parseInt(document.querySelector(`.quantity${index}`).value);
+        var quantityextra = parseFloat(document.querySelector(`.quantity${index}`).value);
         arr[index].quantity = quantityextra;
         var itemsprice = arr[index].itemprice;
         // console.log(itemsprice);
@@ -1308,8 +1503,8 @@
     })
 
     function FinishTable(data) {
-        $("#inProgress").css("display","none");
-        $("#finish").css("display","inline-table");
+        $("#inProgress").css("display", "none");
+        $("#finish").css("display", "inline-table");
 
         var tabledata = '', i = 1;
 
@@ -1327,6 +1522,7 @@
             <td>
             <a class="btn text-primary btn-sm" onclick="FinalPrintorder('${element.CustomOrderId}')" data-bs-toggle="tooltip" data-bs-original-title="Edit"><span class="fa fa-print fs-14"></span></a></td>
 
+            <td><a class="btn text-primary btn-sm" onclick="openEditor('${element.CustomOrderId}')" data-bs-toggle="tooltip" data-bs-original-title="Edit"><span class="fe fe-edit fs-14"></span></a></td>
             </tr>
 `;
                 i++;
@@ -1343,7 +1539,7 @@
         $("#finishBody").html(tabledata);
     }
 
-    function FinalPrintorder(id){
+    function FinalPrintorder(id) {
         var newUrl = `finalbill.php?id=${id}`;
         // var newUrl = `Receipt.php?id=${id}`;
 
@@ -1351,6 +1547,29 @@
         window.open(newUrl, '_blank');
     }
 
-
+    function openEditor(orderid) {
+        $("#editmodal").modal("show");
+        $("#editOrderId").val(orderid);
+       
+    }
+    getstatus();
+    var status = "";
+    function getstatus() {
+        // var id = $("#orderid").val();
+        var id="ORDER1915552";
+        $.ajax({
+            // url: `${baseurl}order/create.php`, 
+            url: `${baseurl}order/orderStatus.php?id=${id}`,
+            type: "GET",
+            contentType: "application/json",
+            success: function (response) {
+                console.log(response);
+                status = response;
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
 
 </script>

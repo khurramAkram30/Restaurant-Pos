@@ -52,7 +52,7 @@ function getDesertItem(callback) {
 
 function getCategories() {
     $.ajax({
-        url: `${baseurl}categories/read.php`,
+        url: `${baseurl}categories/read.php?type=website`,
         type: "GET",
         contentType: "application/json",
         success: function (response, status) {

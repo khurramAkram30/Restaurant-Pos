@@ -69,30 +69,52 @@ if ($orderResult) {
 
             // Save Y position before MultiCell
             $beforeMultiCellY = $pdf->GetY();
-
+            //  $row[0]="chicken addasd dadsad asda dsa";
+            // $name=
             $pdf->MultiCell($width, 5, "$row[0]", 0, 'L');
 
+            $name=strlen($row[0]);
+            // echo $name;
+            if($name > 21 && $name < 41){
+                $pdf->SetXY($x + $width, $beforeMultiCellY + 2); // Adjust the Y position
+                $pdf->Cell(10, 3, "$row[3]", 0, 1, "l");
+                $pdf->SetY($pdf->GetY() +4);
+            }
+           else if($name > 42)
+            {
+                // echo "asd";
+                $pdf->SetXY($x + $width, $beforeMultiCellY + 6); // Adjust the Y position
+                $pdf->Cell(10, 3, "$row[3]", 0, 1, "l");
+                $pdf->SetY($pdf->GetY() +5);
+            }
+            else{
+                $pdf->SetXY($x + $width, $beforeMultiCellY + 2); // Adjust the Y position
+                $pdf->Cell(10, 2, "$row[3]", 0, 1, "l");
+                $pdf->SetY($pdf->GetY() +0);
+            }
+            // 42
             // Set XY to the right of the MultiCell
-            $pdf->SetXY($x + $width, $beforeMultiCellY + 2); // Adjust the Y position
-
-            // Third Cell
-            $pdf->Cell(10, 3, "$row[3]", 0, 1, "l");
            
-
+            // Third Cell
+           
+            
             if ($row[2] != "") {
-                $pdf->SetY($pdf->GetY() + 5);
-                $pdf->SetX(5);
-                $pdf->Cell(10, 3, "$row[2]", 0, 1, "l");
+                
+                $pdf->SetX(7);
+               
+               
+                $pdf->MultiCell(80, 3, "$row[2]", 0, "l");
             }
 
             // Ensure enough space before the next line
-            $pdf->SetY($pdf->GetY() + 5);
+            $pdf->SetY($pdf->GetY() + 0);
 
             // Draw a line to separate the entries
             // $pdf->Line(7, $pdf->GetY(), 72, $pdf->GetY());
         }
     }
 }
+$pdf->SetY($pdf->GetY() + 2);
 
     // Draw line after the last product entry
     $pdf->Line(7, $pdf->GetY(), 72, $pdf->GetY(), array('width' => 0.5));
@@ -134,8 +156,8 @@ $pdf->Cell(20,5, EURO.$result[7],0,1,'C');
 // Output the PDF
 $pdf->Output();
 
-// $update="UPDATE order_items SET print_status = 'Printed' WHERE order_id = '$idGet'";
-// $resupdate=mysqli_query($conn,$update);
+$update="UPDATE order_items SET print_status = 'Printed' WHERE order_id = '$idGet'";
+$resupdate=mysqli_query($conn,$update);
 
 ?>
 

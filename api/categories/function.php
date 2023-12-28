@@ -90,7 +90,7 @@ $getCategoryByType=array();
 function getCategoryByType($data){
     global $conn;
     $type=mysqli_real_escape_string($conn,$data['type']);
-    $query="select * from categories where type = '$type'";
+    $query="select * from categories where type = '".$data['type']."'";
     $result=mysqli_query($conn,$query);
 
     if($result){

@@ -15,6 +15,7 @@ if ($res) {
     }
 }
 require 'fpdf/fpdf.php';
+define('EURO',chr(128));
 $pdf = new FPDF('P', 'mm', array(80, 200));
 $timefor;
 // Add a page to the PDF
@@ -120,25 +121,26 @@ if ($orderResult) {
 
 $pdf->Ln(2);
 
+
 $pdf->SetX(9);
 $pdf->SetFont('courier', 'B', 8);
 $pdf->Cell(20, 5, '', 0, 0, 'L');
 $pdf->Cell(25, 5, 'SubTotal', 0, 0, 'R');
-$pdf->Cell(20, 5, "$subtotal", 0, 1, 'C');
+$pdf->Cell(20, 5,EURO.$subtotal, 0, 1, 'C');
 
 
 $pdf->SetX(9);
 $pdf->SetFont('courier','B',8);
 $pdf->Cell(20,5,'',0,0,'L'); 
 $pdf->Cell(25,5,'Service Charges',0,0,'R'); 
-$pdf->Cell(20,5,"$result[4]",0,1,'C'); 
+$pdf->Cell(20,5,EURO.$result[4],0,1,'C'); 
 
 if($result[5]>0){
     $pdf->SetX(9);
     $pdf->SetFont('courier', 'B', 8);
     $pdf->Cell(20, 5, '', 0, 0, 'L');
     $pdf->Cell(25, 5, 'Delivery Charges', 0, 0, 'R');
-    $pdf->Cell(20, 5, "$result[5]", 0, 1, 'C');
+    $pdf->Cell(20, 5, EURO.$result[5], 0, 1, 'C');
     
 }
 
@@ -146,7 +148,7 @@ $pdf->SetX(9);
 $pdf->SetFont('courier','B',8);
 $pdf->Cell(20,5,'',0,0,'L'); 
 $pdf->Cell(25,5,'Total',0,0,'R'); 
-$pdf->Cell(20,5,"$result[6]",0,1,'C'); 
+$pdf->Cell(20,5,EURO.$result[6],0,1,'C'); 
 
 $pdf->SetY($pdf->GetY() );
 

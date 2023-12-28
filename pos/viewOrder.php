@@ -541,7 +541,7 @@ var datas="",categoryresult="",subcategoryresult="";
 $(document).ready(function(){
 $.ajax({
     // url:`${baseurl}items/read.php`,
-    url: `http://localhost/restaurant/api/order/completeOrder.php`,
+    url:`http://localhost/restaurant/api/order/completeOrder.php`,
     type:"GET",
     contentType:"application/json",
     success:function(response,status){
